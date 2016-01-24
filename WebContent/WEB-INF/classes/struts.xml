@@ -4,8 +4,9 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<package name="struts2" namespace="/User" extends="struts-default">
-		<action name="register" class="RegisterAction">
+	<constant name="struts.devMode" value="true" />
+	<package name="struts2" namespace="/user" extends="struts-default">
+		<action name="register" class="RegisterAction" method="execute">
 			<result name="success">/user/RegUser.jsp</result>
 			<result name="input">/user/register.jsp</result>
 		</action>
