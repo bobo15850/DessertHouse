@@ -23,13 +23,4 @@ public class UserDaoImpl implements UserDao {
 
 		}
 	}
-
-	public User find(String column, String value) {
-		return null;
-	}
-
-	public void updateByUserid(User user) {
-
-	}
-
 }

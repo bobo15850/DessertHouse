@@ -36,14 +36,13 @@ public class BaseDaoImpl implements BaseDao {
 		return session.get(c, id);
 	}
 
-	public List getAllList(Class c) {
+	public List<?> getAllList(Class<?> c) {
 		String hql = "from " + c.getName();
 		Session session = getSession();
 		return session.createQuery(hql).list();
-
 	}
 
-	public Long getTotalCount(Class c) {
+	public Long getTotalCount(Class<?> c) {
 		Session session = getNewSession();
 		String hql = "select count(*) from " + c.getName();
 		Long count = (Long) session.createQuery(hql).uniqueResult();
@@ -72,7 +71,6 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	public void delete(Object bean) {
-
 		Session session = getNewSession();
 		session.delete(bean);
 		session.flush();
@@ -80,8 +78,7 @@ public class BaseDaoImpl implements BaseDao {
 		session.close();
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public void delete(Class c, String id) {
+	public void delete(Class<?> c, String id) {
 		Session session = getNewSession();
 		Object obj = session.get(c, id);
 		session.delete(obj);
@@ -89,8 +86,7 @@ public class BaseDaoImpl implements BaseDao {
 		clear();
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public void delete(Class c, String[] ids) {
+	public void delete(Class<?> c, String[] ids) {
 		for (String id : ids) {
 			Object obj = getSession().get(c, id);
 			if (obj != null) {
