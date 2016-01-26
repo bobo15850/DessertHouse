@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -11,15 +13,16 @@ import com.opensymphony.xwork2.util.ValueStack;
 
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.UserManageService;
-import ognl.Ognl;
-import ognl.OgnlException;
 
+@Controller
+@Scope(value = "protoType")
 public class UserManageAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	@Autowired
+	@Autowired(required = true)
 	private UserManageService userManageService;
 
 	public String login() {
+		new AppConfig().print();
 		return SUCCESS;
 	}
 
@@ -39,6 +42,6 @@ public class UserManageAction extends ActionSupport {
 	}
 
 	public void validate() {
-		addFieldError("username", "出现错误");
+		// addFieldError("username", "出现错误");
 	}
 }

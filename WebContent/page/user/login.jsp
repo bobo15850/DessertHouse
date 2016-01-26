@@ -7,7 +7,7 @@
 <title>登陆</title>
 </head>
 <body>
-	<form action="logining">
+	<form action="logining.action">
 		<s:textfield name="username">用户名</s:textfield>
 		<br>
 		<s:password name="password">密码</s:password>

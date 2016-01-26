@@ -13,6 +13,9 @@
       http://www.springframework.org/schema/cache 
       http://www.springframework.org/schema/cache/spring-cache-4.0.xsd">
 
+	<!-- Bean可以通过scope设置作用区域 -->
+	<!-- 通过init-method配置初始化方法，通过destroy-method设置销毁方法 或者设置全局的default-init-method 或者default-destroy-method方法（优先级最低） -->
+	<!-- 还可以通过实现initializingBean和disposeBean接口实现初始化和销毁（若同时设置，此方法最先执行） -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/onlinestockdb?autoReconnect=true" />
@@ -39,8 +42,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<bean id="UserManageAction" class="edu.nju.desserthouse.action.UserManageAction">
-	</bean>
+	<bean id="UserManageAction" class="edu.nju.desserthouse.action.UserManageAction" />
 
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
