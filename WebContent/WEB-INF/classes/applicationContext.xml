@@ -18,7 +18,7 @@
 	<!-- 还可以通过实现initializingBean和disposeBean接口实现初始化和销毁（若同时设置，此方法最先执行） -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/onlinestockdb?autoReconnect=true" />
+		<property name="url" value="jdbc:mysql://localhost:3306/desserthouse?autoReconnect=true" />
 		<property name="username" value="root" />
 		<property name="password" value="" />
 	</bean>
@@ -42,8 +42,6 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<bean id="UserManageAction" class="edu.nju.desserthouse.action.UserManageAction" />
-
 	<!-- 定义 Autowired 自动注入 bean -->
 	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
 
@@ -62,4 +60,9 @@
 		<aop:pointcut id="serviceOperation" expression="execution( * edu.nju.desserthouse.service..*Service.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
 	</aop:config>
+
+	<!-- 定义各个Action -->
+	<bean id="LoginAction" class="edu.nju.desserthouse.action.user.LoginAction" />
+	
+	<bean id="RegisterAction" class="edu.nju.desserthouse.action.user.RegisterAction" />
 </beans>

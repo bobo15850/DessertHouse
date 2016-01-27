@@ -8,9 +8,5 @@
 </head>
 <body>
 	<h1>个人主页</h1>
-	<s:property value="name" />
-	<s:property value="phone" />
-	<s:property value="key1.name" />
-	<s:property value="key1.phone" />
 </body>
 </html>

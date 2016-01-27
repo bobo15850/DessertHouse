@@ -1,5 +1,6 @@
 package edu.nju.desserthouse.dao.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -30,8 +31,7 @@ public class BaseDaoImpl implements BaseDao {
 		getSession().clear();
 	}
 
-	@SuppressWarnings("rawtypes")
-	public Object load(Class c, String id) {
+	public Object load(Class<?> c, String id) {
 		Session session = getSession();
 		return session.get(c, id);
 	}
@@ -78,7 +78,7 @@ public class BaseDaoImpl implements BaseDao {
 		session.close();
 	}
 
-	public void delete(Class<?> c, String id) {
+	public void delete(Class<?> c, Serializable id) {
 		Session session = getNewSession();
 		Object obj = session.get(c, id);
 		session.delete(obj);
@@ -86,8 +86,8 @@ public class BaseDaoImpl implements BaseDao {
 		clear();
 	}
 
-	public void delete(Class<?> c, String[] ids) {
-		for (String id : ids) {
+	public void delete(Class<?> c, Serializable[] ids) {
+		for (Serializable id : ids) {
 			Object obj = getSession().get(c, id);
 			if (obj != null) {
 				getSession().delete(obj);

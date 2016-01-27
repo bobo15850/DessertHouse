@@ -17,7 +17,6 @@ public class UserDaoImpl implements UserDao {
 		try {
 			baseDao.save(user);
 			System.out.println("ok");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -7,6 +7,8 @@
 <title>主页</title>
 </head>
 <body>
-	<a href="login.action">登陆</a>
+	<h1>欢迎来到甜品屋管理系统</h1>
+	<a href="page/user/register.jsp">注册</a>
+	<a href="page/user/login.jsp">登陆</a>
 </body>
 </html>

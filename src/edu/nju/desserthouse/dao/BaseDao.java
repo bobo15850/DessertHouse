@@ -1,5 +1,6 @@
 package edu.nju.desserthouse.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -26,7 +27,7 @@ public interface BaseDao {
 
 	public void delete(Object bean);
 
-	public void delete(Class<?> c, String id);
+	public void delete(Class<?> c, Serializable id);
 
-	public void delete(Class<?> c, String[] ids);
+	public void delete(Class<?> c, Serializable[] ids);
 }
