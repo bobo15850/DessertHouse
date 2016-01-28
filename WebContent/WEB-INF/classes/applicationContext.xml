@@ -60,9 +60,4 @@
 		<aop:pointcut id="serviceOperation" expression="execution( * edu.nju.desserthouse.service..*Service.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
 	</aop:config>
-
-	<!-- 定义各个Action -->
-	<bean id="LoginAction" class="edu.nju.desserthouse.action.user.LoginAction" />
-	
-	<bean id="RegisterAction" class="edu.nju.desserthouse.action.user.RegisterAction" />
 </beans>

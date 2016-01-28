@@ -5,18 +5,5 @@
 
 <struts>
 	<constant name="struts.devMode" value="true" />
-	<package name="struts2" namespace="/user" extends="struts-default">
-		<!-- 注册 -->
-		<action name="register" class="edu.nju.desserthouse.action.user.RegisterAction">
-			<result name="success">/page/user/login.jsp</result>
-			<result name="error">/page/error.jsp</result>
-		</action>
-
-		<!-- 登陆 -->
-		<action name="login" class="edu.nju.desserthouse.action.user.LoginAction">
-			<result name="success">/page/user/myPage.jsp</result>
-			<result name="error">/page/error.jsp</result>
-		</action>
-	</package>
 </struts>
 

@@ -11,6 +11,10 @@
 	<filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+		<init-param>
+			<param-name>actionPackages</param-name>
+			<param-value>edu.nju.desserthouse.action</param-value>
+		</init-param>
 	</filter>
 
 	<filter-mapping>
