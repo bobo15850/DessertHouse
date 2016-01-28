@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 
 import edu.nju.desserthouse.dao.UserDao;
 import edu.nju.desserthouse.model.User;
-import edu.nju.desserthouse.service.UserManageService;
+import edu.nju.desserthouse.service.UserService;
 
 @Service
-public class UserManageServiceImpl implements UserManageService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
@@ -23,8 +23,7 @@ public class UserManageServiceImpl implements UserManageService {
 	}
 
 	@Override
-	public String test() {
-		System.out.println("测试service");
+	public String login(String key, String password) {
 		return null;
 	}
 }

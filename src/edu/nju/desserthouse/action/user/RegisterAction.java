@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.nju.desserthouse.action.BaseAction;
 import edu.nju.desserthouse.model.User;
-import edu.nju.desserthouse.service.UserManageService;
+import edu.nju.desserthouse.service.UserService;
 
 public class RegisterAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
 	@Autowired(required = true)
-	private UserManageService userService;
+	private UserService userService;
 	private User user;
 
 	@Action(
@@ -20,7 +20,6 @@ public class RegisterAction extends BaseAction {
 			results = { @Result(name = "success", location = "/page/user/login.jsp"),
 					@Result(name = "error", location = "/page/error.jsp") })
 	public String execute() throws Exception {
-		user.setId("abcdefg");
 		userService.registerUser(user);
 		return SUCCESS;
 	}
