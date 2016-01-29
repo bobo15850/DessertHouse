@@ -1,0 +1,37 @@
+@CHARSET "UTF-8";
+
+.form-login {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-login-heading {
+	font-size: xx-large;
+	font-weight: bolder;
+}
+
+.checkbox {
+	font-weight: normal;
+	margin-bottom: 10px;
+}
+
+.form-login .form-control {
+	position: relative;
+	height: auto;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.forget-password {
+	float: right;
+}
+
+.no-account {
+	text-align: center;
+	font-size: small;
+}
+
+.login-error {
+	color: red;
+}

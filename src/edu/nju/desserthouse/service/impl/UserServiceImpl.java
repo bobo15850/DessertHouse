@@ -23,7 +23,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String login(String key, String password) {
+	public User findUserByName(String username, String password) {
 		return null;
 	}
+
+	@Override
+	public User findUserByPhoneNumer(String phonenumber, String password) {
+		return null;
+	}
+
+	@Override
+	public User findUserByCardId(String cardId, String password) {
+		return null;
+	}
+
 }

@@ -22,4 +22,22 @@ public class UserDaoImpl implements UserDao {
 
 		}
 	}
+
+	@Override
+	public User findUserByName(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByPhoneNumer(String phonenumber, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByCardId(String cardId, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
