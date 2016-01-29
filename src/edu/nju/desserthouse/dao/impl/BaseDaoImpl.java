@@ -33,7 +33,7 @@ public class BaseDaoImpl implements BaseDao {
 
 	public Object load(Class<?> c, String id) {
 		Session session = getSession();
-		return session.get(c, id);
+		return session.load(c, id);
 	}
 
 	public List<?> getAllList(Class<?> c) {

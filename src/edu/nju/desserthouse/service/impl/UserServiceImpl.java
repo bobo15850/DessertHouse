@@ -23,18 +23,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findUserByName(String username, String password) {
-		return null;
+	public User login(String key, String password) {
+		User user = null;
+		if (key.length() == 11) {
+			user = userDao.findUserByPhoneNumer(key, password);
+		} // 手机号
+		else {
+			user = userDao.findUserByUsername(key, password);
+		} // 用户名
+		return user;
 	}
-
-	@Override
-	public User findUserByPhoneNumer(String phonenumber, String password) {
-		return null;
-	}
-
-	@Override
-	public User findUserByCardId(String cardId, String password) {
-		return null;
-	}
-
 }

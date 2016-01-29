@@ -15,7 +15,7 @@
 			<h2 class="form-login-heading">请登录</h2>
 			<input type="text" name="key" class="form-control" placeholder="用户名或手机号" required autofocus>
 			<input type="password" name="password" class="form-control" placeholder="密码8-16位数字或字母或下划线" required>
-			<h5 class="login-error">${errorMessage}</h5>
+			<h5 class="login-error">${FieldErrors.loginMessage[0]}</h5>
 			<div class="checkbox">
 				<label><input type="checkbox" value="remember-me">记住密码</label> <a class="forget-password" href="index.php?r=account/find-password">忘记密码</a>
 			</div>

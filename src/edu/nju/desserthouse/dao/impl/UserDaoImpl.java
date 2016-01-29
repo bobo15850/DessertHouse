@@ -14,30 +14,21 @@ public class UserDaoImpl implements UserDao {
 	private BaseDao baseDao;
 
 	public void save(User user) {
-		try {
-			baseDao.save(user);
-			System.out.println("ok");
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
+		baseDao.save(user);
 	}
 
 	@Override
-	public User findUserByName(String username, String password) {
-		// TODO Auto-generated method stub
+	public User findUserByUsername(String username, String password) {
 		return null;
 	}
 
 	@Override
 	public User findUserByPhoneNumer(String phonenumber, String password) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public User findUserByCardId(String cardId, String password) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -22,30 +22,22 @@ public class LoginAction extends BaseAction {
 			results = { @Result(name = "success", location = "/page/user/myPage.jsp"),
 					@Result(name = "input", location = "/page/user/login.jsp") })
 	public String execute() throws Exception {
-		// 验证登陆者
-		User user = null;
-		if (key.length() <= 10 && key.length() > 0 && key.charAt(0) != '@') {
-			user = userService.findUserByName(key, password);
-			if (user == null) {
-				request.setAttribute("errorMessage", "用户名或密码错误");
-				return INPUT;
-			}
-		} // 用户名(@排除会员卡号)
-		else if (key.length() == 11) {
-			user = userService.findUserByPhoneNumer(key, password);
-			if (user == null) {
-				request.setAttribute("errorMessage", "手机号或密码错误");
-				return INPUT;
-			}
-		} // 手机号
-		else {
-			request.setAttribute("errorMessage", "用户名由字母数字和下划线组成且不超过10字符");
+		User user = userService.login(key, password);
+		if (user == null) {
+			super.addFieldError("loginMessage", "用户名或密码错误");
 			return INPUT;
-		} // 用户名格式错误
+		}
 		UserBase userBase = new UserBase(user);
 		super.session.put("userBase", userBase);
 		return SUCCESS;
-	}
+	}// 登录
+
+	@Override
+	public void validate() {
+		if (key == null || key.length() > 11 || key.trim().length() == 0) {
+			super.addFieldError("loginMessage", "用户名由字母数字和下划线组成且不超过10字符");
+		}
+	}// 验证登录键是否合法
 
 	public String getKey() {
 		return key;
