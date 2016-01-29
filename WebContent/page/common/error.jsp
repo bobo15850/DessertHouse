@@ -6,7 +6,6 @@
 <title>error</title>
 </head>
 <body>
-	<h1>错误界面</h1>
-	<h2>${testMess}</h2>
+	<h1>这是错误界面</h1>
 </body>
 </html>

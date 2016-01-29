@@ -5,10 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>主页</title>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
 </head>
 <body>
+	<s:include value="page/common/header.jsp"></s:include>
 	<h1>欢迎来到甜品屋管理系统</h1>
-	<a href="page/user/register.jsp">注册</a>
-	<a href="page/user/login.jsp">登陆</a>
+	<s:include value="page/common/footer.jsp"></s:include>
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
