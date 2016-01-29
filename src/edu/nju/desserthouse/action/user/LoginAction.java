@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import edu.nju.desserthouse.action.BaseAction;
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.UserService;
-import util.UserBase;
+import edu.nju.desserthouse.util.UserBase;
 
 public class LoginAction extends BaseAction {
 

@@ -1,4 +1,4 @@
-package util;
+package edu.nju.desserthouse.util;
 
 import java.io.Serializable;
 
