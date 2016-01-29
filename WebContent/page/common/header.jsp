@@ -32,10 +32,10 @@
 					switch (userbase.getCategory()) {
 					case FinalValue.UserCategory.COMMON_MENBER:
 			%>
-			<li class="active"><a href="#">充值信息</a></li>
+			<li class="active"><a href="#">我的账户</a></li>
 			<li><a href="#">消费记录</a></li>
 			<li><a href="#">预定商品</a></li>
-			<li><a href="#">我的账户</a></li>
+			<li><a href="#">充值信息</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.BRANCH_WAITER:
@@ -48,7 +48,7 @@
 					case FinalValue.UserCategory.HEAD_WAITER:
 			%>
 			<li class="active"><a href="#">产品计划</a></li>
-			<li class="active"><a href="#">产品管理</a></li>
+			<li><a href="#">产品管理</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.MANAGER:

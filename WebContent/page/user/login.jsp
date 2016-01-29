@@ -22,7 +22,7 @@
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		</form>
 		<div class="no-account">
-			<label>没有账号<a href="index.php?r=account/to-sign">==>立即注册</a></label>
+			<label>没有账号<a href="register.jsp">==>立即注册</a></label>
 		</div>
 	</div>
 </body>

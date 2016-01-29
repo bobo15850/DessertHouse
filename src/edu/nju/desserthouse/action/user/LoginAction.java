@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import edu.nju.desserthouse.action.BaseAction;
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.UserService;
+import edu.nju.desserthouse.util.FinalValue;
 import edu.nju.desserthouse.util.UserBase;
 
 public class LoginAction extends BaseAction {
@@ -19,8 +20,12 @@ public class LoginAction extends BaseAction {
 
 	@Action(
 			value = "login",
-			results = { @Result(name = "success", location = "/page/user/myPage.jsp"),
-					@Result(name = "input", location = "/page/user/login.jsp") })
+			results = { @Result(name = "input", location = "/page/user/login.jsp"),
+					@Result(name = "common_member", location = "/page/user/account.jsp"),
+					@Result(name = "branch_waiter", location = "/page/sale/sale.jsp"),
+					@Result(name = "head_waiter", location = "/page/schedule/schedule.jsp"),
+					@Result(name = "manager", location = "/page/schedule/approval.jsp"),
+					@Result(name = "administrator", location = "/page/shop/shop.jsp") })
 	public String execute() throws Exception {
 		User user = null;
 		user = userService.login(key, password);
@@ -30,7 +35,19 @@ public class LoginAction extends BaseAction {
 		}
 		UserBase userBase = new UserBase(user);
 		super.session.put("userBase", userBase);
-		return SUCCESS;
+		switch (userBase.getCategory()) {
+		case FinalValue.UserCategory.COMMON_MENBER:
+			return "common_member";
+		case FinalValue.UserCategory.BRANCH_WAITER:
+			return "branch_waiter";
+		case FinalValue.UserCategory.HEAD_WAITER:
+			return "head_waiter";
+		case FinalValue.UserCategory.MANAGER:
+			return "manager";
+		case FinalValue.UserCategory.ADMINISTRATOR:
+			return "administrator";
+		}
+		return INPUT;
 	}// 登录
 
 	@Override
