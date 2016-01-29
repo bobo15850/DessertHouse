@@ -22,9 +22,10 @@ public class LoginAction extends BaseAction {
 			results = { @Result(name = "success", location = "/page/user/myPage.jsp"),
 					@Result(name = "input", location = "/page/user/login.jsp") })
 	public String execute() throws Exception {
-		User user = userService.login(key, password);
+		User user = null;
+		user = userService.login(key, password);
 		if (user == null) {
-			super.addFieldError("loginMessage", "用户名或密码错误");
+			super.addFieldError("loginMessage", "用户名/手机号或密码错误");
 			return INPUT;
 		}
 		UserBase userBase = new UserBase(user);

@@ -1,5 +1,7 @@
 package edu.nju.desserthouse.dao.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,16 +21,34 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User findUserByUsername(String username, String password) {
-		return null;
+		String[] columns = { "username", "password" };
+		Object[] values = { username, password };
+		List<User> list = baseDao.findByColumns(User.class, columns, values);
+		if (list == null || list.size() != 1) {
+			return null;
+		}
+		return list.get(0);
 	}
 
 	@Override
 	public User findUserByPhoneNumer(String phonenumber, String password) {
-		return null;
+		String[] columns = { "phonenumber", "password" };
+		Object[] values = { phonenumber, password };
+		List<User> list = baseDao.findByColumns(User.class, columns, values);
+		if (list == null || list.size() != 1) {
+			return null;
+		}
+		return list.get(0);
 	}
 
 	@Override
 	public User findUserByCardId(String cardId, String password) {
-		return null;
+		String[] columns = { "cardId", "password" };
+		Object[] values = { cardId, password };
+		List<User> list = baseDao.findByColumns(User.class, columns, values);
+		if (list == null || list.size() != 1) {
+			return null;
+		}
+		return list.get(0);
 	}
 }

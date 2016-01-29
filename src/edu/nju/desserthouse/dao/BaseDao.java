@@ -29,5 +29,5 @@ public interface BaseDao {
 
 	public void delete(Class<?> c, Serializable id);
 
-	public void delete(Class<?> c, Serializable[] ids);
+	public <T> List<T> findByColumns(Class<T> c, String[] columns, Object[] values);
 }

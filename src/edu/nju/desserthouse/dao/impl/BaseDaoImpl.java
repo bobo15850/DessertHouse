@@ -3,8 +3,11 @@ package edu.nju.desserthouse.dao.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -51,15 +54,11 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	public void save(Object bean) {
-		try {
-			Session session = getNewSession();
-			session.save(bean);
-			session.flush();
-			session.clear();
-			session.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Session session = getNewSession();
+		session.save(bean);
+		session.flush();
+		session.clear();
+		session.close();
 	}
 
 	public void update(Object bean) {
@@ -82,16 +81,24 @@ public class BaseDaoImpl implements BaseDao {
 		Session session = getNewSession();
 		Object obj = session.get(c, id);
 		session.delete(obj);
-		flush();
-		clear();
+		session.flush();
+		session.clear();
+		session.close();
 	}
 
-	public void delete(Class<?> c, Serializable[] ids) {
-		for (Serializable id : ids) {
-			Object obj = getSession().get(c, id);
-			if (obj != null) {
-				getSession().delete(obj);
-			}
+	public <T> List<T> findByColumns(Class<T> c, String[] columns, Object[] values) {
+		if (columns == null || values == null || columns.length != columns.length) {
+			return null;
 		}
+		Session session = this.getSession();
+		Criteria criteria = session.createCriteria(c);
+		Criterion[] crtns = new Criterion[columns.length];
+		for (int i = 0; i < columns.length; i++) {
+			crtns[i] = Restrictions.eq(columns[i], values[i]);
+			criteria.add(crtns[i]);
+		}
+		@SuppressWarnings("unchecked")
+		List<T> list = criteria.list();
+		return list;
 	}
 }

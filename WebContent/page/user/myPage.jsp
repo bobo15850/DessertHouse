@@ -7,6 +7,7 @@
 <title>个人主页</title>
 </head>
 <body>
+	<s:include value="../common/header.jsp"></s:include>
 	<h1>个人主页</h1>
 </body>
 </html>
