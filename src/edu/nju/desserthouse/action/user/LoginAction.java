@@ -20,7 +20,7 @@ public class LoginAction extends BaseAction {
 
 	@Action(
 			value = "login",
-			results = { @Result(name = "input", location = "/page/user/login.jsp"),
+			results = { @Result(name = INPUT, location = "/page/user/login.jsp"),
 					@Result(name = "common_member", location = "/page/user/account.jsp"),
 					@Result(name = "branch_waiter", location = "/page/sale/sale.jsp"),
 					@Result(name = "head_waiter", location = "/page/schedule/schedule.jsp"),

@@ -18,8 +18,8 @@ public class RegisterAction extends BaseAction {
 
 	@Action(
 			value = "register",
-			results = { @Result(name = "success", location = "/page/user/login.jsp"),
-					@Result(name = "input", location = "/page/user/register.jsp") })
+			results = { @Result(name = SUCCESS, location = "/page/user/login.jsp"),
+					@Result(name = INPUT, location = "/page/user/register.jsp") })
 	public String execute() throws Exception {
 		ResultMessage result = userService.registerUser(user);
 		if (result == ResultMessage.SUCCESS) {
