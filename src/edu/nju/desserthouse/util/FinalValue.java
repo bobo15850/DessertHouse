@@ -2,8 +2,9 @@ package edu.nju.desserthouse.util;
 
 public final class FinalValue {
 	public final class Gender {
-		public static final int MALE = 0;// 男性
-		public static final int FEMALE = 1;// 女性
+		public static final int UNKNOW = 0;// 未知
+		public static final int MALE = 1;// 男性
+		public static final int FEMALE = 2;// 女性
 	}// 性别
 
 	public final class UserCategory {
@@ -21,9 +22,10 @@ public final class FinalValue {
 	}// 用户等级
 
 	public final class UserState {
-		public static final int NORMAL = 0;// 正常使用
-		public static final int SUSPEND = 1;// 暂停
-		public static final int STOP = 2;// 停止
+		public static final int INACTIVE = 0;// 未激活
+		public static final int NORMAL = 1;// 正常使用
+		public static final int SUSPEND = 2;// 暂停
+		public static final int STOP = 3;// 停止
 	}// 会员资格
 
 	public final class RegionType {

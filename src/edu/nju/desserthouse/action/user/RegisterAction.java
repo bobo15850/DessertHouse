@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import edu.nju.desserthouse.action.BaseAction;
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.UserService;
+import edu.nju.desserthouse.util.ResultMessage;
 
 public class RegisterAction extends BaseAction {
 
@@ -18,15 +19,26 @@ public class RegisterAction extends BaseAction {
 	@Action(
 			value = "register",
 			results = { @Result(name = "success", location = "/page/user/login.jsp"),
-					@Result(name = "error", location = "/page/error.jsp") })
+					@Result(name = "input", location = "/page/user/register.jsp") })
 	public String execute() throws Exception {
-		userService.registerUser(user);
-		return SUCCESS;
+		ResultMessage result = userService.registerUser(user);
+		if (result == ResultMessage.SUCCESS) {
+			return SUCCESS;
+		}
+		else {
+			addFieldError("registerMessage", "注册失败，请重新尝试");
+			return INPUT;
+		}
 	}
 
 	public void validate() {
-		super.validate();
-	}
+		String username = user.getUsername();
+		if (username != null && username.length() > 0 && username.length() <= 10) {
+			if (userService.isUserNameExist(username)) {
+				addFieldError("registerMessage", "该用户名已经被注册");
+			}
+		}
+	}// 验证用户名是否已经被注册过了
 
 	public User getUser() {
 		return user;
