@@ -23,7 +23,7 @@
 			<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
 		</form>
 		<div class="has-account">
-			<label>已有账号<a href="login.jsp">==>直接登陆</a></label>
+			<label>已有账号<a href="<%=basePath%>/page/user/login.jsp">==>直接登陆</a></label>
 		</div>
 	</div>
 	<script type="text/javascript" src="<%=basePath%>/js/user/register.js"></script>

@@ -2,6 +2,10 @@
 <%@page import="edu.nju.desserthouse.util.UserBase"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
+<%
+	UserBase userbase = null;//session中的用户信息
+	String basePath = null;//项目上下文地址
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,8 +14,7 @@
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
-	<%!UserBase userbase = null;//session中的用户信息
-	String basePath = null;//项目上下文地址%>
+
 	<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="#">DessertHouse</a>
@@ -24,11 +27,10 @@
 				if (obj == null) {
 			%>
 			<li class="active"><a href="#">欢饮来到DessertHouse</a></li>
-			<li><a href="<%=basePath%>/page/user/login.jsp">登录/注册</a></li>
 			<%
 				}
 				else {
-					this.userbase = (UserBase) obj;
+					userbase = (UserBase) obj;
 					switch (userbase.getCategory()) {
 					case FinalValue.UserCategory.COMMON_MENBER:
 			%>
@@ -64,6 +66,21 @@
 			<%
 				break;
 					}
+				}
+			%>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<%
+				if (userbase == null) {
+			%>
+			<li><a href="<%=basePath%>/page/user/login.jsp">登录/注册</a></li>
+			<%
+				}
+				else {
+			%>
+			<li><a><%=userbase.getUsername()%></a></li>
+			<li><a href="<%=basePath%>/user/logout.action">退出</a></li>
+			<%
 				}
 			%>
 		</ul>
