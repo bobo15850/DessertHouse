@@ -78,7 +78,7 @@
 				}
 				else {
 			%>
-			<li><a><%=userbase.getUsername()%></a></li>
+			<li><a id="username-show"><%=userbase.getUsername()%></a></li>
 			<li><a href="<%=basePath%>/user/logout.action">退出</a></li>
 			<%
 				}

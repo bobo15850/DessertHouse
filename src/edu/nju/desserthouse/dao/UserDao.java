@@ -13,4 +13,6 @@ public interface UserDao {
 	public User findUserByCardId(String cardId, String password);
 
 	public User findUserByUsername(String username);
+
+	public User findUserById(int id);
 }

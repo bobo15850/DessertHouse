@@ -21,7 +21,7 @@ public class LoginAction extends BaseAction {
 	@Action(
 			value = "login",
 			results = { @Result(name = INPUT, location = "/page/user/login.jsp"),
-					@Result(name = "common_member", location = "/page/user/account.jsp", type = "redirect"),
+					@Result(name = "common_member", location = "/page/user/account.jsp"),
 					@Result(name = "branch_waiter", location = "/page/sale/sale.jsp", type = "redirect"),
 					@Result(name = "head_waiter", location = "/page/schedule/schedule.jsp", type = "redirect"),
 					@Result(name = "manager", location = "/page/schedule/approval.jsp", type = "redirect"),
@@ -37,6 +37,7 @@ public class LoginAction extends BaseAction {
 		super.session.put("userBase", userBase);
 		switch (userBase.getCategory()) {
 		case FinalValue.UserCategory.COMMON_MENBER:
+			request.setAttribute("user", user);
 			return "common_member";
 		case FinalValue.UserCategory.BRANCH_WAITER:
 			return "branch_waiter";

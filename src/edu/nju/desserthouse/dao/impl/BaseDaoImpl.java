@@ -55,7 +55,7 @@ public class BaseDaoImpl implements BaseDao {
 
 	public void save(Object bean) {
 		Session session = getNewSession();
-		session.save(bean);
+		session.saveOrUpdate(bean);
 		session.flush();
 		session.clear();
 		session.close();

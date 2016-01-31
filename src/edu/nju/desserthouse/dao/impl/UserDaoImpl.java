@@ -68,4 +68,15 @@ public class UserDaoImpl implements UserDao {
 		}
 		return list.get(0);
 	}
+
+	@Override
+	public User findUserById(int id) {
+		String[] columns = { "id" };
+		Object[] values = { id };
+		List<User> list = baseDao.findByColumns(User.class, columns, values);
+		if (list == null || list.size() != 1) {
+			return null;
+		}
+		return list.get(0);
+	}
 }

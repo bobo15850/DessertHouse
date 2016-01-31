@@ -9,4 +9,8 @@ public interface UserService {
 	public ResultMessage registerUser(User user);
 
 	public User login(String key, String password);
+
+	public ResultMessage renameUser(int id, String newName);
+
+	public User getUserById(int id);
 }

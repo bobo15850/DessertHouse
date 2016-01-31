@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+.unset-list {
+	
+}
+
+.unset-item {
+	margin-bottom: 25px;
+}
+
+.unset-item label {
+	width: 30%;
+	display: inline;
+}
+
+.unset-item input {
+	width: 65%;
+	display: inline;
+	margin-left: 5%;
+}
+
+.reset-list {
+	
+}
+
+.reset-list div {
+	margin-bottom: 25px;
+}
