@@ -55,13 +55,6 @@
 					</span>
 				</div>
 				<div class="input-group">
-					<span class="input-group-addon">用户性别</span>
-					<input type="text" class="form-control" value="<%=FinalValue.Gender.getStrOfGender(user.getGender())%>">
-					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">保存修改</button>
-					</span>
-				</div>
-				<div class="input-group">
 					<span class="input-group-addon">绑定电话</span>
 					<input id="phonenumberInput" type="text" class="form-control" value="<%=user.getPhonenumber()%>">
 					<span class="input-group-btn">
@@ -71,6 +64,13 @@
 				<div class="input-group">
 					<span class="input-group-addon">银行卡号</span>
 					<input id="bankIdInput" type="text" class="form-control" value="<%=user.getBankId()%>">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button" onclick="changeBankId()">保存修改</button>
+					</span>
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">用户性别</span>
+					<input type="text" class="form-control" value="<%=FinalValue.Gender.getStrOfGender(user.getGender())%>">
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button">保存修改</button>
 					</span>
@@ -90,7 +90,7 @@
 					<span class="input-group-addon">具体地址</span>
 					<input id="locationInput" type="text" class="form-control" value="<%=user.getLocation()%>">
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">保存修改</button>
+						<button class="btn btn-primary" type="button" onclick="changeLocation()">保存修改</button>
 					</span>
 				</div>
 				<div class="input-group">

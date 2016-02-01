@@ -1,9 +1,9 @@
 package edu.nju.desserthouse.dao.impl;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.nju.desserthouse.dao.BaseDao;
+import edu.nju.desserthouse.util.ResultMessage;
 
 @Repository
 public class BaseDaoImpl implements BaseDao {
@@ -26,23 +27,105 @@ public class BaseDaoImpl implements BaseDao {
 		return sessionFactory.openSession();
 	}
 
-	public void flush() {
-		getSession().flush();
+	public ResultMessage flush() {
+		try {
+			getSession().flush();
+			return ResultMessage.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultMessage.FAILURE;
+		}
 	}
 
-	public void clear() {
-		getSession().clear();
+	public ResultMessage clear() {
+		try {
+			getSession().clear();
+			return ResultMessage.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultMessage.SUCCESS;
+		}
 	}
 
-	public Object load(Class<?> c, String id) {
+	public ResultMessage save(Object bean) {
+		try {
+			Session session = getNewSession();
+			session.save(bean);
+			session.flush();
+			session.clear();
+			session.close();
+			return ResultMessage.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultMessage.FAILURE;
+		}
+	}
+
+	public ResultMessage delete(Object bean) {
+		try {
+			Session session = getNewSession();
+			session.delete(bean);
+			session.flush();
+			session.clear();
+			session.close();
+			return ResultMessage.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultMessage.FAILURE;
+		}
+	}
+
+	public ResultMessage delete(Class<?> c, int id) {
+		try {
+			Session session = getNewSession();
+			Object obj = session.get(c, id);
+			session.delete(obj);
+			session.flush();
+			session.clear();
+			session.close();
+			return ResultMessage.SUCCESS;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResultMessage.FAILURE;
+		}
+	}
+
+	public ResultMessage update(Object bean) {
+		try {
+			Session session = getNewSession();
+			session.update(bean);
+			session.flush();
+			session.clear();
+			session.close();
+			return ResultMessage.SUCCESS;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			System.out.println("update失败");
+			return ResultMessage.FAILURE;
+		}
+	}
+
+	@Override
+	public <T> T get(Class<T> c, int id) {
 		Session session = getSession();
-		return session.load(c, id);
+		@SuppressWarnings("unchecked")
+		T t = (T) session.get(c, id);
+		return t;
 	}
 
-	public List<?> getAllList(Class<?> c) {
+	public <T> T load(Class<T> c, int id) {
+		Session session = getSession();
+		@SuppressWarnings("unchecked")
+		T t = (T) session.load(c, id);
+		return t;
+	}
+
+	public <T> List<T> getAllList(Class<T> c) {
 		String hql = "from " + c.getName();
 		Session session = getSession();
-		return session.createQuery(hql).list();
+		@SuppressWarnings("unchecked")
+		List<T> list = session.createQuery(hql).list();
+		return list;
 	}
 
 	public Long getTotalCount(Class<?> c) {
@@ -51,39 +134,6 @@ public class BaseDaoImpl implements BaseDao {
 		Long count = (Long) session.createQuery(hql).uniqueResult();
 		session.close();
 		return count != null ? count.longValue() : 0;
-	}
-
-	public void save(Object bean) throws Exception{
-		Session session = getNewSession();
-		session.saveOrUpdate(bean);
-		session.flush();
-		session.clear();
-		session.close();
-	}
-
-	public void update(Object bean) {
-		Session session = getNewSession();
-		session.update(bean);
-		session.flush();
-		session.clear();
-		session.close();
-	}
-
-	public void delete(Object bean) {
-		Session session = getNewSession();
-		session.delete(bean);
-		session.flush();
-		session.clear();
-		session.close();
-	}
-
-	public void delete(Class<?> c, Serializable id) {
-		Session session = getNewSession();
-		Object obj = session.get(c, id);
-		session.delete(obj);
-		session.flush();
-		session.clear();
-		session.close();
 	}
 
 	public <T> List<T> findByColumns(Class<T> c, String[] columns, Object[] values) {

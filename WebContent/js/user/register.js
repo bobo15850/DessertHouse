@@ -10,6 +10,8 @@ function check_username(obj) {
 	} else {
 		if (username.length > 10) {
 			obj.placeholder = "用户名不能超过10个字符";
+		} else if (/\w{1,10}/.test(username)) {
+			obj.placeholder = "用户名由字母数字下划线或汉字组成";
 		}
 	}
 }// 检验用户名

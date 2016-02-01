@@ -10,9 +10,9 @@ public interface UserService {
 
 	public User login(String key, String password);
 
-	public ResultMessage renameUser(int id, String newName);
-
-	public ResultMessage resetPhone(int id, String phonenumber);
-
 	public User getUserById(int id);
+
+	public ResultMessage setUniqueField(int id, String fieldName, Object value);
+
+	public ResultMessage setRepeatFieldAction(int id, String fieldName, Object value);
 }

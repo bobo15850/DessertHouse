@@ -1,33 +1,36 @@
 package edu.nju.desserthouse.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
 
-public interface BaseDao {
+import edu.nju.desserthouse.util.ResultMessage;
 
+public interface BaseDao {
 	public Session getSession();
 
 	public Session getNewSession();
 
-	public void flush();
+	public ResultMessage flush();
 
-	public void clear();
+	public ResultMessage clear();
 
-	public Object load(Class<?> c, String id);
+	public ResultMessage save(Object bean);// 增加
 
-	public List<?> getAllList(Class<?> c);
+	public ResultMessage delete(Object bean);// 删除
+
+	public ResultMessage delete(Class<?> c, int id);// 删除
+
+	public ResultMessage update(Object bean);// 修改
+
+	// 以下为各种形式的查找
+	public <T> T get(Class<T> c, int id);
+
+	public <T> T load(Class<T> c, int id);
 
 	public Long getTotalCount(Class<?> c);
 
-	public void save(Object bean) throws Exception;
-
-	public void update(Object bean);
-
-	public void delete(Object bean);
-
-	public void delete(Class<?> c, Serializable id);
+	public <T> List<T> getAllList(Class<T> c);
 
 	public <T> List<T> findByColumns(Class<T> c, String[] columns, Object[] values);
 }
