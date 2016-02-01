@@ -21,7 +21,7 @@ public interface BaseDao {
 
 	public Long getTotalCount(Class<?> c);
 
-	public void save(Object bean);
+	public void save(Object bean) throws Exception;
 
 	public void update(Object bean);
 

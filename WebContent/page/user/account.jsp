@@ -19,7 +19,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3 unset-list">
-				<label></label>
+				<label>不可变用户信息</label>
 				<div class="unset-item">
 					<label>用户编号</label>
 					<input type="text" class="form-control" value="<%=user.getId()%>" readonly="readonly" />
@@ -46,7 +46,7 @@
 				</div>
 			</div>
 			<div class="col-sm-9 reset-list">
-				<label id="message"></label>
+				<label id="message">设置用户信息</label>
 				<div class="input-group">
 					<span class="input-group-addon">用户名称</span>
 					<input id="usernameInput" type="text" class="form-control" value="<%=user.getUsername()%>">
@@ -65,7 +65,7 @@
 					<span class="input-group-addon">绑定电话</span>
 					<input id="phonenumberInput" type="text" class="form-control" value="<%=user.getPhonenumber()%>">
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">保存修改</button>
+						<button class="btn btn-primary" type="button" onclick="changePhonenumber()">保存修改</button>
 					</span>
 				</div>
 				<div class="input-group">

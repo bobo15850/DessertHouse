@@ -12,5 +12,7 @@ public interface UserService {
 
 	public ResultMessage renameUser(int id, String newName);
 
+	public ResultMessage resetPhone(int id, String phonenumber);
+
 	public User getUserById(int id);
 }

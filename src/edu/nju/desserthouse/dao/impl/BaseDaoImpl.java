@@ -53,7 +53,7 @@ public class BaseDaoImpl implements BaseDao {
 		return count != null ? count.longValue() : 0;
 	}
 
-	public void save(Object bean) {
+	public void save(Object bean) throws Exception{
 		Session session = getNewSession();
 		session.saveOrUpdate(bean);
 		session.flush();

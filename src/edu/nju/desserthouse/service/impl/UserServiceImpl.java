@@ -69,4 +69,11 @@ public class UserServiceImpl implements UserService {
 	public User getUserById(int id) {
 		return userDao.findUserById(id);
 	}
+
+	@Override
+	public ResultMessage resetPhone(int id, String phonenumber) {
+		User user = userDao.findUserById(id);
+		user.setPhonenumber(phonenumber);
+		return userDao.save(user);
+	}
 }
