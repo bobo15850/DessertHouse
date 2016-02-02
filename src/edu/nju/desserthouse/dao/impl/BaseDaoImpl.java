@@ -9,12 +9,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import edu.nju.desserthouse.dao.BaseDao;
 import edu.nju.desserthouse.util.ResultMessage;
 
-@Repository
 public class BaseDaoImpl implements BaseDao {
 	@Autowired
 	protected SessionFactory sessionFactory;

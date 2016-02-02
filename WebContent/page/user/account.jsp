@@ -1,3 +1,5 @@
+<%@page import="edu.nju.desserthouse.model.Region"%>
+<%@page import="java.util.List"%>
 <%@page import="edu.nju.desserthouse.util.FinalValue"%>
 <%@page import="edu.nju.desserthouse.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -5,6 +7,9 @@
 <%
 	String basePath = request.getContextPath();
 	User user = (User) request.getAttribute("user");
+	List<Region> provinces = (List<Region>) request.getAttribute("provinces");
+	List<Region> citys = (List<Region>) request.getAttribute("citys");
+	List<Region> countys = (List<Region>) request.getAttribute("countys");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -86,19 +91,71 @@
 					</span>
 				</div>
 				<div class="input-group">
+					<span class="input-group-addon">出生日期</span>
+					<input type="text" id='birthdayInput' class="form-control"
+						placeholder="<%=(user.getBirthday() == null ? "未设置" : user.getBirthday().toString())%>">
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button" onclick="changeBirthday()">保存修改</button>
+					</span>
+				</div>
+				<div class="input-group">
 					<span class="input-group-addon">用户地区</span>
-					<input type="text" class="form-control" value="<%=user.getRegion()%>">
+					<select id="provinceSelect" class="form-control" onchange="changeProvince()">
+						<%
+							for (int i = 0; i < provinces.size(); i++) {
+								String optionStr = "";
+								if (request.getAttribute("province").equals(provinces.get(i).getName())) {
+									optionStr = "<option selected='selected' value='" + provinces.get(i).getId() + "'>"
+											+ provinces.get(i).getName() + "</option>";
+								}
+								else {
+									optionStr = "<option value='" + provinces.get(i).getId() + "'>" + provinces.get(i).getName()
+											+ "</option>";
+								}
+								out.print(optionStr);
+							}
+						%>
+					</select>
 					<span class="input-group-addon">省/直辖市</span>
-					<input type="text" class="form-control" value="<%=user.getRegion()%>">
+					<select id="citySelect" class="form-control" onchange="changeCity()">
+						<%
+							for (int i = 0; i < citys.size(); i++) {
+								String optionStr = "";
+								if (request.getAttribute("city").equals(citys.get(i).getName())) {
+									optionStr = "<option selected='selected' value='" + citys.get(i).getId() + "'>"
+											+ citys.get(i).getName() + "</option>";
+								}
+								else {
+									optionStr = "<option value='" + citys.get(i).getId() + "'>" + citys.get(i).getName() + "</option>";
+								}
+								out.print(optionStr);
+							}
+						%>
+					</select>
 					<span class="input-group-addon">地级市</span>
-					<input type="text" class="form-control" value="<%=user.getRegion()%>">
+					<select id="countySelect" class="form-control" onchange="changeCounty()">
+						<%
+							for (int i = 0; i < countys.size(); i++) {
+								String optionStr = "";
+								if (request.getAttribute("county").equals(countys.get(i).getName())) {
+									optionStr = "<option selected='selected' value='" + countys.get(i).getId() + "'>"
+											+ countys.get(i).getName() + "</option>";
+								}
+								else {
+									optionStr = "<option value='" + countys.get(i).getId() + "'>" + countys.get(i).getName()
+											+ "</option>";
+								}
+								out.print(optionStr);
+							}
+						%>
+					</select>
 					<span class="input-group-addon">县/区</span> <span class="input-group-btn">
 						<button class="btn btn-primary" type="button">保存修改</button>
 					</span>
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">具体地址</span>
-					<input id="locationInput" type="text" class="form-control" value="<%=user.getLocation()%>">
+					<input id="locationInput" type="text" class="form-control" value="<%=(user.getLocation() == null ? "未设置" : user.getLocation())%>">
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" onclick="changeLocation()">保存修改</button>
 					</span>
@@ -128,13 +185,7 @@
 						<button class="btn btn-primary" type="button" onclick="changePassword()">修改密码</button>
 					</span>
 				</div>
-				<div class="input-group">
-					<span class="input-group-addon">出生日期</span>
-					<input type="text" id='birthdayInput' class="form-control" placeholder="<%=user.getBirthday()%>">
-					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button" onclick="changeBirthday()">保存修改</button>
-					</span>
-				</div>
+
 			</div>
 		</div>
 	</div>

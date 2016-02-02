@@ -164,3 +164,19 @@ function changeBirthday() {
 		}
 	});
 }// 设置用户生日
+
+function changeProvince() {
+	var provinceSelect = document.getElementById("provinceSelect");
+	// alert(provinceSelect.value);
+	var citySelect = document.getElementById("citySelect");
+	// citySelect.options.length = 0;
+	// citySelect.options.add(new Option("南京市", "2"));
+}// 改变省份
+
+function changeCity() {
+
+}// 改变城市
+
+function changeCounty() {
+
+}// 改变县区
