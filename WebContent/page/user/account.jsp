@@ -12,7 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/user/account.css">
-<title>注册</title>
+<title>账户信息</title>
 </head>
 <body>
 	<s:include value="../common/header.jsp"></s:include>
@@ -70,9 +70,13 @@
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">用户性别</span>
-					<input type="text" class="form-control" value="<%=FinalValue.Gender.getStrOfGender(user.getGender())%>">
+					<select id="genderSelect" class="form-control">
+						<option value="1" <%=user.getGender() == 1 ? "selected='selected'" : ""%>>男</option>
+						<option value="2" <%=user.getGender() == 2 ? "selected='selected'" : ""%>>女</option>
+						<option value="0" <%=user.getGender() == 0 ? "selected='selected'" : ""%>>未设置</option>
+					</select>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">保存修改</button>
+						<button class="btn btn-primary" type="button" onclick="changeGender()">保存修改</button>
 					</span>
 				</div>
 				<div class="input-group">
@@ -115,7 +119,7 @@
 					<span class="input-group-addon">确认密码</span>
 					<input id="passwordConfirm" type="text" class="form-control" placeholder="再次输入新密码">
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">修改密码</button>
+						<button class="btn btn-primary" type="button" onclick="changePassword()">修改密码</button>
 					</span>
 				</div>
 				<div class="input-group">

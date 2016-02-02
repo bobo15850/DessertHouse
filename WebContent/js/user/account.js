@@ -3,7 +3,7 @@ function changeUsername() {
 	var nameInput = document.getElementById("usernameInput");
 	var newName = nameInput.value;
 	if (newName != null && (/\w{1,10}/.test(newName))) {
-		$.post("uniqueField.action", {
+		$.post("uniqueStringField.action", {
 			"map.field" : "username",
 			"map.value" : newName
 		}, function(json) {
@@ -25,7 +25,7 @@ function changePhonenumber() {
 	var phonenumberInput = document.getElementById("phonenumberInput");
 	var newPhone = phonenumberInput.value;
 	if (newPhone != null && (/^1\d{10}/.test(newPhone))) {
-		$.post("uniqueField.action", {
+		$.post("uniqueStringField.action", {
 			"map.field" : "phonenumber",
 			"map.value" : newPhone
 		}, function(json) {
@@ -45,7 +45,7 @@ function changeBankId() {
 	var bankIdInput = document.getElementById("bankIdInput");
 	var newBankId = bankIdInput.value;
 	if (newBankId != null && (/^62\d{17}/.test(newBankId))) {
-		$.post("uniqueField.action", {
+		$.post("uniqueStringField.action", {
 			"map.field" : "bankId",
 			"map.value" : newBankId
 		}, function(json) {
@@ -65,7 +65,7 @@ function changeLocation() {
 	var locationInput = document.getElementById("locationInput");
 	var newLocation = locationInput.value;
 	if (newLocation != null) {
-		$.post("uniqueField.action", {
+		$.post("repeatStringField.action", {
 			"map.field" : "location",
 			"map.value" : newLocation
 		}, function(json) {
@@ -80,3 +80,17 @@ function changeLocation() {
 		messageShow.innerHTML = "地址不能为空";
 	}
 }// 改变具体地址
+
+function changeGender() {
+	var genderSelect = document.getElementById("genderSelect");
+	$.post("repeatIntField.action", {
+		"map.field" : "gender",
+		"map.value" : genderSelect.value
+	}, function(json) {
+		if (json.map.result == "success") {
+			messageShow.innerHTML = "用户性别设置成功";
+		} else {
+			messageShow.innerHTML = "用户性别设置失败";
+		}
+	});
+}// 设置性别

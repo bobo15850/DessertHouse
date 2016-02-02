@@ -16,22 +16,51 @@ import edu.nju.desserthouse.util.ResultMessage;
 import edu.nju.desserthouse.util.UserBase;
 
 @ParentPackage("json-default")
-public class UniqueFieldAction extends BaseAction {
+public class SetFieldAction extends BaseAction {
 	private static final long serialVersionUID = 4849557797102900761L;
 	private Map<String, String> map = new HashMap<String, String>();
 	@Autowired
 	private UserService userService;
 
-	@Action(value = "uniqueField", results = { @Result(name = SUCCESS, type = "json") })
-	public String execute() {
+	@Action(value = "uniqueStringField", results = { @Result(name = SUCCESS, type = "json") })
+	public String SetUniqueField() {
 		UserBase userBase = (UserBase) session.get("userBase");
-		ResultMessage result = userService.setUniqueField(userBase.getId(), map.get("field"), map.get("value"));
+		ResultMessage result = userService.setUniqueStringField(userBase.getId(), map.get("field"), map.get("value"));
 		if (result == ResultMessage.SUCCESS) {
 			if (map.get("field").equals("username")) {
 				User user = userService.getUserById(userBase.getId());
 				userBase = new UserBase(user);
 				session.replace("userBase", userBase);
 			} // 只有改变用户名的时候才需要修改session
+			map.put("result", SUCCESS);
+		}
+		else {
+			map.put("result", ERROR);
+		}
+		map.remove("value");
+		return SUCCESS;
+	}
+
+	@Action(value = "repeatStringField", results = { @Result(name = SUCCESS, type = "json") })
+	public String setRepeatStringField() {
+		UserBase userBase = (UserBase) session.get("userBase");
+		ResultMessage result = userService.setRepeatStringField(userBase.getId(), map.get("field"), map.get("value"));
+		if (result == ResultMessage.SUCCESS) {
+			map.put("result", SUCCESS);
+		}
+		else {
+			map.put("result", ERROR);
+		}
+		map.remove("value");
+		return SUCCESS;
+	}
+
+	@Action(value = "repeatIntField", results = { @Result(name = SUCCESS, type = "json") })
+	public String setRepeatIntField() {
+		UserBase userBase = (UserBase) session.get("userBase");
+		ResultMessage result = userService.setRepeatIntField(userBase.getId(), map.get("field"),
+				(int) Integer.parseInt(map.get("value")));
+		if (result == ResultMessage.SUCCESS) {
 			map.put("result", SUCCESS);
 		}
 		else {

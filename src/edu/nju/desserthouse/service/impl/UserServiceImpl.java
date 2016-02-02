@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResultMessage setUniqueField(int id, String fieldName, Object value) {
+	public ResultMessage setUniqueStringField(int id, String fieldName, String value) {
 		List<User> list = userDao.findByColumns(User.class, new String[] { fieldName }, new Object[] { value });
 		if (list == null || list.size() == 0) {
 			User user = userDao.get(User.class, id);
@@ -108,11 +108,33 @@ public class UserServiceImpl implements UserService {
 	}// 设置某一个域的值（该域的每一个值是不重复的）
 
 	@Override
-	public ResultMessage setRepeatFieldAction(int id, String fieldName, Object value) {
+	public ResultMessage setRepeatStringField(int id, String fieldName, String value) {
 		User user = userDao.get(User.class, id);
 		try {
 			Method method = User.class
 					.getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), String.class);
+			method.invoke(user, value);
+			return userDao.update(user);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return ResultMessage.FAILURE;
+	}
+
+	@Override
+	public ResultMessage setRepeatIntField(int id, String fieldName, int value) {
+		User user = userDao.get(User.class, id);
+		try {
+			Method method = User.class
+					.getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), int.class);
 			method.invoke(user, value);
 			return userDao.update(user);
 		} catch (NoSuchMethodException e) {

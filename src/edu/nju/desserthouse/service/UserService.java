@@ -12,7 +12,9 @@ public interface UserService {
 
 	public User getUserById(int id);
 
-	public ResultMessage setUniqueField(int id, String fieldName, Object value);
+	public ResultMessage setUniqueStringField(int id, String fieldName, String value);
 
-	public ResultMessage setRepeatFieldAction(int id, String fieldName, Object value);
+	public ResultMessage setRepeatStringField(int id, String fieldName, String value);
+
+	public ResultMessage setRepeatIntField(int id, String fieldName, int value);
 }
