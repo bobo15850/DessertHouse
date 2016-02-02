@@ -1,5 +1,5 @@
-var messageShow = document.getElementById("message");
 function changeUsername() {
+	var messageShow = document.getElementById("message");
 	var nameInput = document.getElementById("usernameInput");
 	var newName = nameInput.value;
 	if (newName != null && (/\w{1,10}/.test(newName))) {
@@ -22,6 +22,7 @@ function changeUsername() {
 }// 改变用户名
 
 function changePhonenumber() {
+	var messageShow = document.getElementById("message");
 	var phonenumberInput = document.getElementById("phonenumberInput");
 	var newPhone = phonenumberInput.value;
 	if (newPhone != null && (/^1\d{10}/.test(newPhone))) {
@@ -42,6 +43,7 @@ function changePhonenumber() {
 }// 改变用户名
 
 function changeBankId() {
+	var messageShow = document.getElementById("message");
 	var bankIdInput = document.getElementById("bankIdInput");
 	var newBankId = bankIdInput.value;
 	if (newBankId != null && (/^62\d{17}/.test(newBankId))) {
@@ -62,6 +64,7 @@ function changeBankId() {
 }// 改变或绑定银行卡号
 
 function changeLocation() {
+	var messageShow = document.getElementById("message");
 	var locationInput = document.getElementById("locationInput");
 	var newLocation = locationInput.value;
 	if (newLocation != null) {
@@ -82,6 +85,7 @@ function changeLocation() {
 }// 改变具体地址
 
 function changeGender() {
+	var messageShow = document.getElementById("message");
 	var genderSelect = document.getElementById("genderSelect");
 	$.post("repeatIntField.action", {
 		"map.field" : "gender",
@@ -94,3 +98,69 @@ function changeGender() {
 		}
 	});
 }// 设置性别
+
+function changePassword() {
+	var messageShow = document.getElementById("message");
+	var newPasswordInput = document.getElementById("newPasswordInput");
+	var passwordConfirmInput = document.getElementById("passwordConfirmInput");
+	var newPassword = newPasswordInput.value;
+	var passwordConfirm = passwordConfirmInput.value;
+	if (newPassword.length >= 8 && newPassword.length <= 16) {
+		if (newPassword == passwordConfirm) {
+			var oldPasswordInput = document.getElementById("oldPasswordInput");
+			$.post("checkOldPassword.action", {
+				"map.oldPassword" : oldPasswordInput.value
+			}, function(json) {
+				if (json.map.result == "success") {
+					$.post("repeatStringField.action", {
+						"map.field" : "password",
+						"map.value" : newPassword
+					}, function(json) {
+						if (json.map.result == "success") {
+							oldPasswordInput.value = "";
+							newPasswordInput.value = "";
+							passwordConfirmInput.value = "";
+							messageShow.innerHTML = "密码设置成功";
+						} else {
+							oldPasswordInput.value = "";
+							newPasswordInput.value = "";
+							passwordConfirmInput.value = "";
+							messageShow.innerHTML = "密码设置失败";
+						}
+					});
+				} else {
+					messageShow.innerHTML = "原密码输入错误";
+				}
+			});
+		} else {
+			newPasswordInput.value = "";
+			passwordConfirmInput.value = "";
+			messageShow.innerHTML = "两次输入的新密码必须相同";
+		}
+	} else {
+		newPasswordInput.value = "";
+		passwordConfirmInput.value = "";
+		messageShow.innerHTML = "新密码为8-16位";
+	}
+}
+
+$(function() {
+	$('#birthdayInput').datetimepicker({
+		viewMode : 'years',
+		format : 'YYYY-MM-DD',
+	});
+});
+
+function changeBirthday() {
+	var messageShow = document.getElementById("message");
+	var birthday = document.getElementById('birthdayInput').value;
+	$.post("setBirthday.action", {
+		"map.birthday" : birthday
+	}, function(json) {
+		if (json.map.result == "success") {
+			messageShow.innerHTML = "用户生日设置成功";
+		} else {
+			messageShow.innerHTML = "用户生日设置失败";
+		}
+	});
+}// 设置用户生日

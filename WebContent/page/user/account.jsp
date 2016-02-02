@@ -12,6 +12,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/user/account.css">
+<link rel="stylesheet" href="<%=basePath%>/lib/bootstrap-datetimepicker.min.css">
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>/lib/moment.js"></script>
+<script type="text/javascript" src="<%=basePath%>/lib/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/user/account.js"></script>
 <title>账户信息</title>
 </head>
 <body>
@@ -113,29 +119,25 @@
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">原密码</span>
-					<input id="oldPasswordInput" type="text" class="form-control" placeholder="输入原密码">
+					<input id="oldPasswordInput" type="password" class="form-control" placeholder="输入原密码">
 					<span class="input-group-addon">新密码</span>
-					<input id="newPasswordInput" type="text" class="form-control" placeholder="输入新密码">
+					<input id="newPasswordInput" type="password" class="form-control" placeholder="输入新密码">
 					<span class="input-group-addon">确认密码</span>
-					<input id="passwordConfirm" type="text" class="form-control" placeholder="再次输入新密码">
+					<input id="passwordConfirmInput" type="password" class="form-control" placeholder="再次输入新密码">
 					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" onclick="changePassword()">修改密码</button>
 					</span>
 				</div>
 				<div class="input-group">
-					<span class="input-group-addon">出身日期</span>
-					<input type="text" class="form-control" placeholder="<%=user.getBirthday()%>">
+					<span class="input-group-addon">出生日期</span>
+					<input type="text" id='birthdayInput' class="form-control" placeholder="<%=user.getBirthday()%>">
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">保存修改</button>
+						<button class="btn btn-primary" type="button" onclick="changeBirthday()">保存修改</button>
 					</span>
 				</div>
-				<div></div>
 			</div>
 		</div>
 	</div>
 	<s:include value="../common/footer.jsp"></s:include>
-	<script type="text/javascript" src="<%=basePath%>/js/user/account.js"></script>
-	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

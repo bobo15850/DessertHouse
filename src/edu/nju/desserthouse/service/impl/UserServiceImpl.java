@@ -2,6 +2,7 @@ package edu.nju.desserthouse.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
@@ -135,6 +136,28 @@ public class UserServiceImpl implements UserService {
 		try {
 			Method method = User.class
 					.getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), int.class);
+			method.invoke(user, value);
+			return userDao.update(user);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return ResultMessage.FAILURE;
+	}
+
+	@Override
+	public ResultMessage setRepeatDate(int id, String fieldName, Date value) {
+		User user = userDao.get(User.class, id);
+		try {
+			Method method = User.class
+					.getMethod("set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), Date.class);
 			method.invoke(user, value);
 			return userDao.update(user);
 		} catch (NoSuchMethodException e) {

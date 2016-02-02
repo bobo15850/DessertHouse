@@ -1,5 +1,7 @@
 package edu.nju.desserthouse.service;
 
+import java.sql.Date;
+
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.util.ResultMessage;
 
@@ -17,4 +19,6 @@ public interface UserService {
 	public ResultMessage setRepeatStringField(int id, String fieldName, String value);
 
 	public ResultMessage setRepeatIntField(int id, String fieldName, int value);
+
+	public ResultMessage setRepeatDate(int id, String fieldName, Date value);
 }

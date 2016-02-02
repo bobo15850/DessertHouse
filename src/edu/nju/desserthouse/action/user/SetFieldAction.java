@@ -1,5 +1,6 @@
 package edu.nju.desserthouse.action.user;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,6 +68,35 @@ public class SetFieldAction extends BaseAction {
 			map.put("result", ERROR);
 		}
 		map.remove("value");
+		return SUCCESS;
+	}
+
+	@Action(value = "checkOldPassword", results = { @Result(name = SUCCESS, type = "json") })
+	public String checkOldPassword() {
+		UserBase userBase = (UserBase) session.get("userBase");
+		User result = userService.login(userBase.getUsername(), map.get("oldPassword"));
+		if (result == null) {
+			map.put("result", "error");
+		}
+		else {
+			map.put("result", "success");
+		}
+		return SUCCESS;
+	}// 判断旧密码是否正确
+
+	@Action(value = "setBirthday", results = { @Result(name = SUCCESS, type = "json") })
+	public String setBirthday() {
+		UserBase userBase = (UserBase) session.get("userBase");
+		System.out.println(Date.valueOf(map.get("birthday")));
+		ResultMessage result = userService.setRepeatDate(userBase.getId(), "birthday",
+				Date.valueOf(map.get("birthday")));
+		if (result == ResultMessage.SUCCESS) {
+			map.put("result", SUCCESS);
+		}
+		else {
+			map.put("result", ERROR);
+		}
+		map.remove("birthday");
 		return SUCCESS;
 	}
 
