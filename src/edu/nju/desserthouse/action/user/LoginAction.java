@@ -44,6 +44,8 @@ public class LoginAction extends BaseAction {
 		switch (userBase.getCategory()) {
 		case FinalValue.UserCategory.COMMON_MENBER:
 			request.setAttribute("user", user);
+			List<Region> provinces = regionService.getLowerRegions(1);
+			request.setAttribute("provinces", provinces);
 			if (user.getRegion() == null) {
 				request.setAttribute("province", "未设置");
 				request.setAttribute("city", "未设置");
@@ -56,10 +58,8 @@ public class LoginAction extends BaseAction {
 				request.setAttribute("province", province.getName());
 				request.setAttribute("city", city.getName());
 				request.setAttribute("county", county.getName());
-				List<Region> provinces = regionService.getLowerRegions(1);
 				List<Region> citys = regionService.getLowerRegions(province.getId());
 				List<Region> countys = regionService.getLowerRegions(city.getId());
-				request.setAttribute("provinces", provinces);
 				request.setAttribute("citys", citys);
 				request.setAttribute("countys", countys);
 			}

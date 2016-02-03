@@ -5,6 +5,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%
+	/*
+	该页面只有login.action可以到达，需要传递user,region,等参数
+	*/
 	String basePath = request.getContextPath();
 	User user = (User) request.getAttribute("user");
 	List<Region> provinces = (List<Region>) request.getAttribute("provinces");
@@ -102,55 +105,77 @@
 					<span class="input-group-addon">用户地区</span>
 					<select id="provinceSelect" class="form-control" onchange="changeProvince()">
 						<%
-							for (int i = 0; i < provinces.size(); i++) {
-								String optionStr = "";
-								if (request.getAttribute("province").equals(provinces.get(i).getName())) {
-									optionStr = "<option selected='selected' value='" + provinces.get(i).getId() + "'>"
-											+ provinces.get(i).getName() + "</option>";
-								}
-								else {
+							if (request.getAttribute("province").equals("未设置")) {
+								out.print("<option value='notset'>未设置</option>");
+								for (int i = 0; i < provinces.size(); i++) {
+									String optionStr = "";
 									optionStr = "<option value='" + provinces.get(i).getId() + "'>" + provinces.get(i).getName()
 											+ "</option>";
+									out.print(optionStr);
 								}
-								out.print(optionStr);
-							}
+							} //没有设置
+							else {
+								for (int i = 0; i < provinces.size(); i++) {
+									String optionStr = "";
+									if (request.getAttribute("province").equals(provinces.get(i).getName())) {
+										optionStr = "<option selected='selected' value='" + provinces.get(i).getId() + "'>"
+												+ provinces.get(i).getName() + "</option>";
+									}
+									else {
+										optionStr = "<option value='" + provinces.get(i).getId() + "'>" + provinces.get(i).getName()
+												+ "</option>";
+									}
+									out.print(optionStr);
+								}
+							} //已设置
 						%>
 					</select>
 					<span class="input-group-addon">省/直辖市</span>
 					<select id="citySelect" class="form-control" onchange="changeCity()">
 						<%
-							for (int i = 0; i < citys.size(); i++) {
-								String optionStr = "";
-								if (request.getAttribute("city").equals(citys.get(i).getName())) {
-									optionStr = "<option selected='selected' value='" + citys.get(i).getId() + "'>"
-											+ citys.get(i).getName() + "</option>";
+							if (request.getAttribute("city").equals("未设置")) {
+								out.print("<option  value='notset'>未设置</option>");
+							}
+							else {
+								for (int i = 0; i < citys.size(); i++) {
+									String optionStr = "";
+									if (request.getAttribute("city").equals(citys.get(i).getName())) {
+										optionStr = "<option selected='selected' value='" + citys.get(i).getId() + "'>"
+												+ citys.get(i).getName() + "</option>";
+									}
+									else {
+										optionStr = "<option value='" + citys.get(i).getId() + "'>" + citys.get(i).getName()
+												+ "</option>";
+									}
+									out.print(optionStr);
 								}
-								else {
-									optionStr = "<option value='" + citys.get(i).getId() + "'>" + citys.get(i).getName() + "</option>";
-								}
-								out.print(optionStr);
 							}
 						%>
 					</select>
 					<span class="input-group-addon">地级市</span>
-					<select id="countySelect" class="form-control" onchange="changeCounty()">
+					<select id="countySelect" class="form-control">
 						<%
-							for (int i = 0; i < countys.size(); i++) {
-								String optionStr = "";
-								if (request.getAttribute("county").equals(countys.get(i).getName())) {
-									optionStr = "<option selected='selected' value='" + countys.get(i).getId() + "'>"
-											+ countys.get(i).getName() + "</option>";
+							if (request.getAttribute("county").equals("未设置")) {
+								out.print("<option  value='notset'>未设置</option>");
+							}
+							else {
+								for (int i = 0; i < countys.size(); i++) {
+									String optionStr = "";
+									if (request.getAttribute("county").equals(countys.get(i).getName())) {
+										optionStr = "<option selected='selected' value='" + countys.get(i).getId() + "'>"
+												+ countys.get(i).getName() + "</option>";
+									}
+									else {
+										optionStr = "<option value='" + countys.get(i).getId() + "'>" + countys.get(i).getName()
+												+ "</option>";
+									}
+									out.print(optionStr);
 								}
-								else {
-									optionStr = "<option value='" + countys.get(i).getId() + "'>" + countys.get(i).getName()
-											+ "</option>";
-								}
-								out.print(optionStr);
 							}
 						%>
 					</select>
 					<span class="input-group-addon">县/区</span> <span class="input-group-btn">
-						<button class="btn btn-primary" type="button">保存修改</button>
+						<button class="btn btn-primary" type="button" onclick="changeRegion()">保存修改</button>
 					</span>
 				</div>
 				<div class="input-group">

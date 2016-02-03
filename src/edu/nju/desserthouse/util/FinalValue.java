@@ -45,7 +45,7 @@ public final class FinalValue {
 		public static final int SUSPEND = 2;// 暂停
 		public static final int STOP = 3;// 停止
 
-		private static final String[] stateStr = { "未激活", "正常使用", "暂停", "停止" };
+		private static final String[] stateStr = { "未激活(充值200元激活)", "正常使用", "暂停", "停止" };
 
 		public static final String getStrOfUserState(final int state) {
 			return (state >= 0 && state < stateStr.length) ? stateStr[state] : stateStr[0];

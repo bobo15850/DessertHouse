@@ -167,16 +167,75 @@ function changeBirthday() {
 
 function changeProvince() {
 	var provinceSelect = document.getElementById("provinceSelect");
-	// alert(provinceSelect.value);
 	var citySelect = document.getElementById("citySelect");
-	// citySelect.options.length = 0;
-	// citySelect.options.add(new Option("南京市", "2"));
+	var countySelect = document.getElementById("countySelect");
+	if (provinceSelect.value == "notset") {
+		citySelect.options.length = 0;
+		countySelect.options.length = 0;
+		citySelect.options.add(new Option("未设置", "notset", true));
+		countySelect.options.add(new Option("未设置", "notset", true));
+		return;
+	}
+	$.post("lowerRegions.action", {
+		"map.id" : provinceSelect.value
+	}, function(json) {
+		idsStr = new String(json.map.idsStr);
+		namesStr = new String(json.map.namesStr);
+		ids = idsStr.split("-");
+		names = namesStr.split("-");
+		citySelect.options.length = 0;
+		citySelect.options.add(new Option(names[0], ids[0], true));// 第一个城市默认被选中
+		for (i = 1; i < ids.length; i++) {
+			citySelect.options.add(new Option(names[i], ids[i]));
+		}
+		$.post("lowerRegions.action", {
+			"map.id" : ids[0]
+		}, function(json) {
+			idsStr = new String(json.map.idsStr);
+			namesStr = new String(json.map.namesStr);
+			ids = idsStr.split("-");
+			names = namesStr.split("-");
+			countySelect.options.length = 0;
+			countySelect.options.add(new Option(names[0], ids[0], true));// 第一个区县默认被选中
+			for (i = 1; i < ids.length; i++) {
+				countySelect.options.add(new Option(names[i], ids[i]));
+			}
+		});// 设置区县
+	});// 设置城市
 }// 改变省份
 
 function changeCity() {
-
+	var citySelect = document.getElementById("citySelect");
+	var countySelect = document.getElementById("countySelect");
+	$.post("lowerRegions.action", {
+		"map.id" : citySelect.value
+	}, function(json) {
+		idsStr = new String(json.map.idsStr);
+		namesStr = new String(json.map.namesStr);
+		ids = idsStr.split("-");
+		names = namesStr.split("-");
+		countySelect.options.length = 0;
+		countySelect.options.add(new Option(names[0], ids[0], true));// 第一个选项默认被选中
+		for (i = 1; i < ids.length; i++) {
+			countySelect.options.add(new Option(names[i], ids[i]));
+		}
+	});
 }// 改变城市
 
-function changeCounty() {
-
-}// 改变县区
+function changeRegion() {
+	var messageShow = document.getElementById("message");
+	var countySelect = document.getElementById("countySelect");
+	if (countySelect.value == "notset") {
+		messageShow.innerHTML = "用户区域尚未设置，无法保存";
+	} else {
+		$.post("setRegion.action", {
+			"map.id" : countySelect.value
+		}, function(json) {
+			if (json.map.result == "success") {
+				messageShow.innerHTML = "用户地区设置成功";
+			} else {
+				messageShow.innerHTML = "用户地区设置失败";
+			}
+		});
+	}
+}// 设置所属区域

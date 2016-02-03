@@ -21,4 +21,6 @@ public interface UserService {
 	public ResultMessage setRepeatIntField(int id, String fieldName, int value);
 
 	public ResultMessage setRepeatDate(int id, String fieldName, Date value);
+
+	public ResultMessage updateUser(User user);
 }

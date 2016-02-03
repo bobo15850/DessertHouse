@@ -173,4 +173,9 @@ public class UserServiceImpl implements UserService {
 		}
 		return ResultMessage.FAILURE;
 	}
+
+	@Override
+	public ResultMessage updateUser(User user) {
+		return userDao.update(user);
+	}
 }
