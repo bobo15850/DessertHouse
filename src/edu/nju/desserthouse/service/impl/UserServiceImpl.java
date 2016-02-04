@@ -10,9 +10,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.nju.desserthouse.dao.RegionDao;
 import edu.nju.desserthouse.dao.UserDao;
+import edu.nju.desserthouse.model.Region;
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.UserService;
+import edu.nju.desserthouse.util.FinalValue;
 import edu.nju.desserthouse.util.ResultMessage;
 
 @Service
@@ -20,6 +23,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private RegionDao regionDao;
 
 	public boolean isUserNameExist(String username) {
 		String[] columns = { "username" };
@@ -175,7 +180,45 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public ResultMessage updateUser(User user) {
+	public ResultMessage setUserRegion(int userId, int regionId) {
+		User user = userDao.get(User.class, userId);
+		Region region = regionDao.get(Region.class, regionId);
+		user.setRegion(region);
 		return userDao.update(user);
+	}
+
+	@Override
+	public User inactive(int id) {
+		User user = userDao.get(User.class, id);
+		user.setBalance(user.getBalance() + 200);
+		user.setState(FinalValue.UserState.NORMAL);
+		ResultMessage result = userDao.update(user);
+		if (result == ResultMessage.SUCCESS) {
+			return user;
+		}
+		return null;
+	}
+
+	@Override
+	public User renewal(int id) {
+		User user = userDao.get(User.class, id);
+		user.setBalance(user.getBalance() + 200);
+		user.setState(FinalValue.UserState.NORMAL);
+		ResultMessage result = userDao.update(user);
+		if (result == ResultMessage.SUCCESS) {
+			return user;
+		}
+		return null;
+	}
+
+	@Override
+	public User recharge(int id, double amount) {
+		User user = userDao.get(User.class, id);
+		user.setBalance(user.getBalance() + amount);
+		ResultMessage result = userDao.update(user);
+		if (result == ResultMessage.SUCCESS) {
+			return user;
+		}
+		return null;
 	}
 }

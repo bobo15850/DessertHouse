@@ -20,7 +20,7 @@ import edu.nju.desserthouse.util.ResultMessage;
 import edu.nju.desserthouse.util.UserBase;
 
 @ParentPackage("json-default")
-public class SetFieldAction extends BaseAction {
+public class UserManageAction extends BaseAction {
 	private static final long serialVersionUID = 4849557797102900761L;
 	private Map<String, String> map = new HashMap<String, String>();
 	@Autowired
@@ -109,10 +109,7 @@ public class SetFieldAction extends BaseAction {
 	public String setRegion() {
 		int id = Integer.parseInt(map.get("id"));
 		UserBase userBase = (UserBase) session.get("userBase");
-		User user = userService.getUserById(userBase.getId());
-		Region region = regionService.getRegionById(id);
-		user.setRegion(region);
-		ResultMessage result = userService.updateUser(user);
+		ResultMessage result = userService.setUserRegion(userBase.getId(), id);
 		if (result == ResultMessage.SUCCESS) {
 			map.put("result", SUCCESS);
 		}
@@ -137,6 +134,49 @@ public class SetFieldAction extends BaseAction {
 			String namesStr = nameBuilder.toString();
 			map.put("idsStr", idsStr.substring(0, idsStr.length() - 1));
 			map.put("namesStr", namesStr.substring(0, namesStr.length() - 1));
+		}
+		return SUCCESS;
+	}
+
+	@Action(value = "inactiveAccount", results = { @Result(name = SUCCESS, type = "json") })
+	public String inactiveAccount() {
+		UserBase userBase = (UserBase) session.get("userBase");
+		User user = userService.inactive(userBase.getId());
+		if (user != null) {
+			map.put("result", SUCCESS);
+			map.put("balance", String.valueOf(user.getBalance()));
+		}
+		else {
+			map.put("result", ERROR);
+		}
+		return SUCCESS;
+	}
+
+	@Action(value = "renewalAccount", results = { @Result(name = SUCCESS, type = "json") })
+	public String renewalAccount() {
+		UserBase userBase = (UserBase) session.get("userBase");
+		User user = userService.renewal(userBase.getId());
+		if (user != null) {
+			map.put("result", SUCCESS);
+			map.put("balance", String.valueOf(user.getBalance()));
+		}
+		else {
+			map.put("result", ERROR);
+		}
+		return SUCCESS;
+	}
+
+	@Action(value = "rechargeAccount", results = { @Result(name = SUCCESS, type = "json") })
+	public String rechargeAccount() {
+		double amount = Double.parseDouble(map.get("amount"));// 充值金额
+		UserBase userBase = (UserBase) session.get("userBase");
+		User user = userService.recharge(userBase.getId(), amount);
+		if (user != null) {
+			map.put("result", SUCCESS);
+			map.put("balance", String.valueOf(user.getBalance()));
+		}
+		else {
+			map.put("result", ERROR);
 		}
 		return SUCCESS;
 	}

@@ -179,12 +179,13 @@ function changeProvince() {
 	$.post("lowerRegions.action", {
 		"map.id" : provinceSelect.value
 	}, function(json) {
-		idsStr = new String(json.map.idsStr);
-		namesStr = new String(json.map.namesStr);
-		ids = idsStr.split("-");
-		names = namesStr.split("-");
+		var idsStr = new String(json.map.idsStr);
+		var namesStr = new String(json.map.namesStr);
+		var ids = idsStr.split("-");
+		var names = namesStr.split("-");
 		citySelect.options.length = 0;
 		citySelect.options.add(new Option(names[0], ids[0], true));// 第一个城市默认被选中
+		var i = 1;
 		for (i = 1; i < ids.length; i++) {
 			citySelect.options.add(new Option(names[i], ids[i]));
 		}
@@ -210,12 +211,13 @@ function changeCity() {
 	$.post("lowerRegions.action", {
 		"map.id" : citySelect.value
 	}, function(json) {
-		idsStr = new String(json.map.idsStr);
-		namesStr = new String(json.map.namesStr);
-		ids = idsStr.split("-");
-		names = namesStr.split("-");
+		var idsStr = new String(json.map.idsStr);
+		var namesStr = new String(json.map.namesStr);
+		var ids = idsStr.split("-");
+		var names = namesStr.split("-");
 		countySelect.options.length = 0;
 		countySelect.options.add(new Option(names[0], ids[0], true));// 第一个选项默认被选中
+		var i = 1;
 		for (i = 1; i < ids.length; i++) {
 			countySelect.options.add(new Option(names[i], ids[i]));
 		}
@@ -239,3 +241,54 @@ function changeRegion() {
 		});
 	}
 }// 设置所属区域
+
+function inactiveAccount() {
+	var messageShow = document.getElementById("message");
+	$.post("inactiveAccount.action", {}, function(json) {
+		if (json.map.result == "success") {
+			document.getElementById("userStateInput").value = "正常使用";
+			document.getElementById("balanceInput").value = json.map.balance;
+			messageShow.innerHTML = "账户激活成功";
+		} else {
+			messageShow.innerHTML = "账户激活失败";
+		}
+	});
+}// 激活账户
+
+function renewalAccount() {
+	var messageShow = document.getElementById("message");
+	$.post("renewalAccount.action", {}, function(json) {
+		if (json.map.result == "success") {
+			document.getElementById("userStateInput").value = "正常使用";
+			document.getElementById("balanceInput").value = json.map.balance;
+			messageShow.innerHTML = "账户续费成功";
+		} else {
+			messageShow.innerHTML = "账户续费失败";
+		}
+	});
+}// 续费账户
+
+function rechargeAccount() {
+	var messageShow = document.getElementById("message");
+	var amount = document.getElementById("amountInput").value;// 充值金额
+	if (amount == null || isNaN(amount) || amount.length > 5) {
+		document.getElementById("amountInput").value = "";
+		document.getElementById("amountInput").placeholder = "请输入数字,且不超过99999";
+	} else {
+		$
+				.post(
+						"rechargeAccount.action",
+						{
+							"map.amount" : amount
+						},
+						function(json) {
+							if (json.map.result == "success") {
+								document.getElementById("balanceInput").value = json.map.balance;
+								messageShow.innerHTML = "账户充值成功";
+							} else {
+								messageShow.innerHTML = "账户充值失败";
+							}
+						});
+		$('#rechargeAccountModel').modal('hide');// 隐藏模态框
+	}
+}

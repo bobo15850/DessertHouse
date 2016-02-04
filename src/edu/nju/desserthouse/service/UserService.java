@@ -20,7 +20,14 @@ public interface UserService {
 
 	public ResultMessage setRepeatIntField(int id, String fieldName, int value);
 
-	public ResultMessage setRepeatDate(int id, String fieldName, Date value);
+	public ResultMessage setRepeatDate(int id, String fieldName, Date value);// 设置日期
 
-	public ResultMessage updateUser(User user);
+	public ResultMessage setUserRegion(int userId, int regionId);// 设置用户地区
+
+	public User inactive(int id);// 激活
+
+	public User renewal(int id);// 续费
+
+	public User recharge(int id, double amount);// 充值
+
 }

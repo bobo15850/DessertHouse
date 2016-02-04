@@ -48,7 +48,8 @@
 				</div>
 				<div class="unset-item">
 					<label>会员资格</label>
-					<input type="text" class="form-control" value="<%=FinalValue.UserState.getStrOfUserState(user.getState())%>" readonly="readonly" />
+					<input id="userStateInput" type="text" class="form-control" value="<%=FinalValue.UserState.getStrOfUserState(user.getState())%>"
+						readonly="readonly" />
 				</div>
 				<div class="unset-item">
 					<label>消费总额</label>
@@ -102,7 +103,7 @@
 					</span>
 				</div>
 				<div class="input-group">
-					<span class="input-group-addon">用户地区</span>
+					<span class="input-group-addon">所在省/直辖市</span>
 					<select id="provinceSelect" class="form-control" onchange="changeProvince()">
 						<%
 							if (request.getAttribute("province").equals("未设置")) {
@@ -130,7 +131,7 @@
 							} //已设置
 						%>
 					</select>
-					<span class="input-group-addon">省/直辖市</span>
+					<span class="input-group-addon">地级市</span>
 					<select id="citySelect" class="form-control" onchange="changeCity()">
 						<%
 							if (request.getAttribute("city").equals("未设置")) {
@@ -152,7 +153,7 @@
 							}
 						%>
 					</select>
-					<span class="input-group-addon">地级市</span>
+					<span class="input-group-addon">县/区</span>
 					<select id="countySelect" class="form-control">
 						<%
 							if (request.getAttribute("county").equals("未设置")) {
@@ -174,7 +175,7 @@
 							}
 						%>
 					</select>
-					<span class="input-group-addon">县/区</span> <span class="input-group-btn">
+					<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" onclick="changeRegion()">保存修改</button>
 					</span>
 				</div>
@@ -187,10 +188,91 @@
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">账户余额</span>
-					<input type="text" class="form-control" value="<%=user.getBalance()%>" readonly="readonly">
+					<input id="balanceInput" type="text" class="form-control" value="<%=user.getBalance()%>" readonly="readonly">
+					<%
+						if (user.getState() == FinalValue.UserState.INACTIVE) {
+					%>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button">账户充值</button>
+						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#inactiveAccountModel">激活账户</button>
 					</span>
+
+					<%
+						}
+						else if (user.getState() == FinalValue.UserState.STOP) {
+					%>
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button" disabled="disabled">账户停止</button>
+					</span>
+					<%
+						}
+						else if (user.getState() == FinalValue.UserState.SUSPEND) {
+					%>
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#renewalAccountModel">账户续费</button>
+					</span>
+					<%
+						}
+						else {
+					%>
+					<span class="input-group-btn">
+						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#rechargeAccountModel">账户充值</button>
+					</span>
+					<%
+						}
+					%>
+					<div class="modal fade" id="inactiveAccountModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="myModalLabel">激活账户</h4>
+								</div>
+								<div class="modal-body">激活账户需要充值200元，且从绑定的银行卡扣款，如果未绑定银行卡请先绑定银行卡，是否现在激活？</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="inactiveAccount()">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal fade" id="renewalAccountModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="myModalLabel">账户续费</h4>
+								</div>
+								<div class="modal-body">会员记录已暂停（一年内若未充值则停止账户）需要充值200元恢复会员资格，且从绑定银行卡扣款，如果未绑定银行卡请先绑定银行卡，是否现在恢复？</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="renewalAccount()">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal fade" id="rechargeAccountModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="myModalLabel">账户充值</h4>
+								</div>
+								<div class="modal-body">
+									<input id="amountInput" type="text" class="form-control" placeholder="请输入充值金额">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-primary" onclick="rechargeAccount()">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">账户积分</span>
