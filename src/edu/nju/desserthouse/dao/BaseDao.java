@@ -9,8 +9,6 @@ import edu.nju.desserthouse.util.ResultMessage;
 public interface BaseDao {
 	public Session getSession();
 
-	public Session getNewSession();
-
 	public ResultMessage flush();
 
 	public ResultMessage clear();

@@ -21,10 +21,6 @@ public class BaseDaoImpl implements BaseDao {
 		return sessionFactory.getCurrentSession();
 	}
 
-	public Session getNewSession() {
-		return sessionFactory.openSession();
-	}
-
 	public ResultMessage flush() {
 		try {
 			getSession().flush();
@@ -47,11 +43,10 @@ public class BaseDaoImpl implements BaseDao {
 
 	public ResultMessage save(Object bean) {
 		try {
-			Session session = getNewSession();
+			Session session = getSession();
 			session.save(bean);
 			session.flush();
 			session.clear();
-			session.close();
 			return ResultMessage.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,11 +56,10 @@ public class BaseDaoImpl implements BaseDao {
 
 	public ResultMessage delete(Object bean) {
 		try {
-			Session session = getNewSession();
+			Session session = getSession();
 			session.delete(bean);
 			session.flush();
 			session.clear();
-			session.close();
 			return ResultMessage.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -75,12 +69,11 @@ public class BaseDaoImpl implements BaseDao {
 
 	public ResultMessage delete(Class<?> c, int id) {
 		try {
-			Session session = getNewSession();
+			Session session = getSession();
 			Object obj = session.get(c, id);
 			session.delete(obj);
 			session.flush();
 			session.clear();
-			session.close();
 			return ResultMessage.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,11 +83,10 @@ public class BaseDaoImpl implements BaseDao {
 
 	public ResultMessage update(Object bean) {
 		try {
-			Session session = getNewSession();
+			Session session = getSession();
 			session.update(bean);
 			session.flush();
 			session.clear();
-			session.close();
 			return ResultMessage.SUCCESS;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -127,7 +119,7 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	public Long getTotalCount(Class<?> c) {
-		Session session = getNewSession();
+		Session session = getSession();
 		String hql = "select count(*) from " + c.getName();
 		Long count = (Long) session.createQuery(hql).uniqueResult();
 		session.close();

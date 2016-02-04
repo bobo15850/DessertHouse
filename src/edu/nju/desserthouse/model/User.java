@@ -3,6 +3,7 @@ package edu.nju.desserthouse.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /*
  * 用户，包括会员和其他管理员等
@@ -50,6 +55,10 @@ public class User implements Serializable {
 	@ManyToOne
 	@JoinColumn
 	private Shop shop;// 所属店铺
+
+	@OneToMany(mappedBy = "user")
+	@Cascade(value = { CascadeType.SAVE_UPDATE, CascadeType.DELETE })
+	private Set<RechargeRecord> rechargeRecordSet;// 充值记录
 
 	public int getId() {
 		return id;
@@ -194,4 +203,13 @@ public class User implements Serializable {
 	public void setShop(Shop shop) {
 		this.shop = shop;
 	}
+
+	public Set<RechargeRecord> getRechargeRecordSet() {
+		return rechargeRecordSet;
+	}
+
+	public void setRechargeRecordSet(Set<RechargeRecord> rechargeRecordSet) {
+		this.rechargeRecordSet = rechargeRecordSet;
+	}
+
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import edu.nju.desserthouse.dao.RegionDao;
 import edu.nju.desserthouse.dao.UserDao;
+import edu.nju.desserthouse.model.RechargeRecord;
 import edu.nju.desserthouse.model.Region;
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.UserService;
@@ -25,6 +26,8 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	@Autowired
 	private RegionDao regionDao;
+
+	private static final double INIT_MONEY = 200;
 
 	public boolean isUserNameExist(String username) {
 		String[] columns = { "username" };
@@ -190,10 +193,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User inactive(int id) {
 		User user = userDao.get(User.class, id);
-		user.setBalance(user.getBalance() + 200);
+		user.setBalance(user.getBalance() + INIT_MONEY);
 		user.setState(FinalValue.UserState.NORMAL);
-		ResultMessage result = userDao.update(user);
-		if (result == ResultMessage.SUCCESS) {
+		RechargeRecord record = this.getRechargeRecord(INIT_MONEY, user);
+		user.getRechargeRecordSet().add(record);
+		ResultMessage userResult = userDao.update(user);
+		if (userResult == ResultMessage.SUCCESS) {
 			return user;
 		}
 		return null;
@@ -202,10 +207,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User renewal(int id) {
 		User user = userDao.get(User.class, id);
-		user.setBalance(user.getBalance() + 200);
+		user.setBalance(user.getBalance() + INIT_MONEY);
 		user.setState(FinalValue.UserState.NORMAL);
-		ResultMessage result = userDao.update(user);
-		if (result == ResultMessage.SUCCESS) {
+		RechargeRecord record = this.getRechargeRecord(INIT_MONEY, user);
+		user.getRechargeRecordSet().add(record);
+		ResultMessage userResult = userDao.update(user);
+		if (userResult == ResultMessage.SUCCESS) {
 			return user;
 		}
 		return null;
@@ -215,10 +222,20 @@ public class UserServiceImpl implements UserService {
 	public User recharge(int id, double amount) {
 		User user = userDao.get(User.class, id);
 		user.setBalance(user.getBalance() + amount);
-		ResultMessage result = userDao.update(user);
-		if (result == ResultMessage.SUCCESS) {
+		RechargeRecord record = this.getRechargeRecord(amount, user);
+		user.getRechargeRecordSet().add(record);
+		ResultMessage userResult = userDao.update(user);
+		if (userResult == ResultMessage.SUCCESS) {
 			return user;
 		}
 		return null;
+	}
+
+	private RechargeRecord getRechargeRecord(double money, User user) {
+		RechargeRecord record = new RechargeRecord();
+		record.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+		record.setMoney(money);
+		record.setUser(user);
+		return record;
 	}
 }
