@@ -16,6 +16,7 @@ import edu.nju.desserthouse.model.Region;
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.RegionService;
 import edu.nju.desserthouse.service.UserService;
+import edu.nju.desserthouse.util.FinalValue;
 import edu.nju.desserthouse.util.ResultMessage;
 import edu.nju.desserthouse.util.UserBase;
 
@@ -43,6 +44,7 @@ public class UserManageAction extends BaseAction {
 		else {
 			map.put("result", ERROR);
 		}
+		map.remove("field");
 		map.remove("value");
 		return SUCCESS;
 	}
@@ -57,6 +59,7 @@ public class UserManageAction extends BaseAction {
 		else {
 			map.put("result", ERROR);
 		}
+		map.remove("field");
 		map.remove("value");
 		return SUCCESS;
 	}
@@ -72,6 +75,7 @@ public class UserManageAction extends BaseAction {
 		else {
 			map.put("result", ERROR);
 		}
+		map.remove("field");
 		map.remove("value");
 		return SUCCESS;
 	}
@@ -86,6 +90,7 @@ public class UserManageAction extends BaseAction {
 		else {
 			map.put("result", "success");
 		}
+		map.remove("oldPassword");
 		return SUCCESS;
 	}// 判断旧密码是否正确
 
@@ -116,6 +121,7 @@ public class UserManageAction extends BaseAction {
 		else {
 			map.put("result", ERROR);
 		}
+		map.remove("id");
 		return SUCCESS;
 	}
 
@@ -135,6 +141,7 @@ public class UserManageAction extends BaseAction {
 			map.put("idsStr", idsStr.substring(0, idsStr.length() - 1));
 			map.put("namesStr", namesStr.substring(0, namesStr.length() - 1));
 		}
+		map.remove("id");
 		return SUCCESS;
 	}
 
@@ -159,6 +166,7 @@ public class UserManageAction extends BaseAction {
 		if (user != null) {
 			map.put("result", SUCCESS);
 			map.put("balance", String.valueOf(user.getBalance()));
+			map.put("level", FinalValue.UserLevel.getStrOfUserLevel(user.getLevel()));
 		}
 		else {
 			map.put("result", ERROR);
@@ -174,10 +182,32 @@ public class UserManageAction extends BaseAction {
 		if (user != null) {
 			map.put("result", SUCCESS);
 			map.put("balance", String.valueOf(user.getBalance()));
+			map.put("level", FinalValue.UserLevel.getStrOfUserLevel(user.getLevel()));
 		}
 		else {
 			map.put("result", ERROR);
 		}
+		map.remove("amount");
+		return SUCCESS;
+	}
+
+	@Action(value = "cancelMembership", results = { @Result(name = SUCCESS, type = "json") })
+	public String cancelMembership() {
+		UserBase userBase = (UserBase) session.get("userBase");
+		User user = userService.login(userBase.getUsername(), map.get("password"));
+		if (user != null) {
+			ResultMessage result = userService.setRepeatIntField(userBase.getId(), "state", FinalValue.UserState.STOP);
+			if (result == ResultMessage.SUCCESS) {
+				map.put("result", SUCCESS);
+			}
+			else {
+				map.put("result", ERROR);
+			}
+		}
+		else {
+			map.put("result", "passwordError");
+		}
+		map.remove("password");
 		return SUCCESS;
 	}
 

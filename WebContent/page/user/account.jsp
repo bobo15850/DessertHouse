@@ -44,7 +44,8 @@
 				</div>
 				<div class="unset-item">
 					<label>会员等级 </label>
-					<input type="text" class="form-control" value="<%=FinalValue.UserLevel.getStrOfUserLevel(user.getLevel())%>" readonly="readonly" />
+					<input id="userLevelInput" type="text" class="form-control" value="<%=FinalValue.UserLevel.getStrOfUserLevel(user.getLevel())%>"
+						readonly="readonly" />
 				</div>
 				<div class="unset-item">
 					<label>会员资格</label>
@@ -193,7 +194,7 @@
 						if (user.getState() == FinalValue.UserState.INACTIVE) {
 					%>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#inactiveAccountModel">激活账户</button>
+						<button id="inactiveAccountBtn" class="btn btn-primary" type="button" data-toggle="modal" data-target="#inactiveAccountModel">激活账户</button>
 					</span>
 
 					<%
@@ -208,14 +209,14 @@
 						else if (user.getState() == FinalValue.UserState.SUSPEND) {
 					%>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#renewalAccountModel">账户续费</button>
+						<button id="renewalAccountBtn" class="btn btn-primary" type="button" data-toggle="modal" data-target="#renewalAccountModel">账户续费</button>
 					</span>
 					<%
 						}
 						else {
 					%>
 					<span class="input-group-btn">
-						<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#rechargeAccountModel">账户充值</button>
+						<button id="rechargeAccountBtn" class="btn btn-primary" type="button" data-toggle="modal" data-target="#rechargeAccountModel">账户充值</button>
 					</span>
 					<%
 						}
@@ -293,6 +294,35 @@
 					</span>
 				</div>
 
+				<div>
+					<%
+						if (user.getState() != FinalValue.UserState.STOP) {
+					%>
+					<button id="cancleMemberBtn" class="btn btn-danger btn-block" type="button" data-toggle="modal" data-target="#cancleMembershipModel">取消会员资格</button>
+					<%
+						}
+					%>
+					<div class="modal fade" id="cancleMembershipModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="myModalLabel">取消会员资格</h4>
+								</div>
+								<div class="modal-body">
+									<label>取消会员资格即为将当前会员状态变为停止</label>
+									<input id="cancleConfirmInput" type="password" class="form-control" placeholder="请输入密码">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-primary" onclick="cancleMembership()">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

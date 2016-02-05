@@ -33,9 +33,14 @@ public final class FinalValue {
 		public static final int VIP = 2;// vip会员
 
 		private static final String[] levelStr = { "基础会员", "高级会员", "vip会员" };
+		private static final double[] levelBaseline = { 0, 1000, 5000 };
 
 		public static String getStrOfUserLevel(final int level) {
 			return (level >= 0 && level < levelStr.length) ? levelStr[level] : levelStr[0];
+		}
+
+		public static double getBaseLine(final int level) {
+			return (level >= 0 && level < levelStr.length) ? levelBaseline[level] : levelBaseline[0];
 		}
 	}// 用户等级
 

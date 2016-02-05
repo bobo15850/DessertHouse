@@ -261,6 +261,7 @@ function renewalAccount() {
 		if (json.map.result == "success") {
 			document.getElementById("userStateInput").value = "正常使用";
 			document.getElementById("balanceInput").value = json.map.balance;
+			document.getElementById("userLevelInput").value = json.map.level;
 			messageShow.innerHTML = "账户续费成功";
 		} else {
 			messageShow.innerHTML = "账户续费失败";
@@ -284,6 +285,7 @@ function rechargeAccount() {
 						function(json) {
 							if (json.map.result == "success") {
 								document.getElementById("balanceInput").value = json.map.balance;
+								document.getElementById("userLevelInput").value = json.map.level;
 								messageShow.innerHTML = "账户充值成功";
 							} else {
 								messageShow.innerHTML = "账户充值失败";
@@ -292,3 +294,42 @@ function rechargeAccount() {
 		$('#rechargeAccountModel').modal('hide');// 隐藏模态框
 	}
 }
+
+function cancleMembership() {
+	var messageShow = document.getElementById("message");
+	var password = document.getElementById("cancleConfirmInput").value;
+	if (password == null || password.length < 8 || password.length > 16) {
+		document.getElementById("cancleConfirmInput").value = "";
+		document.getElementById("cancleConfirmInput").placeholder = "请输入密码，8-16位";
+	} else {
+		$
+				.post(
+						"cancelMembership.action",
+						{
+							"map.password" : password
+						},
+						function(json) {
+							if (json.map.result == "success") {
+								messageShow.innerHTML = "会员资格已终止";
+								document.getElementById("userStateInput").value = "停止";
+								document.getElementById("cancleMemberBtn").disabled = "disabled";
+								var btns = [ "inactiveAccountBtn",
+										"renewalAccountBtn",
+										"rechargeAccountBtn" ];
+								var i = 0;
+								for (i = 0; i < btns.length; i++) {
+									if (document.getElementById(btns[i]) != null) {
+										document.getElementById(btns[i]).disabled = "disabled";
+									}
+								}
+								$('#cancleMembershipModel').modal('hide');// 隐藏模态框
+							} else if (json.map.result == "passwordError") {
+								document.getElementById("cancleConfirmInput").value = "";
+								document.getElementById("cancleConfirmInput").placeholder = "密码错误";
+							} else {
+								document.getElementById("cancleConfirmInput").value = "";
+								document.getElementById("cancleConfirmInput").placeholder = "未知错误请重新尝试";
+							}
+						});
+	}
+}// 取消会员资格

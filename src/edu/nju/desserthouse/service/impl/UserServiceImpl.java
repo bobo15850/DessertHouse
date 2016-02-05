@@ -211,6 +211,7 @@ public class UserServiceImpl implements UserService {
 		user.setState(FinalValue.UserState.NORMAL);
 		RechargeRecord record = this.getRechargeRecord(INIT_MONEY, user);
 		user.getRechargeRecordSet().add(record);
+		this.setUserLevel(user);
 		ResultMessage userResult = userDao.update(user);
 		if (userResult == ResultMessage.SUCCESS) {
 			return user;
@@ -224,6 +225,7 @@ public class UserServiceImpl implements UserService {
 		user.setBalance(user.getBalance() + amount);
 		RechargeRecord record = this.getRechargeRecord(amount, user);
 		user.getRechargeRecordSet().add(record);
+		this.setUserLevel(user);
 		ResultMessage userResult = userDao.update(user);
 		if (userResult == ResultMessage.SUCCESS) {
 			return user;
@@ -238,4 +240,17 @@ public class UserServiceImpl implements UserService {
 		record.setUser(user);
 		return record;
 	}
+
+	private void setUserLevel(User user) {
+		double total = user.getBalance() + user.getConsumption();
+		if (total >= FinalValue.UserLevel.getBaseLine(FinalValue.UserLevel.VIP)) {
+			user.setLevel(FinalValue.UserLevel.VIP);
+		}
+		else if (total >= FinalValue.UserLevel.getBaseLine(FinalValue.UserLevel.ADVANCED_MENBER)) {
+			user.setLevel(FinalValue.UserLevel.ADVANCED_MENBER);
+		}
+		else {
+			user.setLevel(FinalValue.UserLevel.BASIC_MEMBER);
+		}
+	}// 设置用户等级分为1000,5000,5000以上三个等级
 }
