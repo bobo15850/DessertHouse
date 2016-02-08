@@ -6,16 +6,7 @@
 	UserBase userbase = null;//session中的用户信息
 	String basePath = null;//项目上下文地址
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>header</title>
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-</head>
-<body>
-
-	<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 	<div class="navbar-header">
 		<a class="navbar-brand" href="#">DessertHouse</a>
 	</div>
@@ -34,10 +25,10 @@
 					switch (userbase.getCategory()) {
 					case FinalValue.UserCategory.COMMON_MENBER:
 			%>
-			<li class="active"><a href="#">我的账户</a></li>
-			<li><a href="#">消费记录</a></li>
-			<li><a href="#">预定商品</a></li>
-			<li><a href="#">充值信息</a></li>
+			<li class="active"><a href="<%=basePath%>/user/myAccount.action">我的账户</a></li>
+			<li><a href="<%=basePath%>/user/consumptionRecord.action">消费记录</a></li>
+			<li><a href="<%=basePath%>/user/bookGoods.action">预定商品</a></li>
+			<li><a href="<%=basePath%>/user/rechargeRecord.action">充值信息</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.BRANCH_WAITER:
@@ -85,6 +76,4 @@
 			%>
 		</ul>
 	</div>
-	</nav>
-</body>
-</html>
+</nav>

@@ -304,7 +304,7 @@ function cancleMembership() {
 	} else {
 		$
 				.post(
-						"cancelMembership.action",
+						"cancleMembership.action",
 						{
 							"map.password" : password
 						},

@@ -38,6 +38,9 @@ public class RegisterAction extends BaseAction {
 				addFieldError("registerMessage", "该用户名已经被注册");
 			}
 		}
+		else {
+			addFieldError("registerMessage", "用户名由字母数字和下划线组成且不超过10字符");
+		}
 	}// 验证用户名是否已经被注册过了
 
 	public User getUser() {

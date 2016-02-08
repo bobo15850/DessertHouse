@@ -21,6 +21,7 @@ public class Product implements Serializable {
 	private int id;// 逻辑主键
 	private String goodsname;// 产品名称
 	private String info;// 附加信息
+	private String picture;// 图片地址
 	private Timestamp createdTime;// 创建时间
 
 	public int getId() {
@@ -47,6 +48,14 @@ public class Product implements Serializable {
 		this.info = info;
 	}
 
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
 	public Timestamp getCreatedTime() {
 		return createdTime;
 	}
@@ -54,4 +63,5 @@ public class Product implements Serializable {
 	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
 	}
+
 }

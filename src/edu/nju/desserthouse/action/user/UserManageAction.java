@@ -191,8 +191,8 @@ public class UserManageAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	@Action(value = "cancelMembership", results = { @Result(name = SUCCESS, type = "json") })
-	public String cancelMembership() {
+	@Action(value = "cancleMembership", results = { @Result(name = SUCCESS, type = "json") })
+	public String cancleMembership() {
 		UserBase userBase = (UserBase) session.get("userBase");
 		User user = userService.login(userBase.getUsername(), map.get("password"));
 		if (user != null) {
