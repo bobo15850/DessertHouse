@@ -25,35 +25,36 @@
 					switch (userbase.getCategory()) {
 					case FinalValue.UserCategory.COMMON_MENBER:
 			%>
-			<li class="active"><a href="<%=basePath%>/user/myAccount.action">我的账户</a></li>
-			<li><a href="<%=basePath%>/user/consumptionRecord.action">消费记录</a></li>
-			<li><a href="<%=basePath%>/user/bookGoods.action">预定商品</a></li>
-			<li><a href="<%=basePath%>/user/rechargeRecord.action">充值信息</a></li>
+			<li class="active"><a href="<%=basePath%>/head/myAccount.action">我的账户</a></li>
+			<li><a href="<%=basePath%>/head/consumptionRecord.action">消费记录</a></li>
+			<li><a href="<%=basePath%>/head/bookGoods.action">预定商品</a></li>
+			<li><a href="<%=basePath%>/head/rechargeRecord.action">充值信息</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.BRANCH_WAITER:
 			%>
-			<li class="active"><a href="#">销售</a></li>
-			<li><a href="#">查看会员信息</a></li>
-			<li><a href="#">我的账户</a></li>
+			<li><a href="<%=basePath%>/head/sale.action">销售</a></li>
+			<li><a href="<%=basePath%>/head/viewUserInfo.action">查看会员信息</a></li>
+			<li><a href="<%=basePath%>/head/viewUserRecharge.action">查看会员缴费</a></li>
+			<li><a href="<%=basePath%>/head/viewUserConsumption.action">查看会员消费</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.HEAD_WAITER:
 			%>
-			<li class="active"><a href="#">产品计划</a></li>
-			<li><a href="#">产品管理</a></li>
+			<li><a href="<%=basePath%>/head/schedule.action">产品计划</a></li>
+			<li><a href="<%=basePath%>/head/product.action">产品管理</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.MANAGER:
 			%>
-			<li class="active"><a href="#">产品计划审批</a></li>
-			<li><a href="#">逐月统计</a></li>
+			<li class="active"><a href="#<%=basePath%>/head/approval.action">产品计划审批</a></li>
+			<li><a href="<%=basePath%>/head/statistics.action">逐月统计</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.ADMINISTRATOR:
 			%>
-			<li class="active"><a href="#">店面管理</a></li>
-			<li><a href="#">店员管理</a></li>
+			<li class="active"><a href="<%=basePath%>/head/shop.action">店面管理</a></li>
+			<li><a href="<%=basePath%>/head/staff.action">店员管理</a></li>
 			<%
 				break;
 					}
