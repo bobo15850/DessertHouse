@@ -3,6 +3,7 @@ package edu.nju.desserthouse.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,8 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;// 逻辑主键
-	private String goodsname;// 产品名称
+	@Column(nullable = true, unique = true)
+	private String name;// 产品名称
 	private String info;// 附加信息
 	private String picture;// 图片地址
 	private Timestamp createdTime;// 创建时间
@@ -30,14 +32,6 @@ public class Product implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getGoodsname() {
-		return goodsname;
-	}
-
-	public void setGoodsname(String goodsname) {
-		this.goodsname = goodsname;
 	}
 
 	public String getInfo() {
@@ -62,6 +56,14 @@ public class Product implements Serializable {
 
 	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

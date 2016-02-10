@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+
+#main-body {
+	min-height: 500px;
+}
+
+.left-bar div {
+	margin-bottom: 20px;
+}
+/*添加产品*/
+#add-product {
+	margin-top: 150px;
+	margin-bottom: 20px;
+}
+/*查找产品*/
+#search-product {
+	
+}

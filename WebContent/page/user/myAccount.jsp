@@ -5,9 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%
-	/*
-	该页面只有login.action可以到达，需要传递user,region,等参数
-	*/
 	String basePath = request.getContextPath();
 	User user = (User) request.getAttribute("user");
 	List<Region> provinces = (List<Region>) request.getAttribute("provinces");
