@@ -2,6 +2,7 @@ package edu.nju.desserthouse.action.product;
 
 import java.io.File;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import edu.nju.desserthouse.action.BaseAction;
 import edu.nju.desserthouse.model.Product;
 import edu.nju.desserthouse.service.ProductService;
-import edu.nju.desserthouse.util.FinalValue;
 import edu.nju.desserthouse.util.ResultMessage;
 
 public class AddProductAction extends BaseAction {
@@ -23,11 +23,12 @@ public class AddProductAction extends BaseAction {
 	@Action(
 			value = "addProduct",
 			results = { @Result(name = SUCCESS, location = "../head/product.action", type = "redirectAction"),
-					@Result(name = INPUT, location = "/page/user/login.jsp") })
+					@Result(name = INPUT, location = "/page/product/product.jsp") })
 	public String execute() throws Exception {
-		String pictureName = "product/" + product.getName() + ".jpg";
-		File file = new File(FinalValue.IMAGE_PATH, pictureName);
-		boolean uploadPicture = picture.renameTo(file);
+		String pictureName = "image/product/" + product.getName() + ".jpg";
+		String realPath = ServletActionContext.getServletContext().getRealPath("/");
+		File file = new File(realPath, pictureName);
+		boolean uploadPicture = picture.renameTo(file);// renameTo失败表示已经存在该名称的图片
 		if (uploadPicture) {
 			product.setPicture(pictureName);
 			ResultMessage savaResult = productService.addProduct(product);
@@ -35,6 +36,7 @@ public class AddProductAction extends BaseAction {
 				return SUCCESS;
 			}
 		}
+		request.setAttribute("errorMessage", "该产品已经存在，无法重新添加");
 		return INPUT;
 	}
 

@@ -1,8 +1,6 @@
 package edu.nju.desserthouse.util;
 
 public final class FinalValue {
-	public final static String IMAGE_PATH = "D:/study/workspace/DessertHouse/WebContent/image/";
-
 	public final static class Gender {
 		public static final int UNKNOW = 0;// 未知
 		public static final int MALE = 1;// 男性

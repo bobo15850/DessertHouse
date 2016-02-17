@@ -6,6 +6,7 @@
 <%
 	String basePath = request.getContextPath();
 	List<Product> products = (List<Product>) request.getAttribute("products");
+	String errorMessage = (String) request.getAttribute("errorMessage");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -59,21 +60,31 @@
 					</div>
 				</div>
 				<div id="search-product">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="搜索产品...">
-						<span class="input-group-btn">
-							<button class="btn btn-primary" type="button">查找产品</button>
-						</span>
-					</div>
+					<form action="<%=basePath%>/product/selectProduct.action">
+						<div class="input-group">
+							<input type="text" class="form-control" name="selectInfo" placeholder="搜索产品...">
+							<span class="input-group-btn">
+								<button class="btn btn-primary" type="submit">查找产品</button>
+							</span>
+						</div>
+					</form>
 				</div>
-				<div></div>
 				<div id="show-all">
-					<button class="btn btn-primary btn-lg btn-block" type="button">全部产品</button>
+					<form action="<%=basePath%>/head/product.action" method="post">
+						<button class="btn btn-primary btn-lg btn-block" type="submit">全部产品</button>
+					</form>
 				</div>
 			</div>
 			<div class="col-sm-9">
+				<%
+					if (errorMessage != null) {
+						out.print("<h3>" + errorMessage + "</h3>");
+					}
+					else {
+
+						if (products != null && products.size() != 0) {
+				%>
 				<table class="table table-hover">
-					<caption>现有产品</caption>
 					<thead>
 						<tr>
 							<th>图片</th>
@@ -84,22 +95,28 @@
 					</thead>
 					<tbody>
 						<%
-							if (products != null && products.size() != 0) {
-								for (int i = 0; i < products.size(); i++) {
-									Product product = products.get(i);
+							for (int i = 0; i < products.size(); i++) {
+										Product product = products.get(i);
 						%>
 						<tr>
-							<td><img alt="暂无图片" src="<%=basePath + "/image/" + product.getPicture()%>"></td>
+							<td><img alt="暂无图片" src="<%=basePath + "/" + product.getPicture()%>"></td>
 							<td><%=product.getName()%></td>
 							<td><%=product.getInfo()%></td>
 							<td><%=product.getCreatedTime()%></td>
 						</tr>
 						<%
 							}
-							}
 						%>
+
 					</tbody>
 				</table>
+				<%
+					}
+						else {
+							out.print("<h1>没有找到任何产品</h1>");
+						}
+					}
+				%>
 			</div>
 		</div>
 	</div>

@@ -29,4 +29,12 @@ public class ProductServiceImpl implements ProductService {
 		return products;
 	}
 
+	@Override
+	public List<Product> vagueSelect(String info) {
+		if (info == null || info.length() == 0) {
+			return productDao.getAllList(Product.class);
+		}
+		return productDao.vagueSelect(info);
+	}
+
 }
