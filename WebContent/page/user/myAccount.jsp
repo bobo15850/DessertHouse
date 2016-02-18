@@ -23,6 +23,7 @@
 <script type="text/javascript" src="<%=basePath%>/lib/moment.js"></script>
 <script type="text/javascript" src="<%=basePath%>/lib/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/user/account.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/region/region.js"></script>
 <title>账户信息</title>
 </head>
 <body>

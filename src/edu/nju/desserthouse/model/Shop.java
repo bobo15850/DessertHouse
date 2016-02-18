@@ -70,4 +70,12 @@ public class Shop implements Serializable {
 	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
 	}
+
+	public Region getRegion() {
+		return region;
+	}
+
+	public void setRegion(Region region) {
+		this.region = region;
+	}
 }

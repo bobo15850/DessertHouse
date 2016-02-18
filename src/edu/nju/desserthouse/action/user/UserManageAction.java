@@ -2,7 +2,6 @@ package edu.nju.desserthouse.action.user;
 
 import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.convention.annotation.Action;
@@ -12,9 +11,7 @@ import org.apache.struts2.json.annotations.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.nju.desserthouse.action.BaseAction;
-import edu.nju.desserthouse.model.Region;
 import edu.nju.desserthouse.model.User;
-import edu.nju.desserthouse.service.RegionService;
 import edu.nju.desserthouse.service.UserService;
 import edu.nju.desserthouse.util.FinalValue;
 import edu.nju.desserthouse.util.ResultMessage;
@@ -26,8 +23,6 @@ public class UserManageAction extends BaseAction {
 	private Map<String, String> map = new HashMap<String, String>();
 	@Autowired
 	private UserService userService;
-	@Autowired
-	private RegionService regionService;
 
 	@Action(value = "uniqueStringField", results = { @Result(name = SUCCESS, type = "json") })
 	public String SetUniqueField() {
@@ -120,26 +115,6 @@ public class UserManageAction extends BaseAction {
 		}
 		else {
 			map.put("result", ERROR);
-		}
-		map.remove("id");
-		return SUCCESS;
-	}
-
-	@Action(value = "lowerRegions", results = { @Result(name = SUCCESS, type = "json") })
-	public String lowerRegions() {
-		int id = Integer.parseInt(map.get("id"));
-		List<Region> regions = regionService.getLowerRegions(id);
-		StringBuilder idBuilder = new StringBuilder();
-		StringBuilder nameBuilder = new StringBuilder();
-		if (regions != null && regions.size() != 0) {
-			for (int i = 0; i < regions.size(); i++) {
-				idBuilder.append(regions.get(i).getId() + "-");
-				nameBuilder.append(regions.get(i).getName() + "-");
-			}
-			String idsStr = idBuilder.toString();
-			String namesStr = nameBuilder.toString();
-			map.put("idsStr", idsStr.substring(0, idsStr.length() - 1));
-			map.put("namesStr", namesStr.substring(0, namesStr.length() - 1));
 		}
 		map.remove("id");
 		return SUCCESS;
