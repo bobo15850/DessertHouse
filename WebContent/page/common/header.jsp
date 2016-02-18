@@ -47,13 +47,13 @@
 				break;
 					case FinalValue.UserCategory.MANAGER:
 			%>
-			<li class="active"><a href="#<%=basePath%>/approval.action">产品计划审批</a></li>
+			<li><a href="#<%=basePath%>/approval.action">产品计划审批</a></li>
 			<li><a href="<%=basePath%>/statistics.action">逐月统计</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.ADMINISTRATOR:
 			%>
-			<li class="active"><a href="<%=basePath%>/shop.action">店面管理</a></li>
+			<li><a href="<%=basePath%>/shop.action">店面管理</a></li>
 			<li><a href="<%=basePath%>/staff.action">店员管理</a></li>
 			<%
 				break;

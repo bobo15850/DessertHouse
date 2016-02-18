@@ -1,4 +1,3 @@
-<%@page import="edu.nju.desserthouse.util.FinalValue"%>
 <%@page import="edu.nju.desserthouse.model.Product"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
