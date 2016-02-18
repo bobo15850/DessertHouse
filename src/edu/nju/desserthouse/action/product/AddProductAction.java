@@ -22,7 +22,7 @@ public class AddProductAction extends BaseAction {
 	@Override
 	@Action(
 			value = "addProduct",
-			results = { @Result(name = SUCCESS, location = "../head/product.action", type = "redirectAction"),
+			results = { @Result(name = SUCCESS, location = "../product.action", type = "redirectAction"),
 					@Result(name = INPUT, location = "/page/product/product.jsp") })
 	public String execute() throws Exception {
 		String pictureName = "image/product/" + product.getName() + ".jpg";

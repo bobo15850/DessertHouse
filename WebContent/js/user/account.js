@@ -3,7 +3,7 @@ function changeUsername() {
 	var nameInput = document.getElementById("usernameInput");
 	var newName = nameInput.value;
 	if (newName != null && (/\w{1,10}/.test(newName))) {
-		$.post("uniqueStringField.action", {
+		$.post("user/uniqueStringField.action", {
 			"map.field" : "username",
 			"map.value" : newName
 		}, function(json) {
@@ -26,7 +26,7 @@ function changePhonenumber() {
 	var phonenumberInput = document.getElementById("phonenumberInput");
 	var newPhone = phonenumberInput.value;
 	if (newPhone != null && (/^1\d{10}/.test(newPhone))) {
-		$.post("uniqueStringField.action", {
+		$.post("user/uniqueStringField.action", {
 			"map.field" : "phonenumber",
 			"map.value" : newPhone
 		}, function(json) {
@@ -47,7 +47,7 @@ function changeBankId() {
 	var bankIdInput = document.getElementById("bankIdInput");
 	var newBankId = bankIdInput.value;
 	if (newBankId != null && (/^62\d{17}/.test(newBankId))) {
-		$.post("uniqueStringField.action", {
+		$.post("user/uniqueStringField.action", {
 			"map.field" : "bankId",
 			"map.value" : newBankId
 		}, function(json) {
@@ -68,7 +68,7 @@ function changeLocation() {
 	var locationInput = document.getElementById("locationInput");
 	var newLocation = locationInput.value;
 	if (newLocation != null) {
-		$.post("repeatStringField.action", {
+		$.post("user/repeatStringField.action", {
 			"map.field" : "location",
 			"map.value" : newLocation
 		}, function(json) {
@@ -87,7 +87,7 @@ function changeLocation() {
 function changeGender() {
 	var messageShow = document.getElementById("message");
 	var genderSelect = document.getElementById("genderSelect");
-	$.post("repeatIntField.action", {
+	$.post("user/repeatIntField.action", {
 		"map.field" : "gender",
 		"map.value" : genderSelect.value
 	}, function(json) {
@@ -108,11 +108,11 @@ function changePassword() {
 	if (newPassword.length >= 8 && newPassword.length <= 16) {
 		if (newPassword == passwordConfirm) {
 			var oldPasswordInput = document.getElementById("oldPasswordInput");
-			$.post("checkOldPassword.action", {
+			$.post("user/checkOldPassword.action", {
 				"map.oldPassword" : oldPasswordInput.value
 			}, function(json) {
 				if (json.map.result == "success") {
-					$.post("repeatStringField.action", {
+					$.post("user/repeatStringField.action", {
 						"map.field" : "password",
 						"map.value" : newPassword
 					}, function(json) {
@@ -154,7 +154,7 @@ $(function() {
 function changeBirthday() {
 	var messageShow = document.getElementById("message");
 	var birthday = document.getElementById('birthdayInput').value;
-	$.post("setBirthday.action", {
+	$.post("user/setBirthday.action", {
 		"map.birthday" : birthday
 	}, function(json) {
 		if (json.map.result == "success") {
@@ -176,7 +176,7 @@ function changeProvince() {
 		countySelect.options.add(new Option("未设置", "notset", true));
 		return;
 	}
-	$.post("lowerRegions.action", {
+	$.post("user/lowerRegions.action", {
 		"map.id" : provinceSelect.value
 	}, function(json) {
 		var idsStr = new String(json.map.idsStr);
@@ -189,7 +189,7 @@ function changeProvince() {
 		for (i = 1; i < ids.length; i++) {
 			citySelect.options.add(new Option(names[i], ids[i]));
 		}
-		$.post("lowerRegions.action", {
+		$.post("user/lowerRegions.action", {
 			"map.id" : ids[0]
 		}, function(json) {
 			idsStr = new String(json.map.idsStr);
@@ -208,7 +208,7 @@ function changeProvince() {
 function changeCity() {
 	var citySelect = document.getElementById("citySelect");
 	var countySelect = document.getElementById("countySelect");
-	$.post("lowerRegions.action", {
+	$.post("user/lowerRegions.action", {
 		"map.id" : citySelect.value
 	}, function(json) {
 		var idsStr = new String(json.map.idsStr);
@@ -230,7 +230,7 @@ function changeRegion() {
 	if (countySelect.value == "notset") {
 		messageShow.innerHTML = "用户区域尚未设置，无法保存";
 	} else {
-		$.post("setRegion.action", {
+		$.post("user/setRegion.action", {
 			"map.id" : countySelect.value
 		}, function(json) {
 			if (json.map.result == "success") {
@@ -244,7 +244,7 @@ function changeRegion() {
 
 function inactiveAccount() {
 	var messageShow = document.getElementById("message");
-	$.post("inactiveAccount.action", {}, function(json) {
+	$.post("user/inactiveAccount.action", {}, function(json) {
 		if (json.map.result == "success") {
 			document.getElementById("userStateInput").value = "正常使用";
 			document.getElementById("balanceInput").value = json.map.balance;
@@ -257,7 +257,7 @@ function inactiveAccount() {
 
 function renewalAccount() {
 	var messageShow = document.getElementById("message");
-	$.post("renewalAccount.action", {}, function(json) {
+	$.post("user/renewalAccount.action", {}, function(json) {
 		if (json.map.result == "success") {
 			document.getElementById("userStateInput").value = "正常使用";
 			document.getElementById("balanceInput").value = json.map.balance;
@@ -278,7 +278,7 @@ function rechargeAccount() {
 	} else {
 		$
 				.post(
-						"rechargeAccount.action",
+						"user/rechargeAccount.action",
 						{
 							"map.amount" : amount
 						},
@@ -304,7 +304,7 @@ function cancleMembership() {
 	} else {
 		$
 				.post(
-						"cancleMembership.action",
+						"user/cancleMembership.action",
 						{
 							"map.password" : password
 						},

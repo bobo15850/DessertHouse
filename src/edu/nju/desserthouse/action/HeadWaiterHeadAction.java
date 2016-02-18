@@ -1,4 +1,4 @@
-package edu.nju.desserthouse.action.head;
+package edu.nju.desserthouse.action;
 
 import java.util.List;
 

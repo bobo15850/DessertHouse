@@ -70,7 +70,7 @@
 					</form>
 				</div>
 				<div id="show-all">
-					<form action="<%=basePath%>/head/product.action" method="post">
+					<form action="<%=basePath%>/product.action" method="post">
 						<button class="btn btn-primary btn-lg btn-block" type="submit">全部产品</button>
 					</form>
 				</div>

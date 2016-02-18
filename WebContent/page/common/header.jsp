@@ -25,36 +25,36 @@
 					switch (userbase.getCategory()) {
 					case FinalValue.UserCategory.COMMON_MENBER:
 			%>
-			<li class="active"><a href="<%=basePath%>/head/myAccount.action">我的账户</a></li>
-			<li><a href="<%=basePath%>/head/consumptionRecord.action">消费记录</a></li>
-			<li><a href="<%=basePath%>/head/bookGoods.action">预定商品</a></li>
-			<li><a href="<%=basePath%>/head/rechargeRecord.action">充值信息</a></li>
+			<li class="active"><a href="<%=basePath%>/myAccount.action">我的账户</a></li>
+			<li><a href="<%=basePath%>/consumptionRecord.action">消费记录</a></li>
+			<li><a href="<%=basePath%>/bookGoods.action">预定商品</a></li>
+			<li><a href="<%=basePath%>/rechargeRecord.action">充值信息</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.BRANCH_WAITER:
 			%>
-			<li><a href="<%=basePath%>/head/sale.action">销售</a></li>
-			<li><a href="<%=basePath%>/head/viewUserInfo.action">查看会员信息</a></li>
-			<li><a href="<%=basePath%>/head/viewUserRecharge.action">查看会员缴费</a></li>
-			<li><a href="<%=basePath%>/head/viewUserConsumption.action">查看会员消费</a></li>
+			<li><a href="<%=basePath%>/sale.action">销售</a></li>
+			<li><a href="<%=basePath%>/viewUserInfo.action">查看会员信息</a></li>
+			<li><a href="<%=basePath%>/viewUserRecharge.action">查看会员缴费</a></li>
+			<li><a href="<%=basePath%>/viewUserConsumption.action">查看会员消费</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.HEAD_WAITER:
 			%>
-			<li><a href="<%=basePath%>/head/schedule.action">产品计划</a></li>
-			<li><a href="<%=basePath%>/head/product.action">产品管理</a></li>
+			<li><a href="<%=basePath%>/schedule.action">产品计划</a></li>
+			<li><a href="<%=basePath%>/product.action">产品管理</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.MANAGER:
 			%>
-			<li class="active"><a href="#<%=basePath%>/head/approval.action">产品计划审批</a></li>
-			<li><a href="<%=basePath%>/head/statistics.action">逐月统计</a></li>
+			<li class="active"><a href="#<%=basePath%>/approval.action">产品计划审批</a></li>
+			<li><a href="<%=basePath%>/statistics.action">逐月统计</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.ADMINISTRATOR:
 			%>
-			<li class="active"><a href="<%=basePath%>/head/shop.action">店面管理</a></li>
-			<li><a href="<%=basePath%>/head/staff.action">店员管理</a></li>
+			<li class="active"><a href="<%=basePath%>/shop.action">店面管理</a></li>
+			<li><a href="<%=basePath%>/staff.action">店员管理</a></li>
 			<%
 				break;
 					}

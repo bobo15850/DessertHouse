@@ -1,4 +1,4 @@
-package edu.nju.desserthouse.action.head;
+package edu.nju.desserthouse.action;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;

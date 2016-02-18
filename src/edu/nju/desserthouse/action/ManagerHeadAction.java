@@ -1,4 +1,4 @@
-package edu.nju.desserthouse.action.head;
+package edu.nju.desserthouse.action;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
@@ -16,6 +16,14 @@ public class ManagerHeadAction extends BaseAction {
 			results = { @Result(name = SUCCESS, location = "/page/schedule/approval.jsp"),
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
 	public String approval() {
+		return SUCCESS;
+	}// 产品计划审批
+
+	@Action(
+			value = "statistics",
+			results = { @Result(name = SUCCESS, location = "/page/statistics/statistics.jsp"),
+					@Result(name = INPUT, location = "/page/user/login.jsp") })
+	public String statistics() {
 		return SUCCESS;
 	}// 产品计划审批
 }
