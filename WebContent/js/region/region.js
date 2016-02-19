@@ -12,7 +12,7 @@ function changeProvince() {
 		countySelect.options.add(new Option("未设置", "notset", true));
 		return;
 	}
-	$.post("region/lowerRegions.action", {
+	$.post("/DessertHouse/region/lowerRegions.action", {
 		"map.id" : provinceSelect.value
 	}, function(json) {
 		var idsStr = new String(json.map.idsStr);
@@ -25,7 +25,7 @@ function changeProvince() {
 		for (i = 1; i < ids.length; i++) {
 			citySelect.options.add(new Option(names[i], ids[i]));
 		}
-		$.post("region/lowerRegions.action", {
+		$.post("/DessertHouse/region/lowerRegions.action", {
 			"map.id" : ids[0]
 		}, function(json) {
 			idsStr = new String(json.map.idsStr);
@@ -44,7 +44,7 @@ function changeProvince() {
 function changeCity() {
 	var citySelect = document.getElementById("citySelect");
 	var countySelect = document.getElementById("countySelect");
-	$.post("region/lowerRegions.action", {
+	$.post("/DessertHouse/region/lowerRegions.action", {
 		"map.id" : citySelect.value
 	}, function(json) {
 		var idsStr = new String(json.map.idsStr);

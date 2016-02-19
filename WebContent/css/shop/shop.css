@@ -1,1 +1,27 @@
 @CHARSET "UTF-8";
+
+.shop-item {
+	width: 100%;
+	height: 60px;
+	font-size: x-large;
+}
+
+.shop-item :hover {
+	
+}
+
+.shop-name {
+	
+}
+
+.shop-phonenumber {
+	
+}
+
+.shop-location {
+	
+}
+
+.modify-shop-btn {
+	
+}

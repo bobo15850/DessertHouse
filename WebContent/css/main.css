@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+.hide {
+	visibility: hidden;
+}
+
+.unhide {
+	visibility: visible;
+}
+
+.display-inline {
+	display: inline;
+}
+
+.display-none {
+	display: none;
+}

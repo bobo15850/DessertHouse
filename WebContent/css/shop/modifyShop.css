@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+.shop-info {
+	min-height: 400px;
+}
+
+.shop-info div {
+	margin-bottom: 20px;
+}
