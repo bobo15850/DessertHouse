@@ -84,6 +84,7 @@
 						</div>
 					</div>
 				</div>
+				<div id="select-shop">筛选店铺（该功能未实现）</div>
 			</div>
 			<div class="col-sm-10">
 				<%
@@ -97,10 +98,17 @@
 							Shop shop = shops.get(i);
 				%>
 				<div class="shop-item" onmouseover="showModifyBtn(<%=i%>)" onmouseout="hideModifyBtn(<%=i%>)">
-					<label> <%=i + 1%>&nbsp;
-					</label> <label class="shop-name"> 店名：<span><%=shop.getShopname()%></span>
-					</label class="shop-phonenumber"> <label> 电话：<span><%=shop.getPhonenumber()%></span>
-					</label> <label class="shop-location"> 地址：<span><%=shop.getLocation()%></span>
+					<label>
+						<%=i + 1%>&nbsp;
+					</label>
+					<label class="shop-name">
+						店名：<span><%=shop.getShopname()%></span>
+					</label class="shop-phonenumber">
+					<label>
+						电话：<span><%=shop.getPhonenumber()%></span>
+					</label>
+					<label class="shop-location">
+						地址：<span><%=shop.getLocation()%></span>
 					</label>
 					<form action="<%=basePath%>/shop/toModifyShop.action" method="get" class="display-inline">
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
