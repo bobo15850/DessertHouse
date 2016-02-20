@@ -46,18 +46,23 @@
 	<s:include value="../common/header.jsp"></s:include>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-2"></div>
+			<div class="col-sm-2">
+				<form action="<%=basePath%>/shop.action" method="post">
+					<button type="submit" class="btn btn-primary">返回店铺管理</button>
+				</form>
+			</div>
 			<div class="col-sm-8">
 				<div class="shop-info">
-					<form action="<%=basePath%>/shop/modifyShop.action" method="post" onsubmit="checkModifyShop()">
+					<form action="<%=basePath%>/shop/modifyShop.action" method="post" onsubmit="return checkModifyShop()">
+						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
 						<h1>店铺信息：</h1>
 						<div class="input-group">
 							<span class="input-group-addon">分店名称</span>
-							<input id="shop-name-input" type="text" class="form-control" name="shop.shopname" value="<%=shop.getShopname()%>">
+							<input id="shop-name-input" type="text" class="form-control" name="shopname" value="<%=shop.getShopname()%>">
 						</div>
 						<div class="input-group">
 							<span class="input-group-addon">电话号码</span>
-							<input id="phonenumber-input" type="text" class="form-control" name="shop.phonenumber" value="<%=shop.getPhonenumber()%>">
+							<input id="phonenumber-input" type="text" class="form-control" name="phonenumber" value="<%=shop.getPhonenumber()%>">
 						</div>
 						<div class="input-group">
 							<span class="input-group-addon">所在省/直辖市</span>
@@ -81,13 +86,15 @@
 						</div>
 						<div class="input-group">
 							<span class="input-group-addon">详细地址</span>
-							<input id="location-input" type="text" class="form-control" name="shop.location" value="<%=shop.getLocation()%>">
+							<input id="location-input" type="text" class="form-control" name="location" value="<%=shop.getLocation()%>">
 						</div>
-						<button class="btn btn-primary" type="submit">保存修改</button>
+						<div>
+							<button class="btn btn-primary btn-block" type="submit">保存修改</button>
+						</div>
 					</form>
 					<form action="<%=basePath%>/shop/toModifyShop.action" method="get">
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
-						<button class="btn btn-primary">重新设置</button>
+						<button class="btn btn-primary btn-block">重新设置</button>
 					</form>
 				</div>
 			</div>

@@ -21,10 +21,10 @@ public class ShopServiceImpl implements ShopService {
 	private RegionDao regionDao;
 
 	@Override
-	public ResultMessage addShop(Shop shop, String regionId) {
+	public ResultMessage addShop(Shop shop, int regionId) {
 		Timestamp stamp = new Timestamp(System.currentTimeMillis());
 		shop.setCreatedTime(stamp);
-		Region region = regionDao.get(Region.class, (int) Integer.parseInt(regionId));
+		Region region = regionDao.get(Region.class, regionId);
 		shop.setRegion(region);
 		return shopDao.save(shop);
 	}
@@ -38,6 +38,18 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public Shop getShopById(int id) {
 		return shopDao.get(Shop.class, id);
+	}
+
+	@Override
+	public ResultMessage modifyShop(Shop shop, int regionId) {
+		Region region = regionDao.get(Region.class, regionId);
+		shop.setRegion(region);
+		return shopDao.update(shop);
+	}
+
+	@Override
+	public ResultMessage deleteShop(int id) {
+		return shopDao.delete(Shop.class, id);
 	}
 
 }

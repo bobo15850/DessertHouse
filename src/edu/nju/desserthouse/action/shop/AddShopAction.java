@@ -14,12 +14,12 @@ public class AddShopAction extends BaseAction {
 	@Autowired
 	private ShopService shopService;
 	private Shop shop;
-	private String regionId;
+	private int regionId;
 
 	@Override
 	@Action(
 			value = "addShop",
-			results = { @Result(name = SUCCESS, location = "../shop.action", type = "redirectAction"),
+			results = { @Result(name = SUCCESS, location = "/shop.action", type = "redirect"),
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
 	public String execute() throws Exception {
 		ResultMessage result = shopService.addShop(shop, regionId);
@@ -37,12 +37,11 @@ public class AddShopAction extends BaseAction {
 		this.shop = shop;
 	}
 
-	public String getRegionId() {
+	public int getRegionId() {
 		return regionId;
 	}
 
-	public void setRegionId(String regionId) {
+	public void setRegionId(int regionId) {
 		this.regionId = regionId;
 	}
-
 }

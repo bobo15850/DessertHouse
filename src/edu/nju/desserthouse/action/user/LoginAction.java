@@ -21,11 +21,11 @@ public class LoginAction extends BaseAction {
 	@Action(
 			value = "login",
 			results = { @Result(name = INPUT, location = "/page/user/login.jsp"),
-					@Result(name = "common_member", location = "../myAccount.action", type = "redirectAction"),
-					@Result(name = "branch_waiter", location = "../sale.action", type = "redirectAction"),
-					@Result(name = "head_waiter", location = "../schedule.action", type = "redirectAction"),
-					@Result(name = "manager", location = "../approval.action", type = "redirectAction"),
-					@Result(name = "administrator", location = "../shop.action", type = "redirectAction") })
+					@Result(name = "common_member", location = "/myAccount.action", type = "redirect"),
+					@Result(name = "branch_waiter", location = "/sale.action", type = "redirect"),
+					@Result(name = "head_waiter", location = "/schedule.action", type = "redirect"),
+					@Result(name = "manager", location = "/approval.action", type = "redirect"),
+					@Result(name = "administrator", location = "/shop.action", type = "redirect") })
 	public String execute() throws Exception {
 		User user = null;
 		user = userService.login(key, password);

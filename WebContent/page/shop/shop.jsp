@@ -30,7 +30,7 @@
 					<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#add-shop-modal">添加分店</button>
 					<div id="add-shop-modal" class="modal fade" tab-index="-1" role="dialog" aria-labelledby="myModalLabel">
 						<div class="modal-dialog" role="document">
-							<form action="<%=basePath%>/shop/addShop.action" method="post" onsubmit="checkAddShop()">
+							<form action="<%=basePath%>/shop/addShop.action" method="post" onsubmit="return checkAddShop()">
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -39,38 +39,40 @@
 										<h4 class="modal-title" id="myModalLabel">添加分店</h4>
 									</div>
 									<div class="modal-body">
-										<div class="input-group">
-											<span class="input-group-addon">分店名称</span>
-											<input id="shop-name-input" type="text" class="form-control" name="shop.shopname">
-										</div>
-										<div class="input-group">
-											<span class="input-group-addon">电话号码</span>
-											<input id="phonenumber-input" type="text" class="form-control" name="shop.phonenumber">
-										</div>
-										<div class="input-group">
-											<span class="input-group-addon">所在省/直辖市</span>
-											<select id="provinceSelect" class="form-control" onchange="changeProvince()">
-												<option value="notset" selected="selected"></option>
-												<%
-													if (provinces != null && provinces.size() != 0) {
-														for (Region province : provinces) {
-												%>
-												<option value="<%=province.getId()%>"><%=province.getName()%></option>
-												<%
-													}
-													}
-												%>
-											</select>
-											<span class="input-group-addon">地级市</span>
-											<select id="citySelect" class="form-control" onchange="changeCity()">
-											</select>
-											<span class="input-group-addon">县/区</span>
-											<select id="countySelect" class="form-control" name="regionId">
-											</select>
-										</div>
-										<div class="input-group">
-											<span class="input-group-addon">详细地址</span>
-											<input id="location-input" type="text" class="form-control" name="shop.location">
+										<div class="main-modal">
+											<div class="input-group">
+												<span class="input-group-addon">分店名称</span>
+												<input id="shop-name-input" type="text" class="form-control" name="shop.shopname">
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon">电话号码</span>
+												<input id="phonenumber-input" type="text" class="form-control" name="shop.phonenumber">
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon">所在省/直辖市</span>
+												<select id="provinceSelect" class="form-control" onchange="changeProvince()">
+													<option value="notset" selected="selected"></option>
+													<%
+														if (provinces != null && provinces.size() != 0) {
+															for (Region province : provinces) {
+													%>
+													<option value="<%=province.getId()%>"><%=province.getName()%></option>
+													<%
+														}
+														}
+													%>
+												</select>
+												<span class="input-group-addon">地级市</span>
+												<select id="citySelect" class="form-control" onchange="changeCity()">
+												</select>
+												<span class="input-group-addon">县/区</span>
+												<select id="countySelect" class="form-control" name="regionId">
+												</select>
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon">详细地址</span>
+												<input id="location-input" type="text" class="form-control" name="shop.location">
+											</div>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -95,21 +97,18 @@
 							Shop shop = shops.get(i);
 				%>
 				<div class="shop-item" onmouseover="showModifyBtn(<%=i%>)" onmouseout="hideModifyBtn(<%=i%>)">
-					<label>
-						<%=i + 1%>&nbsp;
-					</label>
-					<label class="shop-name">
-						店名：<span><%=shop.getShopname()%></span>
-					</label class="shop-phonenumber">
-					<label>
-						电话：<span><%=shop.getPhonenumber()%></span>
-					</label>
-					<label class="shop-location">
-						地址：<span><%=shop.getLocation()%></span>
+					<label> <%=i + 1%>&nbsp;
+					</label> <label class="shop-name"> 店名：<span><%=shop.getShopname()%></span>
+					</label class="shop-phonenumber"> <label> 电话：<span><%=shop.getPhonenumber()%></span>
+					</label> <label class="shop-location"> 地址：<span><%=shop.getLocation()%></span>
 					</label>
 					<form action="<%=basePath%>/shop/toModifyShop.action" method="get" class="display-inline">
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
-						<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary modify-shop-btn hide">修改信息</button>
+						<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary hide">查看或修改</button>
+					</form>
+					<form action="<%=basePath%>/shop/deleteShop.action" method="get" class="display-inline" onsubmit="return confirmDelete()">
+						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
+						<button id="delete-btn-<%=i%>" type="submit" class="btn btn-primary hide">刪除</button>
 					</form>
 				</div>
 				<%
