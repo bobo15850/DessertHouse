@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
+<%@page import="edu.nju.desserthouse.util.FinalValue"%>
 <%
 	String basePath = request.getContextPath();
 %>
@@ -33,7 +34,60 @@
 										</button>
 										<h4 class="modal-title" id="myModalLabel">添加员工</h4>
 									</div>
-									<div class="modal-body">添加员工</div>
+									<div class="modal-body">
+										<div class="main-modal">
+											<div class="input-group">
+												<span class="input-group-addon">员工名称</span>
+												<input type="text" class="form-control" name="user.username">
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon">账户密码</span>
+												<input type="password" class="form-control" name="user.password">
+												<span class="input-group-addon">确认密码</span>
+												<input type="password" class="form-control">
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon">手机号码</span>
+												<input type="text" class="form-control">
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon">员工种类</span>
+												<select class="form-control">
+													<option value=<%=FinalValue.UserCategory.BRANCH_WAITER%>>
+														<%=FinalValue.UserCategory.getStrOfUserCategory(FinalValue.UserCategory.BRANCH_WAITER)%>
+													</option>
+													<option value=<%=FinalValue.UserCategory.HEAD_WAITER%>>
+														<%=FinalValue.UserCategory.getStrOfUserCategory(FinalValue.UserCategory.HEAD_WAITER)%>
+													</option>
+													<option value=<%=FinalValue.UserCategory.MANAGER%>>
+														<%=FinalValue.UserCategory.getStrOfUserCategory(FinalValue.UserCategory.MANAGER)%>
+													</option>
+												</select>
+											</div>
+											<div>
+												<span class="input-group-addon">所属店铺</span>
+											</div>
+											<div id="staff-shop-selection">
+												<div class="input-group">
+													<span class="input-group-addon">员工店铺所在省</span>
+													<select id="provinceSelect" class="form-control" onchange="changeProvince()">
+														<option value="notset" selected="selected"></option>
+													</select>
+													<span class="input-group-addon">地级市</span>
+													<select id="citySelect" class="form-control" onchange="changeCity()">
+													</select>
+													<span class="input-group-addon">县/区</span>
+													<select id="countySelect" class="form-control" name="regionId">
+													</select>
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">店铺名称</span>
+													<select class="form-control">
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 										<button type="submit" class="btn btn-primary">确定</button>

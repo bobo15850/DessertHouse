@@ -1,1 +1,10 @@
 @CHARSET "UTF-8";
+
+.main-modal div {
+	margin-bottom: 10px;
+}
+
+#staff-shop-selection {
+	margin-left: 20px;
+	margin-right: 20px;
+}
