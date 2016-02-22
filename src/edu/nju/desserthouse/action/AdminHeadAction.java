@@ -39,6 +39,8 @@ public class AdminHeadAction extends BaseAction {
 			results = { @Result(name = SUCCESS, location = "/page/staff/staff.jsp"),
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
 	public String staff() {
+		List<Region> provinces = regionService.getLowerRegions(1);
+		request.setAttribute("provinces", provinces);
 		return SUCCESS;
 	}// 店员管理
 }

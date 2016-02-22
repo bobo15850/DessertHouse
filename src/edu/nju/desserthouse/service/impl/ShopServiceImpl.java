@@ -52,4 +52,10 @@ public class ShopServiceImpl implements ShopService {
 		return shopDao.delete(Shop.class, id);
 	}
 
+	@Override
+	public List<Shop> getShopesByCountyId(int countyId) {
+		Region region = regionDao.get(Region.class, countyId);
+		return shopDao.findByColumns(Shop.class, new String[] { "region" }, new Object[] { region });
+	}
+
 }

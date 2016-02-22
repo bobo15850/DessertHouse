@@ -68,6 +68,7 @@
 												<span class="input-group-addon">县/区</span>
 												<select id="countySelect" class="form-control" name="regionId">
 												</select>
+												
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon">详细地址</span>

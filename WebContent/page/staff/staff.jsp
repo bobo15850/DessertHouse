@@ -1,8 +1,11 @@
+<%@page import="edu.nju.desserthouse.model.Region"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%@page import="edu.nju.desserthouse.util.FinalValue"%>
 <%
 	String basePath = request.getContextPath();
+	List<Region> provinces = (List<Region>) request.getAttribute("provinces");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,7 +29,7 @@
 					<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#add-staff-modal">添加员工</button>
 					<div id="add-staff-modal" class="modal fade" tab-index="-1" role="dialog" aria-labelledby="myModalLabel">
 						<div class="modal-dialog" role="document">
-							<form action="">
+							<form action="<%=basePath%>/staff/addStaff.action" method="post" onsubmit="return checkAddStaff()">
 								<div class="modal-content">
 									<div class="modal-header">
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -38,21 +41,21 @@
 										<div class="main-modal">
 											<div class="input-group">
 												<span class="input-group-addon">员工名称</span>
-												<input type="text" class="form-control" name="user.username">
+												<input type="text" class="form-control" name="staff.username">
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon">账户密码</span>
-												<input type="password" class="form-control" name="user.password">
+												<input type="password" class="form-control" name="staff.password">
 												<span class="input-group-addon">确认密码</span>
 												<input type="password" class="form-control">
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon">手机号码</span>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="staff.phonenumber">
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon">员工种类</span>
-												<select class="form-control">
+												<select class="form-control" name="staff.category">
 													<option value=<%=FinalValue.UserCategory.BRANCH_WAITER%>>
 														<%=FinalValue.UserCategory.getStrOfUserCategory(FinalValue.UserCategory.BRANCH_WAITER)%>
 													</option>
@@ -69,20 +72,33 @@
 											</div>
 											<div id="staff-shop-selection">
 												<div class="input-group">
-													<span class="input-group-addon">员工店铺所在省</span>
+													<span class="input-group-addon">所在省</span>
 													<select id="provinceSelect" class="form-control" onchange="changeProvince()">
-														<option value="notset" selected="selected"></option>
+														<option value="notset"></option>
+														<%
+															if (provinces != null && provinces.size() != 0) {
+																for (Region province : provinces) {
+														%>
+														<option value="<%=province.getId()%>"><%=province.getName()%></option>
+														<%
+															}
+															}
+														%>
 													</select>
 													<span class="input-group-addon">地级市</span>
 													<select id="citySelect" class="form-control" onchange="changeCity()">
 													</select>
 													<span class="input-group-addon">县/区</span>
-													<select id="countySelect" class="form-control" name="regionId">
+													<select id="countySelect" class="form-control">
 													</select>
+													<span class="input-group-btn">
+														<button class="btn btn-primary" type="button" onclick="fillShopSelect()">搜索店铺</button>
+													</span>
 												</div>
+												<label id="shop-select-result"></label>
 												<div class="input-group">
 													<span class="input-group-addon">店铺名称</span>
-													<select class="form-control">
+													<select id="shopSelect" class="form-control" name="shopId">
 													</select>
 												</div>
 											</div>

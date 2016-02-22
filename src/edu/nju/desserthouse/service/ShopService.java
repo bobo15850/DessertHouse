@@ -15,4 +15,6 @@ public interface ShopService {
 	public ResultMessage modifyShop(Shop shop, int regionId);// 更新分店
 
 	public ResultMessage deleteShop(int id);// 删除店铺
+
+	public List<Shop> getShopesByCountyId(int countyId);// 通过县区的编号查找县区里的店铺
 }
