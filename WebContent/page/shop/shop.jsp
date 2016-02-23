@@ -68,7 +68,7 @@
 												<span class="input-group-addon">县/区</span>
 												<select id="countySelect" class="form-control" name="regionId">
 												</select>
-												
+
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon">详细地址</span>
@@ -104,8 +104,8 @@
 					</label>
 					<label class="shop-name">
 						店名：<span><%=shop.getShopname()%></span>
-					</label class="shop-phonenumber">
-					<label>
+					</label>
+					<label class="shop-phonenumber">
 						电话：<span><%=shop.getPhonenumber()%></span>
 					</label>
 					<label class="shop-location">

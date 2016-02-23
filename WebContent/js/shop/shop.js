@@ -1,3 +1,7 @@
+/*
+ * 分店信息主页css
+ */
+
 function checkAddShop() {
 	return true;
 }// 检验添加分店
@@ -19,3 +23,10 @@ function hideModifyBtn(number) {
 function confirmDelete() {
 	return confirm("是否确认刪除该店铺，該操作不可逆！！！");
 }// 确认是否删除
+
+/**
+ * 修改分店信息
+ */
+function checkModifyShop() {
+	return true;
+}

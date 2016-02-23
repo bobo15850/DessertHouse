@@ -36,10 +36,10 @@
 <title>修改分店信息</title>
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/main.css">
-<link rel="stylesheet" href="<%=basePath%>/css/shop/modifyShop.css">
+<link rel="stylesheet" href="<%=basePath%>/css/shop/shop.css">
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>/js/shop/modifyShop.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/shop/shop.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/region/region.js"></script>
 </head>
 <body>

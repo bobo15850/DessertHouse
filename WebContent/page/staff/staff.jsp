@@ -1,3 +1,4 @@
+<%@page import="edu.nju.desserthouse.model.User"%>
 <%@page import="edu.nju.desserthouse.model.Region"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -6,6 +7,7 @@
 <%
 	String basePath = request.getContextPath();
 	List<Region> provinces = (List<Region>) request.getAttribute("provinces");
+	List<User> staffs = (List<User>) request.getAttribute("staffs");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -102,6 +104,9 @@
 													</select>
 												</div>
 											</div>
+											<div>
+												<span class="input-group-addon">---</span>
+											</div>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -113,9 +118,46 @@
 						</div>
 					</div>
 				</div>
-				<div id="select-staff">筛选员工</div>
+				<div id="select-staff">筛选员工（该功能未实现）</div>
 			</div>
-			<div class="col-sm-10">右侧内容栏</div>
+			<div class="col-sm-10">
+				<%
+					if (staffs == null || staffs.size() == 0) {
+				%>
+				<h1>没有找到员工</h1>
+				<%
+					}
+					else {
+						for (int i = 0; i < staffs.size(); i++) {
+							User staff = staffs.get(i);
+				%>
+				<div class="staff-item" onmouseover="showModifyBtn(<%=i%>)" onmouseout="hideModifyBtn(<%=i%>)">
+					<label>
+						<%=i + 1%>&nbsp;
+					</label>
+					<label class="staff-name">
+						用户名：<span><%=staff.getUsername()%></span>
+					</label>
+					<label class="staff-category">
+						员工种类：<span><%=FinalValue.UserCategory.getStrOfUserCategory(staff.getCategory())%></span>
+					</label>
+					<label class="staff-shopname">
+						所属店名：<span><%=staff.getShop().getShopname()%></span>
+					</label>
+					<form action="<%=basePath%>/staff/toModifyStaff.action" method="get" class="display-inline">
+						<input name="staffId" value="<%=staff.getId()%>" class="display-none">
+						<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary hide">查看或修改</button>
+					</form>
+					<form action="<%=basePath%>/staff/deleteStaff.action" method="get" class="display-inline" onsubmit="return confirmDelete()">
+						<input name="staffId" value="<%=staff.getId()%>" class="display-none">
+						<button id="delete-btn-<%=i%>" type="submit" class="btn btn-primary hide">刪除</button>
+					</form>
+				</div>
+				<%
+					}
+					}
+				%>
+			</div>
 		</div>
 	</div>
 	<s:include value="../common/footer.jsp"></s:include>

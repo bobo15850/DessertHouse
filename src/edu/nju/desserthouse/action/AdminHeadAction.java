@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import edu.nju.desserthouse.action.BaseAction;
 import edu.nju.desserthouse.model.Region;
 import edu.nju.desserthouse.model.Shop;
+import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.RegionService;
 import edu.nju.desserthouse.service.ShopService;
+import edu.nju.desserthouse.service.StaffService;
 
 /*
  * 系统管理员网页头action
@@ -21,6 +23,8 @@ public class AdminHeadAction extends BaseAction {
 	private RegionService regionService;
 	@Autowired
 	private ShopService shopService;
+	@Autowired
+	private StaffService staffService;
 
 	@Action(
 			value = "shop",
@@ -40,7 +44,9 @@ public class AdminHeadAction extends BaseAction {
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
 	public String staff() {
 		List<Region> provinces = regionService.getLowerRegions(1);
+		List<User> staffs = staffService.getAllStaffs();
 		request.setAttribute("provinces", provinces);
+		request.setAttribute("staffs", staffs);
 		return SUCCESS;
 	}// 店员管理
 }

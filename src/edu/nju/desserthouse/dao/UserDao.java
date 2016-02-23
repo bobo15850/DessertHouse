@@ -1,5 +1,9 @@
 package edu.nju.desserthouse.dao;
 
-public interface UserDao extends BaseDao {
+import java.util.List;
 
+import edu.nju.desserthouse.model.User;
+
+public interface UserDao extends BaseDao {
+	public List<User> getAllStaffs();
 }

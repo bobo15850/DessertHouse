@@ -6,10 +6,6 @@
 	font-size: x-large;
 }
 
-.shop-item :hover {
-	
-}
-
 .shop-name {
 	
 }
@@ -22,6 +18,14 @@
 	
 }
 
-.main-modal div{
+.main-modal div {
 	margin-bottom: 10px;
+}
+
+.shop-info {
+	min-height: 400px;
+}
+
+.shop-info div {
+	margin-bottom: 20px;
 }

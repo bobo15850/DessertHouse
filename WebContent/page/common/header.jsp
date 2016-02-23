@@ -47,7 +47,7 @@
 				break;
 					case FinalValue.UserCategory.MANAGER:
 			%>
-			<li><a href="#<%=basePath%>/approval.action">产品计划审批</a></li>
+			<li><a href="<%=basePath%>/approval.action">产品计划审批</a></li>
 			<li><a href="<%=basePath%>/statistics.action">逐月统计</a></li>
 			<%
 				break;
