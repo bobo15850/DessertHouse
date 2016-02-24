@@ -15,27 +15,29 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /*
- * 计划记录
+ * 产品计划，一个店铺，一个星期
  */
 @Entity
-@Table(name = "scheduleRecord")
-public class ScheduleRecord implements Serializable {
-	private static final long serialVersionUID = 9024583029590825696L;
+@Table(name = "schedule")
+public class Schedule implements Serializable {
+	private static final long serialVersionUID = 1056227945001119468L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;// 逻辑主键
+	private int id;
 	private Timestamp createdTime;// 创建时间
 	@ManyToOne
 	@JoinColumn
 	private Shop shop;// 店铺
-	private Date effectiveDate;// 生效日期
+	private Date startDate;// 开始日期
 	@ManyToOne
 	@JoinColumn
 	private User operator;// 创建者
 	private int state;// 计划状态
-
-	@OneToMany(mappedBy = "scheduleRecord")
-	private Set<ScheduleGoodsItem> goodsItemSet;// 计划商品集合
+	@OneToMany(mappedBy = "schedule")
+	private Set<ScheduleItem> scheduleItemSet;
+	@ManyToOne
+	@JoinColumn
+	private User approver;// 审批人
 
 	public int getId() {
 		return id;
@@ -61,14 +63,6 @@ public class ScheduleRecord implements Serializable {
 		this.shop = shop;
 	}
 
-	public Date getEffectiveDate() {
-		return effectiveDate;
-	}
-
-	public void setEffectiveDate(Date effectiveDate) {
-		this.effectiveDate = effectiveDate;
-	}
-
 	public User getOperator() {
 		return operator;
 	}
@@ -85,11 +79,20 @@ public class ScheduleRecord implements Serializable {
 		this.state = state;
 	}
 
-	public Set<ScheduleGoodsItem> getGoodsItemSet() {
-		return goodsItemSet;
+	public Set<ScheduleItem> getScheduleItemSet() {
+		return scheduleItemSet;
 	}
 
-	public void setGoodsItemSet(Set<ScheduleGoodsItem> goodsItemSet) {
-		this.goodsItemSet = goodsItemSet;
+	public void setScheduleItemSet(Set<ScheduleItem> scheduleItemSet) {
+		this.scheduleItemSet = scheduleItemSet;
 	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
 }

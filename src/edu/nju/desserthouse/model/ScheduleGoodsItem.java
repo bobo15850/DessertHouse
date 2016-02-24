@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /*
- * 产品销售计划管理
+ * 产品销售计划管理一个店铺一天中的一个商品
  */
 @Entity
 @Table(name = "scheduleGoodsItem")
@@ -22,7 +22,7 @@ public class ScheduleGoodsItem implements Serializable {
 	private int id;// 逻辑主键
 	@ManyToOne
 	@JoinColumn
-	private ScheduleRecord scheduleRecord;// 所属的产品计划
+	private ScheduleItem scheduleItem;// 所属的产品计划
 	@ManyToOne
 	@JoinColumn
 	private Product product;// 产品
@@ -37,12 +37,12 @@ public class ScheduleGoodsItem implements Serializable {
 		this.id = id;
 	}
 
-	public ScheduleRecord getScheduleRecord() {
-		return scheduleRecord;
+	public ScheduleItem getScheduleItem() {
+		return scheduleItem;
 	}
 
-	public void setScheduleRecord(ScheduleRecord scheduleRecord) {
-		this.scheduleRecord = scheduleRecord;
+	public void setScheduleItem(ScheduleItem scheduleItem) {
+		this.scheduleItem = scheduleItem;
 	}
 
 	public Product getProduct() {

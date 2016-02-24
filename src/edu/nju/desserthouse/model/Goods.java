@@ -33,11 +33,9 @@ public class Goods implements Serializable {
 	private double price;// 单价
 	@ManyToOne
 	@JoinColumn
-	private ScheduleRecord scheduleRecord;// 所属的计划
-	@ManyToOne
-	@JoinColumn
-	private User operator;// 审批人
+	private User operator;// 审批人，审批人审批之后才会添加一条goods
 	private Timestamp createdTime;// 审批通过时间
+	private Schedule schedule;// 通过审批的产品计划，从而创建的goods
 
 	public int getId() {
 		return id;
@@ -87,14 +85,6 @@ public class Goods implements Serializable {
 		this.price = price;
 	}
 
-	public ScheduleRecord getScheduleRecord() {
-		return scheduleRecord;
-	}
-
-	public void setScheduleRecord(ScheduleRecord scheduleRecord) {
-		this.scheduleRecord = scheduleRecord;
-	}
-
 	public User getOperator() {
 		return operator;
 	}
@@ -109,6 +99,14 @@ public class Goods implements Serializable {
 
 	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	public Schedule getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(Schedule schedule) {
+		this.schedule = schedule;
 	}
 
 }

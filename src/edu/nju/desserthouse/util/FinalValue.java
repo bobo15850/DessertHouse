@@ -63,4 +63,10 @@ public final class FinalValue {
 		public static final int CITY = 2;// 市级行政区
 		public static final int COUNTY = 3;// 县级行政区
 	}// 地区类型
+
+	public final static class ScheduleState {
+		public static final int APPROVING = 0;// 正在审核中
+		public static final int APPROVE_SUCCEED = 1;// 审核通过
+		public static final int APPROVE_FAILED = 2;// 审核未通过
+	}// 产品计划状态
 }
