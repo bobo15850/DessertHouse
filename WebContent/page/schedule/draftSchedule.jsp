@@ -66,7 +66,7 @@
 									<tr>
 										<td><%=productNum%></td>
 										<td><img class="product-img" alt="暂无图片" src="<%=basePath + "/" + product.getPicture()%>"></td>
-										<td><%=product.getName()%></td>
+										<td><%=product.getName()%><input class="display-none" name="productIdList[<%=dayNum%>][<%=productNum%>]" value=<%=product.getId()%>></td>
 										<td><%=product.getInfo()%></td>
 										<td><input type="number" class="form-control price-input" value=<%=product.getPrice()%>></td>
 										<!-- number类型是bootstrap中的类型 -->
