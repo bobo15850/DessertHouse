@@ -9,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/user/register.css">
+<script type="text/javascript" src="<%=basePath%>/js/user/register.js"></script>
 <title>注册</title>
 </head>
 <body>
@@ -29,6 +30,5 @@
 			</label>
 		</div>
 	</div>
-	<script type="text/javascript" src="<%=basePath%>/js/user/register.js"></script>
 </body>
 </html>

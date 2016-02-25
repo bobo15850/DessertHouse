@@ -14,6 +14,4 @@
 	<s:include value="../common/header.jsp"></s:include>
 	<h1>统计</h1>
 	<s:include value="../common/footer.jsp"></s:include>
-	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>

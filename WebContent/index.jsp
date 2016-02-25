@@ -16,7 +16,5 @@
 	<s:include value="page/common/header.jsp"></s:include>
 	<h1>欢迎来到甜品屋管理系统</h1>
 	<s:include value="page/common/footer.jsp"></s:include>
-	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
