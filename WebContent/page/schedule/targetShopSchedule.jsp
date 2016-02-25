@@ -69,7 +69,10 @@
 						</form>
 					</div>
 					<div>
-						<button class="btn btn-primary btn-block">制定产品计划</button>
+						<form action="<%=basePath%>/schedule/draftSchedule.action">
+							<input name="shopId" value="<%=shop.getId()%>" class="display-none">
+							<button class="btn btn-primary btn-block">制定产品计划</button>
+						</form>
 					</div>
 					<div>
 						<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#select-shop-modal">切换店铺</button>

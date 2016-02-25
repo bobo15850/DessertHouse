@@ -47,6 +47,9 @@
 					<label class="shop-name">
 						店名：<span><%=shop.getShopname()%></span>
 					</label>
+					<label class="shop-name">
+						电话：<span><%=shop.getPhonenumber()%></span>
+					</label>
 					<label class="last-schedule-date">
 						最后计划日期 ：<span><%=date%></span>
 					</label>

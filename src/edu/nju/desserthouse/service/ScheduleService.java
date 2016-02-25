@@ -10,5 +10,7 @@ public interface ScheduleService {
 
 	public Date getNextScheduleStartDate(int shopId);// 得到下一个产品计划开始日期
 
+	public List<Date> getNextScheduleDates(int shopId);// 得到下一个产品计划所有日期
+
 	public List<Schedule> getShopSchedules(int shopId, int scheduleState);// 得到某个店铺某种种状态的产品计划
 }
