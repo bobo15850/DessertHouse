@@ -15,11 +15,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/user/account.css">
 <link rel="stylesheet" href="<%=basePath%>/lib/bootstrap-datetimepicker.min.css">
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="<%=basePath%>/lib/jquery/jquery-1.12.1.min.js"></script>
+<script src="<%=basePath%>/lib/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/lib/moment.js"></script>
 <script type="text/javascript" src="<%=basePath%>/lib/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/user/account.js"></script>

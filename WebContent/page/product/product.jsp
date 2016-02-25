@@ -12,19 +12,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>产品</title>
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/product/product.css">
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="<%=basePath%>/lib/jquery/jquery-1.12.1.min.js"></script>
+<script src="<%=basePath%>/lib/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/product/product.js"></script>
 </head>
 <body>
 	<s:include value="../common/header.jsp"></s:include>
 	<div id="main-body" class="container">
 		<div class="row">
-			<div class="col-sm-3 left-bar">
+			<div class="col-sm-2 left-bar">
 				<div id="add-product">
-					<button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="modal" data-target="#productInfo">添加产品</button>
+					<button class="btn btn-primary btn-block" type="button" data-toggle="modal" data-target="#productInfo">添加产品</button>
 					<div id="productInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 						<div class="modal-dialog" role="document">
 							<form action="<%=basePath%>/product/addProduct.action" enctype="multipart/form-data" method="post" onsubmit="checkAddProduct()">
@@ -43,6 +43,14 @@
 										<div class="input-group">
 											<span class="input-group-addon">附加信息</span>
 											<input name="product.info" type="text" class="form-control" placeholder="请输入产品附加信息">
+										</div>
+										<div class="input-group">
+											<span class="input-group-addon">默认单价</span>
+											<input name="product.price" type="number" class="form-control" placeholder="请输入产品默认单价">
+										</div>
+										<div class="input-group">
+											<span class="input-group-addon">默认数量</span>
+											<input name="product.number" type="number" class="form-control" placeholder="请输入默认可售数量">
 										</div>
 										<div class="input-group">
 											<span class="input-group-addon">产品图片</span>
@@ -70,11 +78,11 @@
 				</div>
 				<div id="show-all">
 					<form action="<%=basePath%>/product.action" method="post">
-						<button class="btn btn-primary btn-lg btn-block" type="submit">全部产品</button>
+						<button class="btn btn-primary btn-block" type="submit">全部产品</button>
 					</form>
 				</div>
 			</div>
-			<div class="col-sm-9">
+			<div class="col-sm-10">
 				<%
 					if (errorMessage != null) {
 						out.print("<h3>" + errorMessage + "</h3>");
@@ -89,6 +97,8 @@
 							<th>图片</th>
 							<th>产品名称</th>
 							<th>附加信息</th>
+							<th>默认单价</th>
+							<th>默认数量</th>
 							<th>添加日期</th>
 						</tr>
 					</thead>
@@ -98,9 +108,11 @@
 										Product product = products.get(i);
 						%>
 						<tr>
-							<td><img alt="暂无图片" src="<%=basePath + "/" + product.getPicture()%>"></td>
+							<td><img class="product-img" alt="暂无图片" src="<%=basePath + "/" + product.getPicture()%>"></td>
 							<td><%=product.getName()%></td>
 							<td><%=product.getInfo()%></td>
+							<td><%=product.getPrice()%></td>
+							<td><%=product.getNumber()%></td>
 							<td><%=product.getCreatedTime()%></td>
 						</tr>
 						<%

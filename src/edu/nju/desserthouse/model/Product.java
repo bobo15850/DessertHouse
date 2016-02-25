@@ -25,6 +25,8 @@ public class Product implements Serializable {
 	private String info;// 附加信息
 	private String picture;// 图片地址
 	private Timestamp createdTime;// 创建时间
+	private int number;// 默认数量
+	private double price;// 默认单价
 
 	public int getId() {
 		return id;
@@ -64,6 +66,22 @@ public class Product implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 }

@@ -4,20 +4,19 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%
 	UserBase userbase = null;//session中的用户信息
-	String basePath = null;//项目上下文地址
+	String basePath = request.getContextPath();//项目上下文地址
 %>
 <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
 	<div class="navbar-header">
-		<a class="navbar-brand" href="#">DessertHouse</a>
+		<a class="navbar-brand" href="<%=basePath%>/index.jsp">DessertHouse</a>
 	</div>
 	<div>
 		<ul class="nav navbar-nav">
 			<%
 				Object obj = session.getAttribute("userBase");//从session中取得用户登录后的信息
-				basePath = application.getContextPath();
 				if (obj == null) {
 			%>
-			<li class="active"><a href="#">欢饮来到DessertHouse</a></li>
+			<li class="active"><a href="#">欢迎来到DessertHouse</a></li>
 			<%
 				}
 				else {
@@ -25,7 +24,7 @@
 					switch (userbase.getCategory()) {
 					case FinalValue.UserCategory.COMMON_MENBER:
 			%>
-			<li class="active"><a href="<%=basePath%>/myAccount.action">我的账户</a></li>
+			<li><a href="<%=basePath%>/myAccount.action">我的账户</a></li>
 			<li><a href="<%=basePath%>/consumptionRecord.action">消费记录</a></li>
 			<li><a href="<%=basePath%>/bookGoods.action">预定商品</a></li>
 			<li><a href="<%=basePath%>/rechargeRecord.action">充值信息</a></li>

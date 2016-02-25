@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/user/login.css">
 <title>登陆</title>
 </head>
@@ -20,13 +20,19 @@
 			<input type="password" name="password" class="form-control" placeholder="密码8-16位数字或字母或下划线" required>
 			<h5 class="login-error">${FieldErrors.loginMessage[0]}</h5>
 			<div class="checkbox">
-				<label><input type="checkbox" value="remember-me">记住密码</label>
+				<label>
+					<input type="checkbox" value="remember-me">
+					记住密码
+				</label>
 				<a class="forget-password" href="#">忘记密码</a>
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		</form>
 		<div class="no-account">
-			<label>没有账号<a href="<%=basePath%>/page/user/register.jsp">==>立即注册</a></label>
+			<label>
+				没有账号
+				<a href="<%=basePath%>/page/user/register.jsp">==>立即注册</a>
+			</label>
 		</div>
 	</div>
 </body>

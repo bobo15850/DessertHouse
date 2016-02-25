@@ -16,11 +16,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>特定店铺产品计划</title>
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/main.css">
-<link rel="stylesheet" href="<%=basePath%>/css/schedule/schedule.css">
-<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<%=basePath%>/css/schedule/draftSchedule.css">
+<script src="<%=basePath%>/lib/jquery/jquery-1.12.1.min.js"></script>
+<script src="<%=basePath%>/lib/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/schedule/schedule.js"></script>
 </head>
 <body>
@@ -38,7 +38,7 @@
 					</form>
 				</div>
 				<div>
-					<form action="<%=basePath%>/schedule/submitSchedule.action">
+					<form action="<%=basePath%>/schedule/submitSchedule.action" method="post">
 						<%
 							for (int dayNum = 0; dayNum < 7; dayNum++) {
 								Date date = dates.get(dayNum);
@@ -51,6 +51,7 @@
 								<thead>
 									<tr>
 										<th>#</th>
+										<th>图片</th>
 										<th>产品名称</th>
 										<th>产品描述</th>
 										<th>单价</th>
@@ -64,10 +65,12 @@
 									%>
 									<tr>
 										<td><%=productNum%></td>
+										<td><img class="product-img" alt="暂无图片" src="<%=basePath + "/" + product.getPicture()%>"></td>
 										<td><%=product.getName()%></td>
 										<td><%=product.getInfo()%></td>
-										<td><input class="form-control"></td>
-										<td><input class="form-control" value="100"></td>
+										<td><input type="number" class="form-control price-input" value=<%=product.getPrice()%>></td>
+										<!-- number类型是bootstrap中的类型 -->
+										<td><input type="number" class="form-control number-input" value=<%=product.getNumber()%>></td>
 									</tr>
 									<%
 										}

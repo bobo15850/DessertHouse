@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/user/register.css">
 <title>注册</title>
 </head>
@@ -23,7 +23,10 @@
 			<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
 		</form>
 		<div class="has-account">
-			<label>已有账号<a href="<%=basePath%>/page/user/login.jsp">==>直接登陆</a></label>
+			<label>
+				已有账号
+				<a href="<%=basePath%>/page/user/login.jsp">==>直接登陆</a>
+			</label>
 		</div>
 	</div>
 	<script type="text/javascript" src="<%=basePath%>/js/user/register.js"></script>

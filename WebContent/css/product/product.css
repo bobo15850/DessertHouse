@@ -16,3 +16,9 @@
 #search-product {
 	
 }
+
+/*产品图片*/
+.product-img {
+	width: 120px;
+	height: 90px;
+}
