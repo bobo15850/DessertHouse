@@ -104,4 +104,36 @@ public class SalesRecord implements Serializable {
 	public void setRealMoney(double realMoney) {
 		this.realMoney = realMoney;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((createdTime == null) ? 0 : createdTime.hashCode());
+		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
+		result = prime * result + ((shop == null) ? 0 : shop.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		SalesRecord other = (SalesRecord) obj;
+		if (createdTime == null) {
+			if (other.createdTime != null) return false;
+		}
+		else if (!createdTime.equals(other.createdTime)) return false;
+		if (customer == null) {
+			if (other.customer != null) return false;
+		}
+		else if (!customer.equals(other.customer)) return false;
+		if (shop == null) {
+			if (other.shop != null) return false;
+		}
+		else if (!shop.equals(other.shop)) return false;
+		return true;
+	}
+
 }

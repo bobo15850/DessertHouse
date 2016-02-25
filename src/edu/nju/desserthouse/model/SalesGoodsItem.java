@@ -68,4 +68,31 @@ public class SalesGoodsItem implements Serializable {
 	public void setSalesRecord(SalesRecord salesRecord) {
 		this.salesRecord = salesRecord;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((good == null) ? 0 : good.hashCode());
+		result = prime * result + ((salesRecord == null) ? 0 : salesRecord.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		SalesGoodsItem other = (SalesGoodsItem) obj;
+		if (good == null) {
+			if (other.good != null) return false;
+		}
+		else if (!good.equals(other.good)) return false;
+		if (salesRecord == null) {
+			if (other.salesRecord != null) return false;
+		}
+		else if (!salesRecord.equals(other.salesRecord)) return false;
+		return true;
+	}
+
 }

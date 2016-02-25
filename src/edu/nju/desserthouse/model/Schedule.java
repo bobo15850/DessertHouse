@@ -3,7 +3,7 @@ package edu.nju.desserthouse.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,7 +34,8 @@ public class Schedule implements Serializable {
 	private User operator;// 创建者
 	private int state;// 计划状态
 	@OneToMany(mappedBy = "schedule")
-	private Set<ScheduleItem> scheduleItemSet;
+	private List<ScheduleItem> scheduleItemList;
+
 	@ManyToOne
 	@JoinColumn
 	private User approver;// 审批人
@@ -79,20 +80,54 @@ public class Schedule implements Serializable {
 		this.state = state;
 	}
 
-	public Set<ScheduleItem> getScheduleItemSet() {
-		return scheduleItemSet;
-	}
-
-	public void setScheduleItemSet(Set<ScheduleItem> scheduleItemSet) {
-		this.scheduleItemSet = scheduleItemSet;
-	}
-
 	public Date getStartDate() {
 		return startDate;
 	}
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+	public List<ScheduleItem> getScheduleItemList() {
+		return scheduleItemList;
+	}
+
+	public void setScheduleItemList(List<ScheduleItem> scheduleItemList) {
+		this.scheduleItemList = scheduleItemList;
+	}
+
+	public User getApprover() {
+		return approver;
+	}
+
+	public void setApprover(User approver) {
+		this.approver = approver;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((shop == null) ? 0 : shop.hashCode());
+		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Schedule other = (Schedule) obj;
+		if (shop == null) {
+			if (other.shop != null) return false;
+		}
+		else if (!shop.equals(other.shop)) return false;
+		if (startDate == null) {
+			if (other.startDate != null) return false;
+		}
+		else if (!startDate.equals(other.startDate)) return false;
+		return true;
 	}
 
 }

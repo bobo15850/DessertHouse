@@ -109,4 +109,35 @@ public class Goods implements Serializable {
 		this.schedule = schedule;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((effectiveDate == null) ? 0 : effectiveDate.hashCode());
+		result = prime * result + ((product == null) ? 0 : product.hashCode());
+		result = prime * result + ((shop == null) ? 0 : shop.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		Goods other = (Goods) obj;
+		if (effectiveDate == null) {
+			if (other.effectiveDate != null) return false;
+		}
+		else if (!effectiveDate.equals(other.effectiveDate)) return false;
+		if (product == null) {
+			if (other.product != null) return false;
+		}
+		else if (!product.equals(other.product)) return false;
+		if (shop == null) {
+			if (other.shop != null) return false;
+		}
+		else if (!shop.equals(other.shop)) return false;
+		return true;
+	}
+
 }

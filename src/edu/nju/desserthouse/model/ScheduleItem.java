@@ -18,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "scheduleItem")
-public class ScheduleItem implements Serializable {
+public class ScheduleItem implements Serializable, Comparable<ScheduleItem> {
 	private static final long serialVersionUID = 9024583029590825696L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,4 +61,36 @@ public class ScheduleItem implements Serializable {
 	public void setGoodsItemSet(Set<ScheduleGoodsItem> goodsItemSet) {
 		this.goodsItemSet = goodsItemSet;
 	}
+
+	@Override
+	public int compareTo(ScheduleItem o) {
+		return this.effectiveDate.compareTo(o.effectiveDate);
+	}// 时间在前面的产品计划项小
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((effectiveDate == null) ? 0 : effectiveDate.hashCode());
+		result = prime * result + ((schedule == null) ? 0 : schedule.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		ScheduleItem other = (ScheduleItem) obj;
+		if (effectiveDate == null) {
+			if (other.effectiveDate != null) return false;
+		}
+		else if (!effectiveDate.equals(other.effectiveDate)) return false;
+		if (schedule == null) {
+			if (other.schedule != null) return false;
+		}
+		else if (!schedule.equals(other.schedule)) return false;
+		return true;
+	}
+
 }
