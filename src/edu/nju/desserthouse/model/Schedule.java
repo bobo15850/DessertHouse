@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,8 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /*
  * 产品计划，一个店铺，一个星期
@@ -36,8 +38,8 @@ public class Schedule implements Serializable {
 	@JoinColumn
 	private User operator;// 创建者
 	private int state;// 计划状态
-	@OneToMany(mappedBy = "schedule")
-	@Cascade(value = { CascadeType.SAVE_UPDATE, CascadeType.DELETE })
+	@OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<ScheduleItem> scheduleItemList;
 
 	@ManyToOne

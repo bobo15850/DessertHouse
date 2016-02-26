@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@page import="edu.nju.desserthouse.model.Schedule"%>
 <%@page import="edu.nju.desserthouse.util.FinalValue"%>
 <%@page import="edu.nju.desserthouse.model.Shop"%>
@@ -13,6 +14,11 @@
 	int scheduleState = (int) request.getAttribute("scheduleState");//计划状态
 	List<Schedule> schedules = (List<Schedule>) request.getAttribute("schedules");
 %>
+<%!Date getNumDateAfter(Date rawDate, int num) {
+		long timeLong = rawDate.getTime();
+		timeLong += num * 24 * 60 * 60 * 1000;
+		return new Date(timeLong);
+	}%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -141,18 +147,41 @@
 					<%
 						}
 						else {
-							for (int i = schedules.size() - 1; i >= 0; i--) {
-								Schedule schedule = schedules.get(i);
 					%>
-					<div>
-						<label><%=schedule.getId()%></label>
-						<label><%=schedule.getStartDate()%></label>
-						<label><%=schedule.getOperator().getUsername()%></label>
-					</div>
-					<%
-						}
-						}
-					%>
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>开始日期</th>
+								<th>结束日期</th>
+								<th>创建者</th>
+								<th>详细信息</th>
+								<th>创建时间</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (int i = schedules.size() - 1; i >= 0; i--) {
+										Schedule schedule = schedules.get(i);
+							%>
+							<tr>
+								<td><%=schedules.size() - 1 - i%></td>
+								<td><%=schedule.getStartDate()%></td>
+								<td><%=getNumDateAfter(schedule.getStartDate(), 6)%></td>
+								<td><%=schedule.getOperator().getUsername()%></td>
+								<td><form action="<%=basePath%>/schedule/showTargetSchedule.action">
+										<input class="display-none" name="scheduleId" value=<%=schedule.getId()%>>
+										<button class="btn btn-primary">查看详情</button>
+									</form></td>
+								<td><%=schedule.getCreatedTime()%></td>
+							</tr>
+							<%
+								}
+								}
+							%>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

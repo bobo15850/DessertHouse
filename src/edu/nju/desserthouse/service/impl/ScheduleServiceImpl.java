@@ -103,4 +103,28 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return scheduleDao.save(schedule);
 	}
 
+	@Override
+	public Schedule getScheduleById(int scheduleId) {
+		return scheduleDao.get(Schedule.class, scheduleId);
+	}
+
+	@Override
+	public ResultMessage modifySchedule(Schedule schedule, int rawScheduleId, int opreatorId) {
+		Schedule rawSchedule = scheduleDao.get(Schedule.class, rawScheduleId);
+		User operator = userDao.get(User.class, opreatorId);
+		rawSchedule.setOperator(operator);
+		rawSchedule.setState(FinalValue.ScheduleState.APPROVING);
+		for (int dayNum = 0; dayNum < rawSchedule.getScheduleItemList().size(); dayNum++) {
+			ScheduleItem scheduleItem = rawSchedule.getScheduleItemList().get(dayNum);
+			for (int productNum = 0; productNum < scheduleItem.getGoodsItemList().size(); productNum++) {
+				ScheduleGoodsItem goodsItem = scheduleItem.getGoodsItemList().get(productNum);
+				goodsItem.setPrice(
+						schedule.getScheduleItemList().get(dayNum).getGoodsItemList().get(productNum).getPrice());
+				goodsItem.setQuantity(
+						schedule.getScheduleItemList().get(dayNum).getGoodsItemList().get(productNum).getQuantity());
+			}
+		} // 填充每一天的产品计划
+		return scheduleDao.update(rawSchedule);
+	}
+
 }

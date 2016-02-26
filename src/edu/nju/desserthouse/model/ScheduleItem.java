@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,8 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /*
  * 计划记录，一天
@@ -31,8 +33,8 @@ public class ScheduleItem implements Serializable, Comparable<ScheduleItem> {
 	private Schedule schedule;
 	private Date effectiveDate;// 生效日期
 
-	@OneToMany(mappedBy = "scheduleItem")
-	@Cascade(value = { CascadeType.SAVE_UPDATE, CascadeType.DELETE })
+	@OneToMany(mappedBy = "scheduleItem", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<ScheduleGoodsItem> goodsItemList;
 
 	public int getId() {

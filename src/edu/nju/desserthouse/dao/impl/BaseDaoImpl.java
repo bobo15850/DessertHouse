@@ -21,32 +21,10 @@ public class BaseDaoImpl implements BaseDao {
 		return sessionFactory.getCurrentSession();
 	}
 
-	public ResultMessage flush() {
-		try {
-			getSession().flush();
-			return ResultMessage.SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResultMessage.FAILURE;
-		}
-	}
-
-	public ResultMessage clear() {
-		try {
-			getSession().clear();
-			return ResultMessage.SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResultMessage.SUCCESS;
-		}
-	}
-
 	public ResultMessage save(Object bean) {
 		try {
 			Session session = getSession();
 			session.save(bean);
-			session.flush();
-			session.clear();
 			return ResultMessage.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,8 +36,6 @@ public class BaseDaoImpl implements BaseDao {
 		try {
 			Session session = getSession();
 			session.delete(bean);
-			session.flush();
-			session.clear();
 			return ResultMessage.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,8 +48,6 @@ public class BaseDaoImpl implements BaseDao {
 			Session session = getSession();
 			Object obj = session.get(c, id);
 			session.delete(obj);
-			session.flush();
-			session.clear();
 			return ResultMessage.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,12 +59,9 @@ public class BaseDaoImpl implements BaseDao {
 		try {
 			Session session = getSession();
 			session.update(bean);
-			session.flush();
-			session.clear();
 			return ResultMessage.SUCCESS;
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			System.out.println("update失败");
 			return ResultMessage.FAILURE;
 		}
 	}
@@ -122,7 +93,6 @@ public class BaseDaoImpl implements BaseDao {
 		Session session = getSession();
 		String hql = "select count(*) from " + c.getName();
 		Long count = (Long) session.createQuery(hql).uniqueResult();
-		session.close();
 		return count != null ? count.longValue() : 0;
 	}
 

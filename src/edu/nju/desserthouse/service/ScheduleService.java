@@ -16,4 +16,8 @@ public interface ScheduleService {
 	public List<Schedule> getShopSchedules(int shopId, int scheduleState);// 得到某个店铺某种种状态的产品计划
 
 	public ResultMessage addSchedule(Schedule schedule, List<Integer> productIdList, int shopId, int operatorId);// 添加一个计划
+
+	public ResultMessage modifySchedule(Schedule schedule, int rawScheduleId, int opreatorId);// 修改产品计划，参数中的schedule只有单价和数量，其他的内容需要从数据库取得
+
+	public Schedule getScheduleById(int scheduleId);// 根据产品计划id得到产品计划
 }

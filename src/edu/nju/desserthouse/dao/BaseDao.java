@@ -9,10 +9,6 @@ import edu.nju.desserthouse.util.ResultMessage;
 public interface BaseDao {
 	public Session getSession();
 
-	public ResultMessage flush();
-
-	public ResultMessage clear();
-
 	public ResultMessage save(Object bean);// 增加
 
 	public ResultMessage delete(Object bean);// 删除

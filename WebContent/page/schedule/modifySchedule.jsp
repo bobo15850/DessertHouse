@@ -1,21 +1,20 @@
-<%@page import="java.sql.Date"%>
-<%@page import="edu.nju.desserthouse.util.FinalValue"%>
 <%@page import="edu.nju.desserthouse.model.Product"%>
-<%@page import="java.util.List"%>
+<%@page import="edu.nju.desserthouse.model.ScheduleGoodsItem"%>
+<%@page import="edu.nju.desserthouse.model.ScheduleItem"%>
 <%@page import="edu.nju.desserthouse.model.Shop"%>
+<%@page import="edu.nju.desserthouse.model.Schedule"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%
 	String basePath = request.getContextPath();
-	Shop shop = (Shop) request.getAttribute("shop");//店铺
-	List<Date> dates = (List<Date>) request.getAttribute("dates");//产品计划的日期列表，按顺序
-	List<Product> products = (List<Product>) request.getAttribute("products");//所有产品
+	Schedule schedule = (Schedule) request.getAttribute("schedule");
+	Shop shop = schedule.getShop();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>特定店铺产品计划</title>
+<title>修改产品计划</title>
 <link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/main.css">
 <link rel="stylesheet" href="<%=basePath%>/css/schedule/schedule.css">
@@ -29,27 +28,22 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
 				<div>
-					<form action="<%=basePath%>/schedule/targetShopSchedule.action">
+					<form action="<%=basePath%>/schedule/targetShopSchedule.action" class="display-inline">
 						<h3 class="display-inline"><%=shop.getShopname()%></h3>
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
-						<input name="scheduleState" value=<%=FinalValue.ScheduleState.APPROVING%> class="display-none">
-						<button class="btn btn-primary">返回店铺计划页面</button>
+						<input name="scheduleState" value=<%=schedule.getState()%> class="display-none">
+						<button class="btn btn-primary">放弃修改返回店铺产品计划</button>
 					</form>
 				</div>
 				<div>
-					<form action="<%=basePath%>/schedule/submitSchedule.action" method="post">
+					<form action="<%=basePath%>/schedule/submitModify.action">
 						<%
-							for (int i = 0; i < products.size(); i++) {
-						%>
-						<input class="display-none" name="productIdList[<%=i%>]" value="<%=products.get(i).getId()%>">
-						<%
-							} //传递产品
-							for (int dayNum = 0; dayNum < 7; dayNum++) {
-								Date date = dates.get(dayNum);
+							for (int dayNum = 0; dayNum < schedule.getScheduleItemList().size(); dayNum++) {
+								ScheduleItem scheduleItem = schedule.getScheduleItemList().get(dayNum);
 						%>
 						<div>
 							<h2 class="text-center">
-								第<%=dayNum%>天：<%=date%>
+								第<%=dayNum%>天：<%=scheduleItem.getEffectiveDate()%>
 							</h2>
 							<table class="table table-striped">
 								<thead>
@@ -64,8 +58,9 @@
 								</thead>
 								<tbody>
 									<%
-										for (int productNum = 0; productNum < products.size(); productNum++) {
-												Product product = products.get(productNum);
+										for (int productNum = 0; productNum < scheduleItem.getGoodsItemList().size(); productNum++) {
+												ScheduleGoodsItem goodsItem = scheduleItem.getGoodsItemList().get(productNum);
+												Product product = goodsItem.getProduct();
 									%>
 									<tr>
 										<td><%=productNum%></td>
@@ -73,10 +68,9 @@
 										<td><%=product.getName()%></td>
 										<td><%=product.getInfo()%></td>
 										<td><input type="number" class="form-control price-input"
-												name="schedule.scheduleItemList[<%=dayNum%>].goodsItemList[<%=productNum%>].price" value=<%=product.getPrice()%>></td>
-										<!-- number类型是bootstrap中的类型 -->
+												name="schedule.scheduleItemList[<%=dayNum%>].goodsItemList[<%=productNum%>].price" value=<%=goodsItem.getPrice()%>></td>
 										<td><input type="number" class="form-control number-input"
-												name="schedule.scheduleItemList[<%=dayNum%>].goodsItemList[<%=productNum%>].quantity" value=<%=product.getNumber()%>></td>
+												name="schedule.scheduleItemList[<%=dayNum%>].goodsItemList[<%=productNum%>].quantity" value=<%=goodsItem.getQuantity()%>></td>
 									</tr>
 									<%
 										}
@@ -84,12 +78,12 @@
 								</tbody>
 							</table>
 						</div>
-						<hr>
 						<%
 							}
 						%>
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
-						<button class="btn btn-primary float-right">提交该计划给总经理审批</button>
+						<input name="scheduleId" value="<%=schedule.getId()%>" class="display-none">
+						<button class="btn btn-primary float-right">重新提交该计划给总经理审批</button>
 						<button class="btn btn-default float-right" type="reset">全部重新设置</button>
 					</form>
 				</div>
