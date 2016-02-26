@@ -2,7 +2,7 @@ package edu.nju.desserthouse.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /*
  * 计划记录，一天
@@ -27,8 +30,10 @@ public class ScheduleItem implements Serializable, Comparable<ScheduleItem> {
 	@JoinColumn
 	private Schedule schedule;
 	private Date effectiveDate;// 生效日期
+
 	@OneToMany(mappedBy = "scheduleItem")
-	private Set<ScheduleGoodsItem> goodsItemSet;// 计划商品集合
+	@Cascade(value = { CascadeType.SAVE_UPDATE, CascadeType.DELETE })
+	private List<ScheduleGoodsItem> goodsItemList;
 
 	public int getId() {
 		return id;
@@ -54,12 +59,12 @@ public class ScheduleItem implements Serializable, Comparable<ScheduleItem> {
 		this.effectiveDate = effectiveDate;
 	}
 
-	public Set<ScheduleGoodsItem> getGoodsItemSet() {
-		return goodsItemSet;
+	public List<ScheduleGoodsItem> getGoodsItemList() {
+		return goodsItemList;
 	}
 
-	public void setGoodsItemSet(Set<ScheduleGoodsItem> goodsItemSet) {
-		this.goodsItemSet = goodsItemSet;
+	public void setGoodsItemList(List<ScheduleGoodsItem> goodsItemList) {
+		this.goodsItemList = goodsItemList;
 	}
 
 	@Override

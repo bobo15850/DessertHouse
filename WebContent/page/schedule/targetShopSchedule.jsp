@@ -141,10 +141,14 @@
 					<%
 						}
 						else {
-							for (Schedule schedule : schedules) {
+							for (int i = schedules.size() - 1; i >= 0; i--) {
+								Schedule schedule = schedules.get(i);
 					%>
-					<label><%=schedule.getId()%></label>
-					<label><%=schedule.getStartDate()%></label>
+					<div>
+						<label><%=schedule.getId()%></label>
+						<label><%=schedule.getStartDate()%></label>
+						<label><%=schedule.getOperator().getUsername()%></label>
+					</div>
 					<%
 						}
 						}

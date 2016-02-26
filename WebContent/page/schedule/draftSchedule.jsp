@@ -40,6 +40,11 @@
 				<div>
 					<form action="<%=basePath%>/schedule/submitSchedule.action" method="post">
 						<%
+							for (int i = 0; i < products.size(); i++) {
+						%>
+						<input class="display-none" name="productIdList[<%=i%>]" value="<%=products.get(i).getId()%>">
+						<%
+							} //传递产品
 							for (int dayNum = 0; dayNum < 7; dayNum++) {
 								Date date = dates.get(dayNum);
 						%>
@@ -66,11 +71,13 @@
 									<tr>
 										<td><%=productNum%></td>
 										<td><img class="product-img" alt="暂无图片" src="<%=basePath + "/" + product.getPicture()%>"></td>
-										<td><%=product.getName()%><input class="display-none" name="productIdList[<%=dayNum%>][<%=productNum%>]" value=<%=product.getId()%>></td>
+										<td><%=product.getName()%></td>
 										<td><%=product.getInfo()%></td>
-										<td><input type="number" class="form-control price-input" value=<%=product.getPrice()%>></td>
+										<td><input type="number" class="form-control price-input"
+												name="schedule.scheduleItemList[<%=dayNum%>].goodsItemList[<%=productNum%>].price" value=<%=product.getPrice()%>></td>
 										<!-- number类型是bootstrap中的类型 -->
-										<td><input type="number" class="form-control number-input" value=<%=product.getNumber()%>></td>
+										<td><input type="number" class="form-control number-input"
+												name="schedule.scheduleItemList[<%=dayNum%>].goodsItemList[<%=productNum%>].quantity" value=<%=product.getNumber()%>></td>
 									</tr>
 									<%
 										}

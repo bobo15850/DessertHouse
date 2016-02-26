@@ -1,17 +1,26 @@
 package edu.nju.desserthouse.service.impl;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.nju.desserthouse.dao.ProductDao;
 import edu.nju.desserthouse.dao.ScheduleDao;
 import edu.nju.desserthouse.dao.ShopDao;
+import edu.nju.desserthouse.dao.UserDao;
+import edu.nju.desserthouse.model.Product;
 import edu.nju.desserthouse.model.Schedule;
+import edu.nju.desserthouse.model.ScheduleGoodsItem;
+import edu.nju.desserthouse.model.ScheduleItem;
 import edu.nju.desserthouse.model.Shop;
+import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.ScheduleService;
+import edu.nju.desserthouse.util.FinalValue;
+import edu.nju.desserthouse.util.ResultMessage;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -19,6 +28,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 	private ScheduleDao scheduleDao;
 	@Autowired
 	private ShopDao shopDao;
+	@Autowired
+	private ProductDao productDao;
+	@Autowired
+	private UserDao userDao;
 
 	@Override
 	public Date getLastScheduleDate(int shopId) {
@@ -62,4 +75,32 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 		return dates;
 	}
+
+	@Override
+	public ResultMessage addSchedule(Schedule schedule, List<Integer> productIdList, int shopId, int operatorId) {
+		List<Product> productList = new ArrayList<Product>();// 产品列表
+		for (int id : productIdList) {
+			productList.add(productDao.get(Product.class, id));
+		}
+		List<Date> dateList = this.getNextScheduleDates(shopId);
+		for (int dayNum = 0; dayNum < schedule.getScheduleItemList().size(); dayNum++) {
+			ScheduleItem scheduleItem = schedule.getScheduleItemList().get(dayNum);
+			scheduleItem.setEffectiveDate(dateList.get(dayNum));
+			scheduleItem.setSchedule(schedule);
+			for (int productNum = 0; productNum < scheduleItem.getGoodsItemList().size(); productNum++) {
+				ScheduleGoodsItem goodsItem = scheduleItem.getGoodsItemList().get(productNum);
+				goodsItem.setProduct(productList.get(productNum));
+				goodsItem.setScheduleItem(scheduleItem);
+			}
+		} // 填充每一天的产品计划
+		User operatot = userDao.get(User.class, operatorId);
+		schedule.setOperator(operatot);
+		Shop shop = shopDao.get(Shop.class, shopId);
+		schedule.setShop(shop);
+		schedule.setStartDate(dateList.get(0));
+		schedule.setState(FinalValue.ScheduleState.APPROVING);
+		schedule.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+		return scheduleDao.save(schedule);
+	}
+
 }
