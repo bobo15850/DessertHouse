@@ -27,3 +27,7 @@
 .text-center {
 	text-align: center;
 }
+
+.control-panel div {
+	margin-bottom: 20px;
+}
