@@ -1,3 +1,4 @@
+<%@page import="edu.nju.desserthouse.util.UserBase"%>
 <%@page import="edu.nju.desserthouse.util.FinalValue"%>
 <%@page import="edu.nju.desserthouse.model.Product"%>
 <%@page import="edu.nju.desserthouse.model.ScheduleGoodsItem"%>
@@ -10,6 +11,7 @@
 	String basePath = request.getContextPath();
 	Schedule schedule = (Schedule) request.getAttribute("schedule");
 	Shop shop = schedule.getShop();
+	UserBase userBase = (UserBase) session.getAttribute("userBase");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,6 +31,14 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
 				<div>
+					<%
+						if (userBase.getCategory() == FinalValue.UserCategory.MANAGER) {
+					%>
+					<h3 class="display-inline"><%=shop.getShopname()%></h3>
+					<%
+						}
+						else if (userBase.getCategory() == FinalValue.UserCategory.HEAD_WAITER) {
+					%>
 					<form action="<%=basePath%>/schedule/targetShopSchedule.action" class="display-inline">
 						<h3 class="display-inline"><%=shop.getShopname()%></h3>
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
@@ -43,6 +53,7 @@
 						<button class="btn btn-primary float-right">修改此未被批准的产品计划</button>
 					</form>
 					<%
+						}
 						}
 					%>
 				</div>
@@ -86,6 +97,25 @@
 							</tbody>
 						</table>
 					</div>
+					<%
+						}
+					%>
+				</div>
+				<div>
+					<%
+						if (userBase.getCategory() == FinalValue.UserCategory.MANAGER
+								&& schedule.getState() == FinalValue.ScheduleState.APPROVING) {
+					%>
+					<form action="<%=basePath%>/schedule/submitApprove.action">
+						<input class="display-none" name="scheduleId" value=<%=schedule.getId()%>>
+						<input class="display-none" name="approveResult" value=<%=FinalValue.ScheduleState.APPROVE_SUCCEED%>>
+						<button class="btn btn-primary float-right">审批通过</button>
+					</form>
+					<form action="<%=basePath%>/schedule/submitApprove.action">
+						<input class="display-none" name="scheduleId" value=<%=schedule.getId()%>>
+						<input class="display-none" name="approveResult" value=<%=FinalValue.ScheduleState.APPROVE_FAILED%>>
+						<button class="btn btn-default float-right">审批不通过</button>
+					</form>
 					<%
 						}
 					%>

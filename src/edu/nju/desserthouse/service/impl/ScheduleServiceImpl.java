@@ -127,4 +127,17 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return scheduleDao.update(rawSchedule);
 	}
 
+	@Override
+	public List<Schedule> getScheduleByState(int scheduleState) {
+		String[] columns = { "state" };
+		Object[] values = { new Integer(scheduleState) };
+		return scheduleDao.findByColumns(Schedule.class, columns, values);
+	}
+
+	@Override
+	public ResultMessage approveSchedule(int scheduleId, int approveResult) {
+		// TODO
+		return null;
+	}
+
 }

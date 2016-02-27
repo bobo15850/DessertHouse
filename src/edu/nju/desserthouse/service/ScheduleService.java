@@ -20,4 +20,8 @@ public interface ScheduleService {
 	public ResultMessage modifySchedule(Schedule schedule, int rawScheduleId, int opreatorId);// 修改产品计划，参数中的schedule只有单价和数量，其他的内容需要从数据库取得
 
 	public Schedule getScheduleById(int scheduleId);// 根据产品计划id得到产品计划
+
+	public List<Schedule> getScheduleByState(int scheduleState);// 得到特定状态的产品计划
+
+	public ResultMessage approveSchedule(int scheduleId, int approveResult);// 审批产品计划
 }
