@@ -23,5 +23,5 @@ public interface ScheduleService {
 
 	public List<Schedule> getScheduleByState(int scheduleState);// 得到特定状态的产品计划
 
-	public ResultMessage approveSchedule(int scheduleId, int approveResult);// 审批产品计划
+	public ResultMessage approveSchedule(int scheduleId, int approveResult, int approverId);// 审批产品计划
 }

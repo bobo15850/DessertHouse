@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.nju.desserthouse.action.BaseAction;
 import edu.nju.desserthouse.service.ScheduleService;
+import edu.nju.desserthouse.util.UserBase;
 
 public class SubmitApproveAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +20,8 @@ public class SubmitApproveAction extends BaseAction {
 			value = "submitApprove",
 			results = { @Result(name = SUCCESS, location = "/approval.action", type = "redirect") })
 	public String execute() throws Exception {
-		scheduleService.approveSchedule(scheduleId, approveResult);
+		UserBase userBase = (UserBase) session.get("userBase");
+		scheduleService.approveSchedule(scheduleId, approveResult, userBase.getId());
 		return SUCCESS;
 	}
 

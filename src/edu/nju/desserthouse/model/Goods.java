@@ -35,6 +35,8 @@ public class Goods implements Serializable {
 	@JoinColumn
 	private User operator;// 审批人，审批人审批之后才会添加一条goods
 	private Timestamp createdTime;// 审批通过时间
+	@ManyToOne
+	@JoinColumn
 	private Schedule schedule;// 通过审批的产品计划，从而创建的goods
 
 	public int getId() {

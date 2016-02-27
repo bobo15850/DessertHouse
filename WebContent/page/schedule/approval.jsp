@@ -86,11 +86,16 @@
 						</thead>
 						<tbody>
 							<%
-								for (int i = schedules.size() - 1; i >= 0; i--) {
+								for (int k = schedules.size() - 1; k >= 0; k--) {
+
+										int i = k;
+										if (scheduleState == FinalValue.ScheduleState.APPROVING) {
+											i = schedules.size() - 1 - k;
+										} //使得待审批的产品计划按照从旧到新的顺序展示，审批过的按照从心到就的顺序展示
 										Schedule schedule = schedules.get(i);
 							%>
 							<tr>
-								<td><%=schedules.size() - 1 - i%></td>
+								<td><%=schedules.size() - 1 - k%></td>
 								<td><%=schedule.getShop().getShopname()%></td>
 								<td><%=schedule.getStartDate()%></td>
 								<td><%=getNumDateAfter(schedule.getStartDate(), 6)%></td>

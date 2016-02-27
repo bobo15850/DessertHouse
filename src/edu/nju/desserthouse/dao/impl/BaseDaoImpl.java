@@ -25,6 +25,7 @@ public class BaseDaoImpl implements BaseDao {
 		try {
 			Session session = getSession();
 			session.save(bean);
+			session.flush();
 			return ResultMessage.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -36,6 +37,7 @@ public class BaseDaoImpl implements BaseDao {
 		try {
 			Session session = getSession();
 			session.delete(bean);
+			session.flush();
 			return ResultMessage.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,6 +50,7 @@ public class BaseDaoImpl implements BaseDao {
 			Session session = getSession();
 			Object obj = session.get(c, id);
 			session.delete(obj);
+			session.flush();
 			return ResultMessage.SUCCESS;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,6 +62,7 @@ public class BaseDaoImpl implements BaseDao {
 		try {
 			Session session = getSession();
 			session.update(bean);
+			session.flush();
 			return ResultMessage.SUCCESS;
 		} catch (HibernateException e) {
 			e.printStackTrace();

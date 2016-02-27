@@ -12,6 +12,7 @@ import edu.nju.desserthouse.dao.ProductDao;
 import edu.nju.desserthouse.dao.ScheduleDao;
 import edu.nju.desserthouse.dao.ShopDao;
 import edu.nju.desserthouse.dao.UserDao;
+import edu.nju.desserthouse.model.Goods;
 import edu.nju.desserthouse.model.Product;
 import edu.nju.desserthouse.model.Schedule;
 import edu.nju.desserthouse.model.ScheduleGoodsItem;
@@ -135,9 +136,32 @@ public class ScheduleServiceImpl implements ScheduleService {
 	}
 
 	@Override
-	public ResultMessage approveSchedule(int scheduleId, int approveResult) {
-		// TODO
-		return null;
+	public ResultMessage approveSchedule(int scheduleId, int approveResult, int approverId) {
+		Schedule schedule = scheduleDao.get(Schedule.class, scheduleId);
+		schedule.setState(approveResult);
+		User approver = userDao.get(User.class, approverId);
+		schedule.setApprover(approver);
+		Timestamp stamp = new Timestamp(System.currentTimeMillis());
+		if (FinalValue.ScheduleState.APPROVE_SUCCEED == approveResult) {
+			scheduleDao.update(schedule);
+			for (ScheduleItem scheduleItem : schedule.getScheduleItemList()) {
+				for (ScheduleGoodsItem goodsItem : scheduleItem.getGoodsItemList()) {
+					Goods goods = new Goods();
+					goods.setCreatedTime(stamp);
+					goods.setEffectiveDate(scheduleItem.getEffectiveDate());
+					goods.setOperator(approver);
+					goods.setPrice(goodsItem.getPrice());
+					goods.setProduct(goodsItem.getProduct());
+					goods.setQuantity(goodsItem.getQuantity());
+					goods.setSchedule(schedule);
+					goods.setShop(schedule.getShop());
+					scheduleDao.save(goods);
+				}
+			}
+		} // 审批通过
+		else if (FinalValue.ScheduleState.APPROVE_FAILED == approveResult) {
+			scheduleDao.update(schedule);
+		} // 审批不通过
+		return ResultMessage.SUCCESS;
 	}
-
 }
