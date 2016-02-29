@@ -16,6 +16,10 @@
 	display: none;
 }
 
+.display-block {
+	display: block;
+}
+
 .float-left {
 	float: left;
 }

@@ -1,3 +1,5 @@
+<%@page import="edu.nju.desserthouse.model.Goods"%>
+<%@page import="java.util.List"%>
 <%@page import="edu.nju.desserthouse.model.User"%>
 <%@page import="edu.nju.desserthouse.model.Shop"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -6,6 +8,7 @@
 	String basePath = request.getContextPath();
 	User staff = (User) request.getAttribute("staff");//员工
 	Shop shop = staff.getShop();//员工所属店铺
+	List<Goods> goodsList = (List<Goods>) request.getAttribute("goodsList");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -15,6 +18,9 @@
 <link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <script src="<%=basePath%>/lib/jquery/jquery-1.12.1.min.js"></script>
 <script src="<%=basePath%>/lib/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="<%=basePath%>/css/main.css">
+<link rel="stylesheet" href="<%=basePath%>/css/sale/sale.css">
+<script type="text/javascript" src="<%=basePath%>/js/sale/sale.js"></script>
 </head>
 <body>
 	<s:include value="../common/header.jsp"></s:include>
@@ -30,18 +36,83 @@
 					</div>
 					<br> <br> <br>
 					<div>
-						<form action="">
-							<button class="btn btn-primary btn-block">选购商品</button>
-						</form>
+						<button class="btn btn-primary btn-block" onclick="showPanel(this)" value="goods-list-panel">选购商品</button>
 					</div>
 					<div>
-						<form action="">
-							<button class="btn btn-primary btn-block">结算中心</button>
-						</form>
+						<button class="btn btn-primary btn-block" onclick="showPanel(this)" value="goods-select-panel">购物车</button>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-10"></div>
+			<div class="col-sm-10">
+				<div id="goods-list-panel" class="unhide">
+					<%
+						if (goodsList == null || goodsList.size() == 0) {
+					%>
+					<h1>没有任何商品可供购买</h1>
+					<%
+						}
+						else {
+					%>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>图片</th>
+								<th>商品名称</th>
+								<th>商品描述</th>
+								<th>单价</th>
+								<th>剩余数量</th>
+								<th>选择</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (int i = 0; i < goodsList.size(); i++) {
+										Goods goods = goodsList.get(i);
+							%>
+							<tr>
+								<td><%=i%></td>
+								<td><img class="goods-img" alt="商品图片" src="<%=basePath + "/" + goods.getProduct().getPicture()%>"></td>
+								<td><%=goods.getProduct().getName()%></td>
+								<td><%=goods.getProduct().getInfo()%></td>
+								<td><%=goods.getPrice()%></td>
+								<td><%=goods.getQuantity()%></td>
+								<td><button class="btn btn-primary">选购</button></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+					<%
+						}
+					%>
+				</div>
+				<div id="goods-select-panel" class="hide">
+					<h1>我选购的商品</h1>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>商品名称</th>
+								<th>单价</th>
+								<th>数量</th>
+								<th>删除</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>0</td>
+								<td>草莓蛋糕<input class="display-none" value="12"></td>
+								<td>30</td>
+								<td><input type="number" class="form-control" value="3"></td>
+								<td><button class="btn btn-primary">刪除</button></td>
+							</tr>
+						</tbody>
+					</table>
+					<button class="btn btn-primary btn-block">确认购买</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	<s:include value="../common/footer.jsp"></s:include>

@@ -1,11 +1,15 @@
 package edu.nju.desserthouse.action;
 
+import java.util.List;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.nju.desserthouse.action.BaseAction;
+import edu.nju.desserthouse.model.Goods;
 import edu.nju.desserthouse.model.User;
+import edu.nju.desserthouse.service.SaleService;
 import edu.nju.desserthouse.service.UserService;
 import edu.nju.desserthouse.util.UserBase;
 
@@ -16,6 +20,8 @@ public class BranchWaiterHeadAction extends BaseAction {
 	private static final long serialVersionUID = 1556554054395903212L;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private SaleService saleService;
 
 	@Action(
 			value = "sale",
@@ -25,6 +31,8 @@ public class BranchWaiterHeadAction extends BaseAction {
 		UserBase userBase = (UserBase) session.get("userBase");
 		User staff = userService.getUserById(userBase.getId());
 		request.setAttribute("staff", staff);
+		List<Goods> goodsList = saleService.getTodayShopGoods(staff.getShop().getId());
+		request.setAttribute("goodsList", goodsList);
 		return SUCCESS;
 	}// 销售
 
