@@ -1,16 +1,23 @@
 package edu.nju.desserthouse.service.impl;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.nju.desserthouse.dao.GoodsDao;
+import edu.nju.desserthouse.dao.SaleDao;
 import edu.nju.desserthouse.dao.ShopDao;
+import edu.nju.desserthouse.dao.UserDao;
 import edu.nju.desserthouse.model.Goods;
+import edu.nju.desserthouse.model.SalesRecord;
 import edu.nju.desserthouse.model.Shop;
+import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.SaleService;
+import edu.nju.desserthouse.util.FinalValue;
+import edu.nju.desserthouse.util.ResultMessage;
 
 @Service
 public class SaleServiceImpl implements SaleService {
@@ -18,6 +25,10 @@ public class SaleServiceImpl implements SaleService {
 	private GoodsDao goodsDao;
 	@Autowired
 	private ShopDao shopDao;
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private SaleDao saleDao;
 
 	@Override
 	public List<Goods> getTodayShopGoods(int shopId) {
@@ -29,4 +40,67 @@ public class SaleServiceImpl implements SaleService {
 		return goodsList;
 	}
 
+	@Override
+	public ResultMessage fillOrder(SalesRecord order, List<Integer> goodsIdList, int shopId, int operatorId,
+			String identity) {
+		for (int i = 0; i < goodsIdList.size(); i++) {
+			int goodsId = goodsIdList.get(i);
+			Goods goods = goodsDao.get(Goods.class, goodsId);
+			goods.setQuantity(goods.getQuantity() - order.getGoodsItemList().get(i).getQuantity());
+			order.getGoodsItemList().get(i).setGoods(goods);
+			order.getGoodsItemList().get(i).setSalesRecord(order);
+		}
+		Shop shop = shopDao.get(Shop.class, shopId);
+		User operator = userDao.get(User.class, operatorId);
+		order.setShop(shop);
+		order.setOperator(operator);
+		order.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+		if (identity != null) {
+			List<User> userList = null;
+			if (identity.length() == 7) {
+				userList = userDao.findByColumns(User.class, new String[] { "cardId" }, new Object[] { identity });
+			}
+			else if (identity.length() == 11) {
+				userList = userDao.findByColumns(User.class, new String[] { "phonenumber" }, new Object[] { identity });
+			}
+			if (userList != null && userList.size() != 0) {
+				order.setCustomer(userList.get(0));
+			}
+		}
+		double rawMoney = 0;
+		for (int i = 0; i < order.getGoodsItemList().size(); i++) {
+			rawMoney += order.getGoodsItemList().get(i).getMoney();
+		}
+		order.setRawMoney(rawMoney);
+		if (order.getCustomer() == null) {
+			order.setRealMoney(rawMoney);
+		}
+		else {
+			User customer = order.getCustomer();
+			double discount = FinalValue.UserLevel.getDiscount(customer.getLevel());
+			order.setRealMoney(rawMoney * discount);
+			if (customer.getBalance() < order.getRealMoney()) {
+				return ResultMessage.CANNOT_AFFORD;
+			}
+		}
+		return ResultMessage.SUCCESS;
+	}// 将订单填写完整
+
+	@Override
+	public ResultMessage addSaleRecord(SalesRecord saleRecord) {
+		if (saleRecord.getCustomer() != null) {
+			if (saleRecord.getRealMoney() < saleRecord.getCustomer().getBalance()) {
+				saleRecord.getCustomer().setBalance(saleRecord.getCustomer().getBalance() - saleRecord.getRealMoney());
+			}
+			saleRecord.getCustomer()
+					.setConsumption(saleRecord.getRealMoney() + saleRecord.getCustomer().getConsumption());
+			// TODO 改变用户等级
+			userDao.update(saleRecord.getCustomer());
+		} // 余额够
+		saleDao.save(saleRecord);
+		for (int i = 0; i < saleRecord.getGoodsItemList().size(); i++) {
+			goodsDao.update(saleRecord.getGoodsItemList().get(i).getGoods());
+		} // 改变库存
+		return ResultMessage.SUCCESS;
+	}// 添加销售记录，需要减少库存,设置会员信息
 }

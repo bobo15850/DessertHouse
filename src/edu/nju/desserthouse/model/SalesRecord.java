@@ -2,9 +2,11 @@ package edu.nju.desserthouse.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /*
  * 销售记录
@@ -33,12 +38,10 @@ public class SalesRecord implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private User customer;// 顾客
-
-	@OneToMany(targetEntity = SalesGoodsItem.class, mappedBy = "salesRecord")
-	private Set<SalesGoodsItem> goodsItemSet;// 销售商品集合
-
+	@OneToMany(mappedBy = "salesRecord", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<SalesGoodsItem> goodsItemList;
 	private double rawMoney;// 商品总价
-
 	private double realMoney;// 实际付款金额
 
 	public int getId() {
@@ -81,12 +84,12 @@ public class SalesRecord implements Serializable {
 		this.customer = customer;
 	}
 
-	public Set<SalesGoodsItem> getGoodsItemSet() {
-		return goodsItemSet;
+	public List<SalesGoodsItem> getGoodsItemList() {
+		return goodsItemList;
 	}
 
-	public void setGoodsItemSet(Set<SalesGoodsItem> goodsItemSet) {
-		this.goodsItemSet = goodsItemSet;
+	public void setGoodsItemList(List<SalesGoodsItem> goodsItemList) {
+		this.goodsItemList = goodsItemList;
 	}
 
 	public double getRawMoney() {

@@ -22,7 +22,7 @@ public class SalesGoodsItem implements Serializable {
 	private int id;// 主键
 	@ManyToOne
 	@JoinColumn
-	private Goods good;// 商品
+	private Goods goods;// 商品
 	private int quantity;// 数量
 	private double money;// 总价
 	@ManyToOne
@@ -37,12 +37,12 @@ public class SalesGoodsItem implements Serializable {
 		this.id = id;
 	}
 
-	public Goods getGood() {
-		return good;
+	public Goods getGoods() {
+		return goods;
 	}
 
-	public void setGood(Goods good) {
-		this.good = good;
+	public void setGoods(Goods goods) {
+		this.goods = goods;
 	}
 
 	public int getQuantity() {
@@ -73,7 +73,7 @@ public class SalesGoodsItem implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((good == null) ? 0 : good.hashCode());
+		result = prime * result + ((goods == null) ? 0 : goods.hashCode());
 		result = prime * result + ((salesRecord == null) ? 0 : salesRecord.hashCode());
 		return result;
 	}
@@ -84,10 +84,10 @@ public class SalesGoodsItem implements Serializable {
 		if (obj == null) return false;
 		if (getClass() != obj.getClass()) return false;
 		SalesGoodsItem other = (SalesGoodsItem) obj;
-		if (good == null) {
-			if (other.good != null) return false;
+		if (goods == null) {
+			if (other.goods != null) return false;
 		}
-		else if (!good.equals(other.good)) return false;
+		else if (!goods.equals(other.goods)) return false;
 		if (salesRecord == null) {
 			if (other.salesRecord != null) return false;
 		}

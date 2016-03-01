@@ -34,13 +34,18 @@ public final class FinalValue {
 
 		private static final String[] levelStr = { "基础会员", "高级会员", "vip会员" };
 		private static final double[] levelBaseline = { 0, 1000, 5000 };
+		private static final double[] levelDiscount = { 0.9, 0.8, 0.7 };
 
 		public static String getStrOfUserLevel(final int level) {
 			return (level >= 0 && level < levelStr.length) ? levelStr[level] : levelStr[0];
 		}
 
 		public static double getBaseLine(final int level) {
-			return (level >= 0 && level < levelStr.length) ? levelBaseline[level] : levelBaseline[0];
+			return (level >= 0 && level < levelBaseline.length) ? levelBaseline[level] : levelBaseline[0];
+		}
+
+		public static double getDiscount(final int level) {
+			return (level >= 0 && level < levelDiscount.length) ? levelDiscount[level] : levelDiscount[0];
 		}
 	}// 用户等级
 

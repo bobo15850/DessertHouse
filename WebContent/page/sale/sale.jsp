@@ -125,11 +125,10 @@
 					%>
 				</div>
 				<div id="goods-select-panel" class="hide">
-					<h1>我选购的商品</h1>
+					<h1>选购的商品</h1>
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<td>#</td>
 								<th>商品编号</th>
 								<th>商品名称</th>
 								<th>单价</th>
@@ -140,7 +139,35 @@
 						<tbody id="goods-select-table">
 						</tbody>
 					</table>
-					<button class="btn btn-primary btn-block">确认购买</button>
+					<label id="generateOrderMsg"></label>
+					<button id="generate-order-btn" class="btn btn-primary float-right" onclick="generateOrder()">生成订单</button>
+					<button id="clear-all-select" class="btn btn-default float-right" onclick="deleteAllSelect()">清空购物车</button>
+				</div>
+				<div id="order-panel" class="hide">
+					<h1>支付订单</h1>
+					<form action="<%=basePath%>/sale/submitOrder.action">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>商品名称</th>
+									<th>商品编号</th>
+									<th>商品单价</th>
+									<th>商品数量</th>
+									<th>总价</th>
+								</tr>
+							</thead>
+							<tbody id="order-table"></tbody>
+						</table>
+						<div class="input-group">
+							<span class="input-group-addon">会员卡号/手机号码</span>
+							<input name="identity" type="text" class="form-control" placeholder="请输入会员卡号或注册手机号码，如没有会员卡请不要填写">
+						</div>
+						<input type="hidden" name="operatorId" value=<%=staff.getId()%>>
+						<input type="hidden" name="shopId" value=<%=shop.getId()%>>
+						<button class="btn btn-primary float-right" type="submit">提交订单</button>
+						<button class="btn btn-default float-right" type="button" onclick="cancleOrder()">取消订单</button>
+					</form>
 				</div>
 			</div>
 		</div>
