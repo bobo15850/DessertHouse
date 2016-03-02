@@ -45,8 +45,7 @@ public class SaleServiceImpl implements SaleService {
 			String identity) {
 		for (int i = 0; i < goodsIdList.size(); i++) {
 			int goodsId = goodsIdList.get(i);
-			Goods goods = goodsDao.get(Goods.class, goodsId);
-			goods.setQuantity(goods.getQuantity() - order.getGoodsItemList().get(i).getQuantity());
+			final Goods goods = goodsDao.get(Goods.class, goodsId);
 			order.getGoodsItemList().get(i).setGoods(goods);
 			order.getGoodsItemList().get(i).setSalesRecord(order);
 		}
@@ -89,16 +88,27 @@ public class SaleServiceImpl implements SaleService {
 	@Override
 	public ResultMessage addSaleRecord(SalesRecord saleRecord) {
 		if (saleRecord.getCustomer() != null) {
+			saleRecord.getCustomer()
+					.setConsumption(saleRecord.getRealMoney() + saleRecord.getCustomer().getConsumption());// 修改消费
 			if (saleRecord.getRealMoney() < saleRecord.getCustomer().getBalance()) {
 				saleRecord.getCustomer().setBalance(saleRecord.getCustomer().getBalance() - saleRecord.getRealMoney());
-			}
-			saleRecord.getCustomer()
-					.setConsumption(saleRecord.getRealMoney() + saleRecord.getCustomer().getConsumption());
-			// TODO 改变用户等级
+			} // 余额够，要修改用户余额
+			double tot = saleRecord.getCustomer().getBalance() + saleRecord.getCustomer().getConsumption();
+			double[] levelBase = { FinalValue.UserLevel.getBaseLine(FinalValue.UserLevel.BASIC_MEMBER),
+					FinalValue.UserLevel.getBaseLine(FinalValue.UserLevel.ADVANCED_MENBER),
+					FinalValue.UserLevel.getBaseLine(FinalValue.UserLevel.VIP) };
+			for (int i = levelBase.length - 1; i >= 0; i--) {
+				if (tot >= levelBase[i]) {
+					saleRecord.getCustomer().setLevel(i);
+					break;
+				}
+			} // 修改用户等级
 			userDao.update(saleRecord.getCustomer());
-		} // 余额够
+		} // 有用户，要修改用户消费，判断和修改用户等级
 		saleDao.save(saleRecord);
 		for (int i = 0; i < saleRecord.getGoodsItemList().size(); i++) {
+			Goods goods = saleRecord.getGoodsItemList().get(i).getGoods();
+			goods.setQuantity(goods.getQuantity() - saleRecord.getGoodsItemList().get(i).getQuantity());
 			goodsDao.update(saleRecord.getGoodsItemList().get(i).getGoods());
 		} // 改变库存
 		return ResultMessage.SUCCESS;
