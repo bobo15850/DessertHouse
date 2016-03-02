@@ -30,4 +30,6 @@ public interface UserService {
 
 	public User recharge(int id, double amount);// 充值
 
+	public User getUserByIdentity(String identity);// 通过用户名或者电话或者会员卡号查找用户
+
 }

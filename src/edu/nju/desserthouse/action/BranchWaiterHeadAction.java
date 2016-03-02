@@ -41,6 +41,12 @@ public class BranchWaiterHeadAction extends BaseAction {
 			results = { @Result(name = SUCCESS, location = "/page/user/viewUserInfo.jsp"),
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
 	public String viewUserInfo() {
+		String inquireStr = request.getParameter("inquire-input");
+		if (inquireStr != null) {
+			User user = userService.getUserByIdentity(inquireStr);
+			request.setAttribute("inquireStr", inquireStr);
+			request.setAttribute("user", user);
+		}
 		return SUCCESS;
 	}// 查看会员信息
 

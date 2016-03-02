@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
 			String[] columns = { "phonenumber", "password" };
 			Object[] values = { key, password };
 			List<User> list = userDao.findByColumns(User.class, columns, values);
-			if (list == null || list.size() == 1) {
+			if (list != null && list.size() >= 1) {
 				user = list.get(0);
 			}
 		} // 手机号
@@ -78,8 +78,13 @@ public class UserServiceImpl implements UserService {
 			String[] columns = { "username", "password" };
 			Object[] values = { key, password };
 			List<User> list = userDao.findByColumns(User.class, columns, values);
-			if (list == null || list.size() == 1) {
-				user = list.get(0);
+			if (list != null && list.size() >= 1) {
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i).getUsername().equals(key)) {
+						user = list.get(i);
+						break;
+					}
+				} // 为了区分大小写
 			}
 		} // 用户名
 		return user;
@@ -253,4 +258,44 @@ public class UserServiceImpl implements UserService {
 			user.setLevel(FinalValue.UserLevel.BASIC_MEMBER);
 		}
 	}// 设置用户等级分为1000,5000,5000以上三个等级
+
+	@Override
+	public User getUserByIdentity(String identity) {
+		User user = null;
+		if (identity.length() == 11) {
+			String[] columns = { "phonenumber", "category" };
+			Object[] values = { identity, FinalValue.UserCategory.COMMON_MENBER };
+			List<User> list = userDao.findByColumns(User.class, columns, values);
+			if (list != null && list.size() >= 1) {
+				user = list.get(0);
+			}
+		}
+		else if (identity.length() == 7 && identity.charAt(0) == '@') {
+			String[] columns = { "cardId", "category" };
+			Object[] values = { identity, FinalValue.UserCategory.COMMON_MENBER };
+			List<User> list = userDao.findByColumns(User.class, columns, values);
+			if (list != null && list.size() >= 1) {
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i).getCardId().equals(identity)) {
+						user = list.get(i);
+						break;
+					}
+				} // 区分大小写
+			}
+		}
+		else {
+			String[] columns = { "username", "category" };
+			Object[] values = { identity, FinalValue.UserCategory.COMMON_MENBER };
+			List<User> list = userDao.findByColumns(User.class, columns, values);
+			if (list != null && list.size() >= 1) {
+				for (int i = 0; i < list.size(); i++) {
+					if (list.get(i).getUsername().equals(identity)) {
+						user = list.get(i);
+						break;
+					}
+				} // 为了区分大小写
+			}
+		}
+		return user;
+	}// 通过用户名或者手机号或者会员卡号查找用户,不查员工
 }
