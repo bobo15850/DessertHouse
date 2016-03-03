@@ -201,7 +201,7 @@ public class UserServiceImpl implements UserService {
 		user.setBalance(user.getBalance() + INIT_MONEY);
 		user.setState(FinalValue.UserState.NORMAL);
 		RechargeRecord record = this.getRechargeRecord(INIT_MONEY, user);
-		user.getRechargeRecordSet().add(record);
+		user.getRechargeRecordList().add(record);
 		ResultMessage userResult = userDao.update(user);
 		if (userResult == ResultMessage.SUCCESS) {
 			return user;
@@ -215,7 +215,7 @@ public class UserServiceImpl implements UserService {
 		user.setBalance(user.getBalance() + INIT_MONEY);
 		user.setState(FinalValue.UserState.NORMAL);
 		RechargeRecord record = this.getRechargeRecord(INIT_MONEY, user);
-		user.getRechargeRecordSet().add(record);
+		user.getRechargeRecordList().add(record);
 		this.setUserLevel(user);
 		ResultMessage userResult = userDao.update(user);
 		if (userResult == ResultMessage.SUCCESS) {
@@ -229,7 +229,7 @@ public class UserServiceImpl implements UserService {
 		User user = userDao.get(User.class, id);
 		user.setBalance(user.getBalance() + amount);
 		RechargeRecord record = this.getRechargeRecord(amount, user);
-		user.getRechargeRecordSet().add(record);
+		user.getRechargeRecordList().add(record);
 		this.setUserLevel(user);
 		ResultMessage userResult = userDao.update(user);
 		if (userResult == ResultMessage.SUCCESS) {

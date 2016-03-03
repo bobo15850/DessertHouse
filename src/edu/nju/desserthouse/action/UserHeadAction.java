@@ -71,6 +71,9 @@ public class UserHeadAction extends BaseAction {
 			results = { @Result(name = SUCCESS, location = "/page/user/rechargeRecord.jsp"),
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
 	public String rechargeRecord() {
+		UserBase userase = (UserBase) session.get("userBase");
+		User user = userService.getUserById(userase.getId());
+		request.setAttribute("rechargeRecordList", user.getRechargeRecordList());
 		return SUCCESS;
 	}// 到充值记录查看页面
 }

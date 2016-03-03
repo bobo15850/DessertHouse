@@ -3,10 +3,12 @@ package edu.nju.desserthouse.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 /*
  * 用户，包括会员和其他管理员等
@@ -56,9 +58,17 @@ public class User implements Serializable {
 	@JoinColumn
 	private Shop shop;// 所属店铺
 
-	@OneToMany(mappedBy = "user")
-	@Cascade(value = { CascadeType.SAVE_UPDATE, CascadeType.DELETE })
-	private Set<RechargeRecord> rechargeRecordSet;// 充值记录
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	private List<RechargeRecord> rechargeRecordList;// 充值记录
+
+	public List<RechargeRecord> getRechargeRecordList() {
+		return rechargeRecordList;
+	}
+
+	public void setRechargeRecordList(List<RechargeRecord> rechargeRecordList) {
+		this.rechargeRecordList = rechargeRecordList;
+	}
 
 	public int getId() {
 		return id;
@@ -202,14 +212,6 @@ public class User implements Serializable {
 
 	public void setShop(Shop shop) {
 		this.shop = shop;
-	}
-
-	public Set<RechargeRecord> getRechargeRecordSet() {
-		return rechargeRecordSet;
-	}
-
-	public void setRechargeRecordSet(Set<RechargeRecord> rechargeRecordSet) {
-		this.rechargeRecordSet = rechargeRecordSet;
 	}
 
 	@Override

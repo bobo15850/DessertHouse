@@ -51,6 +51,20 @@ public class BranchWaiterHeadAction extends BaseAction {
 	}// 查看会员信息
 
 	@Action(
+			value = "viewUserRecharge",
+			results = { @Result(name = SUCCESS, location = "/page/user/viewUserRecharge.jsp"),
+					@Result(name = INPUT, location = "/page/user/login.jsp") })
+	public String viewUserRecharge() {
+		String inquireStr = request.getParameter("inquire-input");
+		if (inquireStr != null) {
+			User user = userService.getUserByIdentity(inquireStr);
+			request.setAttribute("inquireStr", inquireStr);
+			request.setAttribute("user", user);
+		}
+		return SUCCESS;
+	}// 查看会员充值记录
+
+	@Action(
 			value = "viewUserConsumption",
 			results = { @Result(name = SUCCESS, location = "/page/user/viewUserConsumption.jsp"),
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
@@ -58,11 +72,4 @@ public class BranchWaiterHeadAction extends BaseAction {
 		return SUCCESS;
 	}// 查看消费记录
 
-	@Action(
-			value = "viewUserRecharge",
-			results = { @Result(name = SUCCESS, location = "/page/user/viewUserRecharge.jsp"),
-					@Result(name = INPUT, location = "/page/user/login.jsp") })
-	public String viewUserRecharge() {
-		return SUCCESS;
-	}// 查看会员充值记录
 }
