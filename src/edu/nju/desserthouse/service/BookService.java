@@ -9,4 +9,6 @@ public interface BookService {
 	public List<Goods> getTomorrowGoods(int shopId);
 
 	public void addBookOrder(BookRecord order, List<Integer> goodsIdList, int shopId, int userId);
+
+	public List<BookRecord> getTarStateBookRecordByUser(int userId, int state);
 }

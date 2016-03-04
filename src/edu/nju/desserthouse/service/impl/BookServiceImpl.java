@@ -65,4 +65,13 @@ public class BookServiceImpl implements BookService {
 		order.setRealMoney(rawMoney * discount);
 		bookDao.save(order);
 	}
+
+	@Override
+	public List<BookRecord> getTarStateBookRecordByUser(int userId, int state) {
+		User user = userDao.get(User.class, userId);
+		String[] columns = new String[] { "customer", "state" };
+		Object[] values = new Object[] { user, state };
+		List<BookRecord> bookRecords = bookDao.findByColumns(BookRecord.class, columns, values);
+		return bookRecords;
+	}
 }

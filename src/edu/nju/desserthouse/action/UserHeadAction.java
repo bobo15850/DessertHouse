@@ -7,12 +7,17 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.nju.desserthouse.action.BaseAction;
+import edu.nju.desserthouse.model.BookRecord;
 import edu.nju.desserthouse.model.Region;
+import edu.nju.desserthouse.model.SalesRecord;
 import edu.nju.desserthouse.model.Shop;
 import edu.nju.desserthouse.model.User;
+import edu.nju.desserthouse.service.BookService;
 import edu.nju.desserthouse.service.RegionService;
+import edu.nju.desserthouse.service.SaleService;
 import edu.nju.desserthouse.service.ShopService;
 import edu.nju.desserthouse.service.UserService;
+import edu.nju.desserthouse.util.FinalValue;
 import edu.nju.desserthouse.util.UserBase;
 
 public class UserHeadAction extends BaseAction {
@@ -23,6 +28,10 @@ public class UserHeadAction extends BaseAction {
 	private RegionService regionService;
 	@Autowired
 	private ShopService shopService;
+	@Autowired
+	private SaleService saleSerivce;
+	@Autowired
+	private BookService bookService;
 
 	@Action(
 			value = "myAccount",
@@ -59,6 +68,21 @@ public class UserHeadAction extends BaseAction {
 			results = { @Result(name = SUCCESS, location = "/page/user/consumptionRecord.jsp"),
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
 	public String ConsumptionRecord() {
+		UserBase userBase = (UserBase) session.get("userBase");
+		int orderState = 0;
+		String orderStateStr = request.getParameter("orderState");
+		if (orderStateStr != null) {
+			orderState = Integer.parseInt(orderStateStr);
+		}
+		if (orderState == FinalValue.SALES_RECORD) {
+			List<SalesRecord> orders = saleSerivce.getSalesRecordByUser(userBase.getId());
+			request.setAttribute("orders", orders.size() == 0 ? null : orders);
+		}
+		else {
+			List<BookRecord> orders = bookService.getTarStateBookRecordByUser(userBase.getId(), orderState);
+			request.setAttribute("orders", orders.size() == 0 ? null : orders);
+		}
+		request.setAttribute("orderState", orderState);
 		return SUCCESS;
 	}// 到消费记录页面
 

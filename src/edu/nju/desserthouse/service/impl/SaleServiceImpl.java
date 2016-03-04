@@ -108,8 +108,18 @@ public class SaleServiceImpl implements SaleService {
 		for (int i = 0; i < saleRecord.getGoodsItemList().size(); i++) {
 			Goods goods = saleRecord.getGoodsItemList().get(i).getGoods();
 			goods.setQuantity(goods.getQuantity() - saleRecord.getGoodsItemList().get(i).getQuantity());
+			goodsDao.update(goods);
 		} // 改变库存
 		saleDao.save(saleRecord);
 		return ResultMessage.SUCCESS;
 	}// 添加销售记录，需要减少库存,设置会员信息
+
+	@Override
+	public List<SalesRecord> getSalesRecordByUser(int userId) {
+		User user = userDao.get(User.class, userId);
+		String[] columns = new String[] { "customer" };
+		Object[] values = new Object[] { user };
+		List<SalesRecord> saleRecords = saleDao.findByColumns(SalesRecord.class, columns, values);
+		return saleRecords;
+	}
 }

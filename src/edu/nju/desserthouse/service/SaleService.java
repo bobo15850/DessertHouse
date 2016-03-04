@@ -13,4 +13,6 @@ public interface SaleService {
 			String identity);
 
 	public ResultMessage addSaleRecord(SalesRecord saleRecord);
+
+	public List<SalesRecord> getSalesRecordByUser(int userId);
 }

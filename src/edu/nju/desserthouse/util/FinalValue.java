@@ -81,4 +81,6 @@ public final class FinalValue {
 		public static final int FINISH = 2;// 拿了货
 		public static final int CANCLE = 3;// 取消了的订单
 	}
+
+	public final static int SALES_RECORD = -1;// 代表销售订单
 }
