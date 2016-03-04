@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.nju.desserthouse.action.BaseAction;
 import edu.nju.desserthouse.model.Region;
+import edu.nju.desserthouse.model.Shop;
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.RegionService;
+import edu.nju.desserthouse.service.ShopService;
 import edu.nju.desserthouse.service.UserService;
 import edu.nju.desserthouse.util.UserBase;
 
@@ -19,6 +21,8 @@ public class UserHeadAction extends BaseAction {
 	private UserService userService;
 	@Autowired
 	private RegionService regionService;
+	@Autowired
+	private ShopService shopService;
 
 	@Action(
 			value = "myAccount",
@@ -59,10 +63,12 @@ public class UserHeadAction extends BaseAction {
 	}// 到消费记录页面
 
 	@Action(
-			value = "bookGoods",
-			results = { @Result(name = SUCCESS, location = "/page/book/bookGoods.jsp"),
+			value = "shopSelectOfBook",
+			results = { @Result(name = SUCCESS, location = "/page/book/shopSelectOfBook.jsp"),
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
-	public String bookGoods() {
+	public String shopSelectOfBook() {
+		List<Shop> shops = shopService.getAllShops();
+		request.setAttribute("shops", shops);
 		return SUCCESS;
 	}// 到预定商品展示页面
 

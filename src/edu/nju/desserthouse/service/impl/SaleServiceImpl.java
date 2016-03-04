@@ -105,12 +105,11 @@ public class SaleServiceImpl implements SaleService {
 			} // 修改用户等级
 			userDao.update(saleRecord.getCustomer());
 		} // 有用户，要修改用户消费，判断和修改用户等级
-		saleDao.save(saleRecord);
 		for (int i = 0; i < saleRecord.getGoodsItemList().size(); i++) {
 			Goods goods = saleRecord.getGoodsItemList().get(i).getGoods();
 			goods.setQuantity(goods.getQuantity() - saleRecord.getGoodsItemList().get(i).getQuantity());
-			goodsDao.update(saleRecord.getGoodsItemList().get(i).getGoods());
 		} // 改变库存
+		saleDao.save(saleRecord);
 		return ResultMessage.SUCCESS;
 	}// 添加销售记录，需要减少库存,设置会员信息
 }

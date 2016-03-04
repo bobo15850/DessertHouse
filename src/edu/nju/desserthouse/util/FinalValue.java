@@ -74,4 +74,11 @@ public final class FinalValue {
 		public static final int APPROVE_SUCCEED = 1;// 审核通过
 		public static final int APPROVE_FAILED = 2;// 审核未通过
 	}// 产品计划状态
+
+	public final static class BookState {
+		public static final int NOT_PAY = 0;// 提交了订单但是未付款
+		public static final int PAY = 1;// 付款但是未拿货
+		public static final int FINISH = 2;// 拿了货
+		public static final int CANCLE = 3;// 取消了的订单
+	}
 }

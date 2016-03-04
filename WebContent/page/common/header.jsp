@@ -25,9 +25,9 @@
 					case FinalValue.UserCategory.COMMON_MENBER:
 			%>
 			<li><a href="<%=basePath%>/myAccount.action">我的账户</a></li>
-			<li><a href="<%=basePath%>/consumptionRecord.action">消费记录</a></li>
-			<li><a href="<%=basePath%>/bookGoods.action">预定商品</a></li>
-			<li><a href="<%=basePath%>/rechargeRecord.action">充值信息</a></li>
+			<li><a href="<%=basePath%>/consumptionRecord.action">我的订单</a></li>
+			<li><a href="<%=basePath%>/rechargeRecord.action">我的充值</a></li>
+			<li><a href="<%=basePath%>/shopSelectOfBook.action">预定商品</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.BRANCH_WAITER:
