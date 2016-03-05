@@ -140,7 +140,8 @@
 							<td><%=bookRecord.getRawMoney()%></td>
 							<td><%=bookRecord.getRealMoney()%></td>
 							<td><%=bookRecord.getCreatedTime()%></td>
-							<td><form action="">
+							<td><form action="<%=basePath%>/book/viewBookOrder.action">
+									<input type="hidden" name="orderId" value=<%=bookRecord.getId()%>>
 									<button class="btn btn-primary">查看详情</button>
 								</form></td>
 						</tr>

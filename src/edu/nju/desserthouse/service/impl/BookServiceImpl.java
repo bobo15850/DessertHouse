@@ -18,6 +18,7 @@ import edu.nju.desserthouse.model.Shop;
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.service.BookService;
 import edu.nju.desserthouse.util.FinalValue;
+import edu.nju.desserthouse.util.ResultMessage;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -74,4 +75,64 @@ public class BookServiceImpl implements BookService {
 		List<BookRecord> bookRecords = bookDao.findByColumns(BookRecord.class, columns, values);
 		return bookRecords;
 	}
+
+	@Override
+	public BookRecord getBookOrderById(int orderId) {
+		return bookDao.get(BookRecord.class, orderId);
+	}
+
+	@Override
+	public ResultMessage payBookOrder(int orderId) {
+		BookRecord order = bookDao.get(BookRecord.class, orderId);
+		User user = order.getCustomer();
+		if (order.getRealMoney() <= user.getBalance()) {
+			user.setBalance(user.getBalance() - order.getRealMoney());
+			user.setConsumption(user.getConsumption() + order.getRealMoney());
+			order.setState(FinalValue.BookState.PAY);
+			userDao.update(user);
+			bookDao.update(order);
+			return ResultMessage.SUCCESS;
+		} // 判断余额是否够用
+		else {
+			return ResultMessage.FAILURE;
+		}
+	}// 支付订单
+
+	@Override
+	public ResultMessage cancleBookOrder(int orderId) {
+
+		BookRecord order = bookDao.get(BookRecord.class, orderId);
+		Date today = new Date(System.currentTimeMillis());
+		Date targetDate = order.getTargetDate();
+		if (today.toString().equals(targetDate.toString())) {
+			return ResultMessage.FAILURE;// 预定的取货当天无法退货
+		}
+		if (order.getState() == FinalValue.BookState.PAY) {
+			User user = order.getCustomer();
+			user.setBalance(user.getBalance() + order.getRealMoney());
+			user.setConsumption(user.getConsumption() - order.getRealMoney());
+			userDao.update(user);
+		}
+		for (int i = 0; i < order.getGoodsItemList().size(); i++) {
+			BookGoodsItem goodsItem = order.getGoodsItemList().get(i);
+			Goods goods = goodsItem.getGoods();
+			goods.setQuantity(goods.getQuantity() + goodsItem.getQuantity());// 添加库存
+			goodsDao.update(goods);
+		}
+		order.setState(FinalValue.BookState.CANCLE);
+		return ResultMessage.SUCCESS;// 退货成功
+	}// 退货 需要修改商品的库存量,以及判断是否已付过款
+
+	@Override
+	public ResultMessage confirmBook(int orderId) {
+		BookRecord order = bookDao.get(BookRecord.class, orderId);
+		Date today = new Date(System.currentTimeMillis());
+		if (today.toString().equals(order.getTargetDate().toString())) {
+			order.setState(FinalValue.BookState.FINISH);
+			return ResultMessage.SUCCESS;
+		} // 只能在取货日期当天确认收货，若未确认收货系统自动在改天最后时刻确认收货
+		else {
+			return ResultMessage.FAILURE;
+		}
+	}// 完成订单
 }
