@@ -73,13 +73,17 @@ public class SaleServiceImpl implements SaleService {
 		order.setRawMoney(rawMoney);
 		if (order.getCustomer() == null) {
 			order.setRealMoney(rawMoney);
+			order.setPayMode(FinalValue.PayMode.NO_CARD_CASH);
 		}
 		else {
 			User customer = order.getCustomer();
 			double discount = FinalValue.UserLevel.getDiscount(customer.getLevel());
 			order.setRealMoney(rawMoney * discount);
 			if (customer.getBalance() < order.getRealMoney()) {
-				return ResultMessage.CANNOT_AFFORD;
+				order.setPayMode(FinalValue.PayMode.WITH_CARD_CASH);
+			}
+			else {
+				order.setPayMode(FinalValue.PayMode.CARD_PAY);
 			}
 		}
 		return ResultMessage.SUCCESS;
@@ -87,10 +91,10 @@ public class SaleServiceImpl implements SaleService {
 
 	@Override
 	public ResultMessage addSaleRecord(SalesRecord saleRecord) {
-		if (saleRecord.getCustomer() != null) {
+		if (saleRecord.getPayMode() != FinalValue.PayMode.NO_CARD_CASH) {
 			saleRecord.getCustomer()
 					.setConsumption(saleRecord.getRealMoney() + saleRecord.getCustomer().getConsumption());// 修改消费
-			if (saleRecord.getRealMoney() < saleRecord.getCustomer().getBalance()) {
+			if (saleRecord.getPayMode() == FinalValue.PayMode.CARD_PAY) {
 				saleRecord.getCustomer().setBalance(saleRecord.getCustomer().getBalance() - saleRecord.getRealMoney());
 			} // 余额够，要修改用户余额
 			double tot = saleRecord.getCustomer().getBalance() + saleRecord.getCustomer().getConsumption();
@@ -121,5 +125,10 @@ public class SaleServiceImpl implements SaleService {
 		Object[] values = new Object[] { user };
 		List<SalesRecord> saleRecords = saleDao.findByColumns(SalesRecord.class, columns, values);
 		return saleRecords;
+	}
+
+	@Override
+	public SalesRecord getOrderById(int orderId) {
+		return saleDao.get(SalesRecord.class, orderId);
 	}
 }

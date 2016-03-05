@@ -24,7 +24,7 @@ public class SubmitBookAction extends BaseAction {
 	public String execute() throws Exception {
 		UserBase userBase = (UserBase) session.get("userBase");
 		bookService.addBookOrder(order, goodsIdList, shopId, userBase.getId());
-		request.setAttribute("bookRecord", order);
+		request.setAttribute("bookRecord", order);// 有问题，此处无法得到预定订单的编号
 		return SUCCESS;
 	}
 

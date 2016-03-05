@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import edu.nju.desserthouse.action.BaseAction;
 import edu.nju.desserthouse.model.SalesRecord;
 import edu.nju.desserthouse.service.SaleService;
-import edu.nju.desserthouse.util.ResultMessage;
 
 public class SubmitOrderAction extends BaseAction {
 	@Autowired
@@ -25,18 +24,7 @@ public class SubmitOrderAction extends BaseAction {
 	@Override
 	@Action(value = "submitOrder", results = { @Result(name = SUCCESS, location = "/page/sale/detailOrder.jsp") })
 	public String execute() throws Exception {
-		ResultMessage result = saleService.fillOrder(order, goodsIdList, shopId, operatorId, identity);
-		if (order.getCustomer() == null) {
-			request.setAttribute("customerInfo", "NO_CUSTOMER");
-		}
-		else {
-			if (result == ResultMessage.CANNOT_AFFORD) {
-				request.setAttribute("customerInfo", "CANNOT_AFFORD");
-			}
-			else {
-				request.setAttribute("customerInfo", "OK");
-			}
-		}
+		saleService.fillOrder(order, goodsIdList, shopId, operatorId, identity);
 		session.put("order", order);
 		return SUCCESS;
 	}

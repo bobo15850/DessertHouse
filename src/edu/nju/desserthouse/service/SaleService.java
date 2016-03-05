@@ -15,4 +15,6 @@ public interface SaleService {
 	public ResultMessage addSaleRecord(SalesRecord saleRecord);
 
 	public List<SalesRecord> getSalesRecordByUser(int userId);
+
+	public SalesRecord getOrderById(int orderId);
 }

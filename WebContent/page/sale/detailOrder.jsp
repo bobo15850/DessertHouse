@@ -6,8 +6,11 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%
 	String basePath = request.getContextPath();
-	String customerInfo = (String) request.getAttribute("customerInfo");
-	SalesRecord order = (SalesRecord) session.getAttribute("order");
+	Object obj = session.getAttribute("order");
+	if (obj == null) {
+		obj = request.getAttribute("order");
+	}
+	SalesRecord order = (SalesRecord) obj;
 	User customer = (User) order.getCustomer();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -23,7 +26,18 @@
 	<s:include value="../common/header.jsp"></s:include>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-1"></div>
+			<div class="col-sm-1">
+				<%
+					if (order.getId() != 0) {
+				%>
+				<form action="<%=basePath%>/consumptionRecord.action">
+					<input type="hidden" name="orderState" value=<%=FinalValue.SALES_RECORD%>>
+					<button class="btn btn-primary btn-block">返回</button>
+				</form>
+				<%
+					}
+				%>
+			</div>
 			<div class="col-sm-10">
 				<h1>订单详情</h1>
 				<div>
@@ -36,17 +50,17 @@
 						<input type="text" class="form-control" readonly="readonly" value=<%=order.getCreatedTime()%>>
 					</div>
 					<%
-						if (customerInfo.equals("CANNOT_AFFORD")) {
+						if (order.getPayMode() == FinalValue.PayMode.WITH_CARD_CASH) {
 					%>
 					<label class="form-control">账户余额不足转为现金支付</label>
 					<%
 						}
-						else if (customerInfo.equals("NO_CUSTOMER")) {
+						else if (order.getPayMode() == FinalValue.PayMode.NO_CARD_CASH) {
 					%>
 					<label class="form-control">没有会员卡，现金支付</label>
 					<%
 						}
-						else if (customerInfo.equals("OK")) {
+						else if (order.getPayMode() == FinalValue.PayMode.CARD_PAY) {
 					%>
 					<label class="form-control">会员卡支付</label>
 					<div class="input-group">
@@ -97,6 +111,9 @@
 						</tbody>
 					</table>
 				</div>
+				<%
+					if (order.getId() == 0) {
+				%>
 				<div>
 					<form action="<%=basePath%>/sale/confirmPay.action">
 						<button class="btn btn-primary float-right ">确认支付</button>
@@ -105,6 +122,9 @@
 						<button class="btn btn-default float-right">放弃支付</button>
 					</form>
 				</div>
+				<%
+					}
+				%>
 			</div>
 			<div class="col-sm-1"></div>
 		</div>

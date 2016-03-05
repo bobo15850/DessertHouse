@@ -100,7 +100,8 @@
 							<td><%=salesRecord.getRealMoney()%></td>
 							<td><%=salesRecord.getOperator().getUsername()%></td>
 							<td><%=salesRecord.getCreatedTime()%></td>
-							<td><form action="">
+							<td><form action="<%=basePath%>/sale/viewOrder.action">
+									<input type="hidden" name="orderId" value=<%=salesRecord.getId()%>>
 									<button class="btn btn-primary">查看详情</button>
 								</form></td>
 						</tr>

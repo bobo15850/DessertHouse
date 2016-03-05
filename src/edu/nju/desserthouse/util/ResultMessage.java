@@ -5,5 +5,4 @@ public class ResultMessage {
 	public static final ResultMessage FAILURE = new ResultMessage();// 失败
 	public static final ResultMessage IS_EXIST = new ResultMessage();// 已存在
 	public static final ResultMessage NOT_EXIST = new ResultMessage();// 不存在
-	public static final ResultMessage CANNOT_AFFORD = new ResultMessage();// 余额不足无法支付
 }

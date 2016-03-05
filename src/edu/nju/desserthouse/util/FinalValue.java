@@ -83,4 +83,10 @@ public final class FinalValue {
 	}
 
 	public final static int SALES_RECORD = -1;// 代表销售订单
+
+	public final static class PayMode {
+		public static final int NO_CARD_CASH = 0;// 无会员卡现金支付
+		public static final int WITH_CARD_CASH = 1;// 有会员卡现金支付
+		public static final int CARD_PAY = 2;// 会员卡余额支付
+	}
 }

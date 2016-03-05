@@ -43,6 +43,7 @@ public class SalesRecord implements Serializable {
 	private List<SalesGoodsItem> goodsItemList;
 	private double rawMoney;// 商品总价
 	private double realMoney;// 实际付款金额
+	private int payMode;// 支付方式
 
 	public int getId() {
 		return id;
@@ -106,6 +107,14 @@ public class SalesRecord implements Serializable {
 
 	public void setRealMoney(double realMoney) {
 		this.realMoney = realMoney;
+	}
+
+	public int getPayMode() {
+		return payMode;
+	}
+
+	public void setPayMode(int payMode) {
+		this.payMode = payMode;
 	}
 
 	@Override
