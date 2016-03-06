@@ -16,10 +16,12 @@
 <link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="<%=basePath%>/css/main.css">
 <link rel="stylesheet" href="<%=basePath%>/css/shop/shop.css">
+<link rel="stylesheet" href="<%=basePath%>/lib/bootstrap-datetimepicker.min.css">
 <script src="<%=basePath%>/lib/jquery/jquery-1.12.1.min.js"></script>
 <script src="<%=basePath%>/lib/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/shop/shop.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/region/region.js"></script>
+
 </head>
 <body>
 	<s:include value="../common/header.jsp"></s:include>

@@ -14,28 +14,28 @@ import edu.nju.desserthouse.service.BookService;
 import edu.nju.desserthouse.service.RegionService;
 import edu.nju.desserthouse.service.ShopService;
 
-public class ShopGoodsBookAction extends BaseAction {
-	private static final long serialVersionUID = -8081706159488684208L;
-
+public class ShopNextDayAction extends BaseAction {
+	private static final long serialVersionUID = -8823719051948302903L;
+	private int shopId;
+	private String curDateStr;
+	@Autowired
+	private BookService bookService;
 	@Autowired
 	private ShopService shopService;
 	@Autowired
 	private RegionService regionService;
 
-	@Autowired
-	private BookService bookService;
-	private int shopId;
-
 	@Override
-	@Action(value = "shopGoodsBook", results = { @Result(name = SUCCESS, location = "/page/book/bookGoods.jsp") })
+	@Action(value = "shopNextDay", results = { @Result(name = SUCCESS, location = "/page/book/bookGoods.jsp") })
 	public String execute() throws Exception {
 		Shop shop = shopService.getShopById(shopId);
-		String shopRegionStr = regionService.getCompleteRegionStr(shop.getRegion().getId());
-		List<Goods> goodsList = bookService.getTomorrowGoods(shopId);
-		Date date = new Date(System.currentTimeMillis() + 1000 * 24 * 60 * 60);
+		String regionStr = regionService.getCompleteRegionStr(shop.getRegion().getId());
+		Date curDate = Date.valueOf(curDateStr);
+		Date nextDate = new Date(curDate.getTime() + 24 * 60 * 60 * 1000);
+		List<Goods> goodsList = bookService.getTrgetDayGoods(shopId, nextDate);
 		request.setAttribute("shop", shop);
-		request.setAttribute("shopRegionStr", shopRegionStr);
-		request.setAttribute("date", date);
+		request.setAttribute("shopRegionStr", regionStr);
+		request.setAttribute("date", nextDate);
 		request.setAttribute("goodsList", goodsList);
 		return SUCCESS;
 	}
@@ -47,4 +47,13 @@ public class ShopGoodsBookAction extends BaseAction {
 	public void setShopId(int shopId) {
 		this.shopId = shopId;
 	}
+
+	public String getCurDateStr() {
+		return curDateStr;
+	}
+
+	public void setCurDateStr(String curDateStr) {
+		this.curDateStr = curDateStr;
+	}
+
 }

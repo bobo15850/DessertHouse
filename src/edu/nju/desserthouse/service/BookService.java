@@ -1,5 +1,6 @@
 package edu.nju.desserthouse.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import edu.nju.desserthouse.model.BookRecord;
@@ -20,4 +21,6 @@ public interface BookService {
 	public ResultMessage cancleBookOrder(int orderId);
 
 	public ResultMessage confirmBook(int orderId);
+
+	public List<Goods> getTrgetDayGoods(int shopId, Date targetDate);
 }

@@ -18,10 +18,13 @@
 <link rel="stylesheet" href="<%=basePath%>/lib/bootstrap/css/bootstrap.min.css">
 <script src="<%=basePath%>/lib/jquery/jquery-1.12.1.min.js"></script>
 <script src="<%=basePath%>/lib/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>/lib/moment.js"></script>
+<script type="text/javascript" src="<%=basePath%>/lib/bootstrap-datetimepicker.js"></script>
 <link rel="stylesheet" href="<%=basePath%>/css/main.css">
 <link rel="stylesheet" href="<%=basePath%>/css/sale/sale.css">
 <link rel="stylesheet" href="<%=basePath%>/css/book/book.css">
 <script type="text/javascript" src="<%=basePath%>/js/sale/sale.js"></script>
+<script type="text/javascript" src="<%=basePath%>/js/book/book.js"></script>
 <title>预定商品展示</title>
 </head>
 <body>
@@ -47,7 +50,34 @@
 						<button id="goods-select-btn" class="btn btn-primary btn-block" onclick="showPanel(this)" value="goods-select-panel">购物车</button>
 					</div>
 					<div>
-						<button class="btn btn-primary btn-block">切换日期</button>
+						<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#selsct-date">切换日期</button>
+						<div id="selsct-date" class="modal fade" tab-index="-1" role="dialog" aria-labelledby="myModalLabel">
+							<div class="modal-dialog" role="document">
+								<form action="<%=basePath%>/book/shopTarDay.action" method="post">
+									<input type="hidden" name="shopId" value=<%=shop.getId()%>>
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											<h4 class="modal-title" id="myModalLabel">选择日期</h4>
+										</div>
+										<div class="modal-body">
+											<div class="main-modal">
+												<div class="input-group">
+													<span class="input-group-addon">日期</span>
+													<input id="dateInput" type="text" class="form-control" name="targetDateStr" value=<%=date%>>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+											<button type="submit" class="btn btn-primary">确定</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
 					</div>
 					<div>
 						<form action="<%=basePath%>/shopSelectOfBook.action">
@@ -59,13 +89,17 @@
 			<div class="col-sm-10">
 				<div id="goods-list-panel" class="unhide">
 					<div class="display-inline float-left">
-						<form action="">
+						<form action="<%=basePath%>/book/shopPreDay.action">
+							<input type="hidden" name="shopId" value=<%=shop.getId()%>>
+							<input type="hidden" name="curDateStr" value=<%=date.toString()%>>
 							<button class="btn btn-primary">前一天</button>
 						</form>
 					</div>
 					<label class="date-label"><%=date%></label>
 					<div class="float-right">
-						<form action="">
+						<form action="<%=basePath%>/book/shopNextDay.action">
+							<input type="hidden" name="shopId" value=<%=shop.getId()%>>
+							<input type="hidden" name="curDateStr" value=<%=date.toString()%>>
 							<button class="btn btn-primary">后一天</button>
 						</form>
 					</div>

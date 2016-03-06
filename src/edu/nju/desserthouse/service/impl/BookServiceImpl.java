@@ -135,4 +135,13 @@ public class BookServiceImpl implements BookService {
 			return ResultMessage.FAILURE;
 		}
 	}// 完成订单
+
+	@Override
+	public List<Goods> getTrgetDayGoods(int shopId, Date targetDate) {
+		Shop shop = shopDao.get(Shop.class, shopId);
+		String[] columns = { "effectiveDate", "shop" };
+		Object[] values = { targetDate, shop };
+		List<Goods> goodsList = goodsDao.findByColumns(Goods.class, columns, values);
+		return goodsList;
+	}// 得到特定日期的商品
 }

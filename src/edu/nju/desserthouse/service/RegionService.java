@@ -8,4 +8,6 @@ public interface RegionService {
 	public Region getRegionById(int id);
 
 	public List<Region> getLowerRegions(int id);
+
+	public String getCompleteRegionStr(int regionId);
 }
