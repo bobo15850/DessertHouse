@@ -298,4 +298,12 @@ public class UserServiceImpl implements UserService {
 		}
 		return user;
 	}// 通过用户名或者手机号或者会员卡号查找用户,不查员工
+
+	@Override
+	public List<User> getAllCustomers() {
+		String[] columns = { "category" };
+		Object[] values = { FinalValue.UserCategory.COMMON_MENBER };
+		List<User> customers = userDao.findByColumns(User.class, columns, values);
+		return customers;
+	}
 }

@@ -17,4 +17,6 @@ public interface SaleService {
 	public List<SalesRecord> getSalesRecordByUser(int userId);
 
 	public SalesRecord getOrderById(int orderId);
+
+	public List<SalesRecord> getOrdersByOperator(int operatorId);
 }

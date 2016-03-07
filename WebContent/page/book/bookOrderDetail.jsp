@@ -1,3 +1,4 @@
+<%@page import="java.sql.Date"%>
 <%@page import="edu.nju.desserthouse.util.FinalValue"%>
 <%@page import="edu.nju.desserthouse.model.BookGoodsItem"%>
 <%@page import="edu.nju.desserthouse.model.BookRecord"%>
@@ -99,11 +100,16 @@
 				<div>
 					<form action="<%=basePath%>/book/confirmBook.action">
 						<input type="hidden" name="orderId" value=<%=order.getId()%>>
-						<button class="btn btn-primary float-right">确认收货</button>
+						<button class="btn btn-primary float-right"
+							<%=order.getTargetDate().toString().equals(new Date(System.currentTimeMillis())) ? ""
+						: " disabled='disabled'"%>>确认收货</button>
+						<!-- 只有当天可以确认收货 -->
 					</form>
 					<form action="<%=basePath%>/book/cancleBookOrder.action">
 						<input type="hidden" name="orderId" value=<%=order.getId()%>>
-						<button class="btn btn-default float-right">取消预定</button>
+						<button class="btn btn-default float-right"
+							<%=order.getTargetDate().toString().equals(new Date(System.currentTimeMillis()))
+						? " disabled='disabled'" : ""%>>取消预定</button>
 					</form>
 				</div>
 				<%

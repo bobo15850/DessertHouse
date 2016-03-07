@@ -100,7 +100,6 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public ResultMessage cancleBookOrder(int orderId) {
-
 		BookRecord order = bookDao.get(BookRecord.class, orderId);
 		Date today = new Date(System.currentTimeMillis());
 		Date targetDate = order.getTargetDate();
@@ -120,6 +119,7 @@ public class BookServiceImpl implements BookService {
 			goodsDao.update(goods);
 		}
 		order.setState(FinalValue.BookState.CANCLE);
+		bookDao.update(order);
 		return ResultMessage.SUCCESS;// 退货成功
 	}// 退货 需要修改商品的库存量,以及判断是否已付过款
 
@@ -128,6 +128,10 @@ public class BookServiceImpl implements BookService {
 		BookRecord order = bookDao.get(BookRecord.class, orderId);
 		Date today = new Date(System.currentTimeMillis());
 		if (today.toString().equals(order.getTargetDate().toString())) {
+			User user = order.getCustomer();
+			int point = (int) (order.getRealMoney() / 10);
+			user.setPoint(point + user.getPoint());
+			userDao.update(user);
 			order.setState(FinalValue.BookState.FINISH);
 			return ResultMessage.SUCCESS;
 		} // 只能在取货日期当天确认收货，若未确认收货系统自动在改天最后时刻确认收货

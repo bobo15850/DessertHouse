@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="edu.nju.desserthouse.util.FinalValue"%>
 <%@page import="edu.nju.desserthouse.model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -6,7 +7,9 @@
 	String basePath = request.getContextPath();
 	Object inquireStr = request.getAttribute("inquireStr");//查询条件
 	Object obj = request.getAttribute("user");//用户
+	Object objList = request.getAttribute("customers");
 	User user = null;
+	List<User> customers = null;
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,7 +50,6 @@
 					<br> <br>
 					<div class="col-sm-1"></div>
 					<div class="col-sm-10">
-
 						<div class="input-group">
 							<span class="input-group-addon">用户姓名</span>
 							<input type="text" class="form-control" value="<%=user.getUsername()%>">
@@ -84,7 +86,45 @@
 					}
 					}
 					else {
-						out.print("<h1>请输入查询条件</h1>");
+						customers = (List<User>) objList;
+				%>
+				<div>
+					<h2>用户列表</h2>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>用户名</th>
+								<th>会员卡号</th>
+								<th>手机号</th>
+								<th>用户性别</th>
+								<th>用户等级</th>
+								<th>消费总额</th>
+								<th>账户余额</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								for (int i = 0; i < customers.size(); i++) {
+										User customer = customers.get(i);
+							%>
+							<tr>
+								<td><%=i%></td>
+								<td><%=customer.getUsername()%></td>
+								<td><%=customer.getCardId()%></td>
+								<td><%=customer.getPhonenumber()%></td>
+								<td><%=FinalValue.Gender.getStrOfGender(customer.getGender())%></td>
+								<td><%=FinalValue.UserLevel.getStrOfUserLevel(customer.getLevel())%></td>
+								<td><%=customer.getConsumption()%></td>
+								<td><%=customer.getBalance()%></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+				</div>
+				<%
 					}
 				%>
 			</div>

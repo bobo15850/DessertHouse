@@ -1,6 +1,7 @@
 package edu.nju.desserthouse.service;
 
 import java.sql.Date;
+import java.util.List;
 
 import edu.nju.desserthouse.model.User;
 import edu.nju.desserthouse.util.ResultMessage;
@@ -31,5 +32,7 @@ public interface UserService {
 	public User recharge(int id, double amount);// 充值
 
 	public User getUserByIdentity(String identity);// 通过用户名或者电话或者会员卡号查找用户
+
+	public List<User> getAllCustomers();// 得到所有的顾客
 
 }

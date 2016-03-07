@@ -94,6 +94,8 @@ public class SaleServiceImpl implements SaleService {
 		if (saleRecord.getPayMode() != FinalValue.PayMode.NO_CARD_CASH) {
 			saleRecord.getCustomer()
 					.setConsumption(saleRecord.getRealMoney() + saleRecord.getCustomer().getConsumption());// 修改消费
+			int point = (int) (saleRecord.getRealMoney() / 10);
+			saleRecord.getCustomer().setPoint(saleRecord.getCustomer().getPoint() + point);
 			if (saleRecord.getPayMode() == FinalValue.PayMode.CARD_PAY) {
 				saleRecord.getCustomer().setBalance(saleRecord.getCustomer().getBalance() - saleRecord.getRealMoney());
 			} // 余额够，要修改用户余额
@@ -130,5 +132,14 @@ public class SaleServiceImpl implements SaleService {
 	@Override
 	public SalesRecord getOrderById(int orderId) {
 		return saleDao.get(SalesRecord.class, orderId);
+	}
+
+	@Override
+	public List<SalesRecord> getOrdersByOperator(int operatorId) {
+		User operator = userDao.get(User.class, operatorId);
+		String[] columns = { "operator" };
+		Object[] values = { operator };
+		List<SalesRecord> orders = saleDao.findByColumns(SalesRecord.class, columns, values);
+		return orders;
 	}
 }
