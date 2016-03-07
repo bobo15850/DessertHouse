@@ -1,5 +1,6 @@
 package edu.nju.desserthouse.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -15,7 +16,6 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 	@Override
 	public List<User> getAllStaffs() {
-
 		Criteria criteria = super.getSession().createCriteria(User.class);
 		criteria.add(Restrictions.or(Restrictions.eq("category", FinalValue.UserCategory.MANAGER),
 				Restrictions.eq("category", FinalValue.UserCategory.HEAD_WAITER),
@@ -25,4 +25,34 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 		return staffs;
 	}
 
+	@Override
+	public void autoInactiveUser() {
+		Timestamp stamp = new Timestamp(System.currentTimeMillis() - 365 * 24 * 60 * 60 * 1000);// 去年此时的时间戳
+		Criteria criteria = super.getSession().createCriteria(User.class);
+		criteria.add(Restrictions.eq("state", FinalValue.UserState.NORMAL)).add(Restrictions.le("createdTime", stamp));
+		@SuppressWarnings("unchecked")
+		List<User> userList = criteria.list();
+		for (int i = 0; i < userList.size(); i++) {
+			User user = userList.get(i);
+			if (user.getBalance() <= 10) {
+				user.setState(FinalValue.UserState.SUSPEND);
+				this.getSession().update(user);
+			}
+		}
+	}
+
+	public void autoStopUser() {
+		Timestamp stamp = new Timestamp(System.currentTimeMillis() - 365 * 24 * 60 * 60 * 1000);// 去年此时的时间戳
+		Criteria criteria = super.getSession().createCriteria(User.class);
+		criteria.add(Restrictions.eq("state", FinalValue.UserState.NORMAL)).add(Restrictions.le("createdTime", stamp));
+		@SuppressWarnings("unchecked")
+		List<User> userList = criteria.list();
+		for (int i = 0; i < userList.size(); i++) {
+			User user = userList.get(i);
+			if (user.getBalance() <= 10) {
+				user.setState(FinalValue.UserState.STOP);
+				this.getSession().update(user);
+			}
+		}
+	}
 }

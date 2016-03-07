@@ -283,19 +283,21 @@
 				<div class="modal fade" id="exchangePoint" tabindex="-1" role="dialog" aria-labelledby="pointTitle">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<h4 class="modal-title" id="pointTitle">积分兑换</h4>
-							</div>
-							<div class="modal-body">
-								<input type="number" class="form-control" value=<%=user.getPoint()%>>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-								<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="">确定</button>
-							</div>
+							<form action="<%=basePath%>/user/exchangePoint.action">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="pointTitle">积分兑换</h4>
+								</div>
+								<div class="modal-body">
+									<input type="number" class="form-control" name="point" value=<%=user.getPoint()%>>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									<button type="submit" class="btn btn-primary">确定</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>

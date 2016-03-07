@@ -1,3 +1,5 @@
+<%@page import="edu.nju.desserthouse.util.FinalValue"%>
+<%@page import="edu.nju.desserthouse.model.User"%>
 <%@page import="java.util.List"%>
 <%@page import="edu.nju.desserthouse.model.Shop"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -5,6 +7,7 @@
 <%
 	String basePath = request.getContextPath();
 	List<Shop> shops = (List<Shop>) request.getAttribute("shops");
+	User user = (User) request.getAttribute("user");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -51,7 +54,7 @@
 							<td>
 								<form action="<%=basePath%>/book/shopGoodsBook.action">
 									<input type="hidden" name="shopId" value=<%=shop.getId()%>>
-									<button type="submit" class="btn btn-primary">预定</button>
+									<button type="submit" class="btn btn-primary" <%=user.getState() == FinalValue.UserState.NORMAL ? "" : " disabled='disabled'"%>>预定</button>
 								</form>
 							</td>
 						</tr>

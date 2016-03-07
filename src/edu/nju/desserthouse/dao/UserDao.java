@@ -6,4 +6,8 @@ import edu.nju.desserthouse.model.User;
 
 public interface UserDao extends BaseDao {
 	public List<User> getAllStaffs();
+
+	public void autoInactiveUser();
+
+	public void autoStopUser();
 }

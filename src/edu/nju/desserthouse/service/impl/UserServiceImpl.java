@@ -87,6 +87,23 @@ public class UserServiceImpl implements UserService {
 				} // 为了区分大小写
 			}
 		} // 用户名
+		if (user != null && user.getCategory() == FinalValue.UserCategory.COMMON_MENBER
+				&& user.getState() == FinalValue.UserState.NORMAL) {
+			if (user.getCreatedTime().before(new Timestamp(System.currentTimeMillis() - 365 * 24 * 60 * 60 * 1000))) {
+				if (user.getBalance() <= 10) {
+					user.setState(FinalValue.UserState.SUSPEND);
+				}
+			} // 比一年前的现在还早
+		}
+		else if (user != null && user.getCategory() == FinalValue.UserCategory.COMMON_MENBER
+				&& user.getState() == FinalValue.UserState.SUSPEND) {
+			if (user.getCreatedTime()
+					.before(new Timestamp(System.currentTimeMillis() - 2 * 365 * 24 * 60 * 60 * 1000))) {
+				if (user.getBalance() <= 10) {
+					user.setState(FinalValue.UserState.STOP);
+				}
+			} // 比一年前的现在还早
+		}
 		return user;
 	}
 
@@ -306,4 +323,14 @@ public class UserServiceImpl implements UserService {
 		List<User> customers = userDao.findByColumns(User.class, columns, values);
 		return customers;
 	}
+
+	@Override
+	public ResultMessage exchangePoint(int userId, int point) {
+		User user = userDao.get(User.class, userId);
+		int money = point / FinalValue.POINT_TO_MONEY;
+		user.setBalance(user.getBalance() + money);
+		user.setPoint(user.getPoint() - point);
+		userDao.update(user);
+		return ResultMessage.SUCCESS;
+	}// 兑换积分
 }

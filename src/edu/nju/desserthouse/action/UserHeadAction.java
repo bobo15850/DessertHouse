@@ -93,6 +93,9 @@ public class UserHeadAction extends BaseAction {
 	public String shopSelectOfBook() {
 		List<Shop> shops = shopService.getAllShops();
 		request.setAttribute("shops", shops);
+		UserBase userBase = (UserBase) session.get("userBase");
+		User user = userService.getUserById(userBase.getId());
+		request.setAttribute("user", user);
 		return SUCCESS;
 	}// 到预定商品展示页面
 

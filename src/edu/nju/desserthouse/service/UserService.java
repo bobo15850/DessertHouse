@@ -35,4 +35,6 @@ public interface UserService {
 
 	public List<User> getAllCustomers();// 得到所有的顾客
 
+	public ResultMessage exchangePoint(int userId, int point);//
+
 }

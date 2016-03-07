@@ -1,6 +1,9 @@
 package edu.nju.desserthouse.util;
 
 public final class FinalValue {
+	public final static int CONSUME_TO_POINT = 10;// 消费转化为积分
+	public final static int POINT_TO_MONEY = 2;// 积分转化为金额
+
 	public final static class Gender {
 		public static final int UNKNOW = 0;// 未知
 		public static final int MALE = 1;// 男性
