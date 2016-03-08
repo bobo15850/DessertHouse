@@ -26,18 +26,7 @@
 	<s:include value="../common/header.jsp"></s:include>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-1">
-				<%
-					if (order.getId() != 0) {
-				%>
-				<form action="<%=basePath%>/consumptionRecord.action">
-					<input type="hidden" name="orderState" value=<%=FinalValue.SALES_RECORD%>>
-					<button class="btn btn-primary btn-block">返回</button>
-				</form>
-				<%
-					}
-				%>
-			</div>
+			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
 				<h1>订单详情</h1>
 				<div>

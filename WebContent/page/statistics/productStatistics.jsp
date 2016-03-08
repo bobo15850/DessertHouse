@@ -118,9 +118,6 @@
 						});
 					</script>
 				</div>
-				<%
-					}
-				%>
 				<div>
 					<h1>当月热销</h1>
 					<table class="table table-striped">
@@ -154,8 +151,10 @@
 						</tbody>
 					</table>
 				</div>
+				<%
+					}
+				%>
 			</div>
-
 		</div>
 	</div>
 	<s:include value="../common/footer.jsp"></s:include>

@@ -118,7 +118,6 @@
 						</div>
 					</div>
 				</div>
-				<div id="select-staff">筛选员工（该功能未实现）</div>
 			</div>
 			<div class="col-sm-10">
 				<%

@@ -87,7 +87,6 @@
 						</div>
 					</div>
 				</div>
-				<div id="select-shop">筛选店铺（该功能未实现）</div>
 			</div>
 			<div class="col-sm-10">
 				<%
