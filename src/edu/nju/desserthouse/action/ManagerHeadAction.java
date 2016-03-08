@@ -33,7 +33,7 @@ public class ManagerHeadAction extends BaseAction {
 
 	@Action(
 			value = "statistics",
-			results = { @Result(name = SUCCESS, location = "/page/statistics/statistics.jsp"),
+			results = { @Result(name = SUCCESS, location = "/statistics/userStatistics.action", type = "redirect"),
 					@Result(name = INPUT, location = "/page/user/login.jsp") })
 	public String statistics() {
 		return SUCCESS;

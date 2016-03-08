@@ -14,7 +14,7 @@
 </head>
 <body>
 	<s:include value="page/common/header.jsp"></s:include>
-	<h1>欢迎来到甜品屋管理系统</h1>
+	<h1 class="text-center">欢迎来到甜品屋管理系统</h1>
 	<s:include value="page/common/footer.jsp"></s:include>
 </body>
 </html>
