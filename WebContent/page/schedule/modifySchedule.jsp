@@ -36,7 +36,7 @@
 					</form>
 				</div>
 				<div>
-					<form action="<%=basePath%>/schedule/submitModify.action">
+					<form action="<%=basePath%>/schedule/submitModify.action" method="post">
 						<%
 							for (int dayNum = 0; dayNum < schedule.getScheduleItemList().size(); dayNum++) {
 								ScheduleItem scheduleItem = schedule.getScheduleItemList().get(dayNum);
