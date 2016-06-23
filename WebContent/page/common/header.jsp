@@ -16,7 +16,6 @@
 				Object obj = session.getAttribute("userBase");//从session中取得用户登录后的信息
 				if (obj == null) {
 			%>
-			<li class="active"><a href="#">欢迎来到DessertHouse</a></li>
 			<%
 				}
 				else {

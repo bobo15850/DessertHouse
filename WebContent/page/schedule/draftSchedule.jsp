@@ -44,8 +44,8 @@
 						<input class="display-none" name="productIdList[<%=i%>]" value="<%=products.get(i).getId()%>">
 						<%
 							} //传递产品
-							for (int dayNum = 0; dayNum < 7; dayNum++) {
-								Date date = dates.get(dayNum);
+																											for (int dayNum = 0; dayNum < 7; dayNum++) {
+																												Date date = dates.get(dayNum);
 						%>
 						<div>
 							<h2 class="text-center">
@@ -65,7 +65,7 @@
 								<tbody>
 									<%
 										for (int productNum = 0; productNum < products.size(); productNum++) {
-												Product product = products.get(productNum);
+																																															Product product = products.get(productNum);
 									%>
 									<tr>
 										<td><%=productNum%></td>
@@ -96,6 +96,68 @@
 			</div>
 			<div class="col-sm-1"></div>
 		</div>
+	</div>
+
+
+	<div style="height: 200px;">
+		<p id='back-ltop' class='hide_element'>
+			<a href='#top' style="text-decoration: none;">
+				<span>回到顶部</span>
+			</a>
+		</p>
+
+		<style>
+#back-ltop {
+	position: fixed;
+	z-index: 999;
+	right: 35px;
+	bottom: 60px;
+}
+
+/* arrow icon (span tag) */
+#back-ltop span {
+	width: 80px;
+	height: 40px;
+	display: block;
+	margin-bottom: 7px;
+	/* rounded corners */
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	/* transition */
+	-webkit-transition: 1s;
+	-moz-transition: 1s;
+	transition: 1s;
+}
+</style>
+
+		<script>
+			$(document).ready(function() {
+
+				// hide #back-top first 
+				$("#back-ltop").hide();
+
+				// fade in #back-top 
+				$(function() {
+					$(window).scroll(function() {
+						if ($(this).scrollTop() > 100) {
+							$('#back-ltop').fadeIn();
+						} else {
+							$('#back-ltop').fadeOut();
+						}
+
+					});
+
+					// scroll body to 0px on click 
+					$('#back-ltop a').click(function() {
+						$('body,html').animate({
+							scrollTop : 0
+						}, 800);
+						return false;
+					});
+				});
+			});
+		</script>
 	</div>
 	<s:include value="../common/footer.jsp"></s:include>
 </body>

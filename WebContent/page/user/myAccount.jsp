@@ -60,7 +60,9 @@
 				</div>
 			</div>
 			<div class="col-sm-9 reset-list">
-				<label id="message">设置用户信息</label>
+				<!-- 与用户识别相关 -->
+				<h2 style="text-align: center;">用户帐号</h2>
+				<label id="message"></label>
 				<div class="input-group">
 					<span class="input-group-addon">用户名称</span>
 					<input id="usernameInput" type="text" class="form-control" value="<%=user.getUsername()%>">
@@ -82,6 +84,10 @@
 						<button class="btn btn-primary" type="button" onclick="changeBankId()">保存修改</button>
 					</span>
 				</div>
+
+				<!-- 用户属性，可以统一设置 -->
+				<h2 style="text-align: center;">用户属性</h2>
+				<label id="user-attribute"></label>
 				<div class="input-group">
 					<span class="input-group-addon">用户性别</span>
 					<select id="genderSelect" class="form-control">
@@ -89,17 +95,17 @@
 						<option value="2" <%=user.getGender() == 2 ? "selected='selected'" : ""%>>女</option>
 						<option value="0" <%=user.getGender() == 0 ? "selected='selected'" : ""%>>未设置</option>
 					</select>
-					<span class="input-group-btn">
+					<!--<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" onclick="changeGender()">保存修改</button>
-					</span>
+					</span>-->
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">出生日期</span>
 					<input type="text" id='birthdayInput' class="form-control"
 						placeholder="<%=(user.getBirthday() == null ? "未设置" : user.getBirthday().toString())%>">
-					<span class="input-group-btn">
+					<!--<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" onclick="changeBirthday()">保存修改</button>
-					</span>
+					</span>-->
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">所在省/直辖市</span>
@@ -174,17 +180,26 @@
 							}
 						%>
 					</select>
-					<span class="input-group-btn">
+					<!--<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" onclick="changeRegion()">保存修改</button>
-					</span>
+					</span>-->
 				</div>
 				<div class="input-group">
 					<span class="input-group-addon">具体地址</span>
 					<input id="locationInput" type="text" class="form-control" value="<%=(user.getLocation() == null ? "未设置" : user.getLocation())%>">
-					<span class="input-group-btn">
+					<!--<span class="input-group-btn">
 						<button class="btn btn-primary" type="button" onclick="changeLocation()">保存修改</button>
-					</span>
+					</span>-->
 				</div>
+				<div style="text-align: right;">
+					<button class="btn btn-default" type="button" onclick="cancleModifyUser()">撤销修改</button>
+					<button class="btn btn-primary" type="button" onclick="saveModifyUser()">保存修改</button>
+				</div>
+
+
+				<!-- 账户有关信息，不可操作 -->
+				<h2 style="text-align: center;">账户信息</h2>
+				<label id="user-account"></label>
 				<div class="input-group">
 					<span class="input-group-addon">账户余额</span>
 					<input id="balanceInput" type="text" class="form-control" value="<%=user.getBalance()%>" readonly="readonly">

@@ -13,7 +13,7 @@ function changeUsername() {
 				usernameShow.innerHTML = newName;
 				messageShow.innerHTML = "用户名修改成功";
 			} else {
-				messageShow.innerHTML = "用户名已被其他人占用";
+				messageShow.innerHTML = "用户名未修改或用户名已被其他人占用";
 			}
 		});
 	} else {
@@ -34,7 +34,7 @@ function changePhonenumber() {
 				phonenumberInput.value = newPhone;
 				messageShow.innerHTML = "绑定手机修改成功";
 			} else {
-				messageShow.innerHTML = "手机号已被其他人绑定";
+				messageShow.innerHTML = "手机号未修改或手机号已被其他人绑定";
 			}
 		});
 	} else {
@@ -55,7 +55,7 @@ function changeBankId() {
 				bankIdInput.value = newBankId;
 				messageShow.innerHTML = "银行卡设置成功";
 			} else {
-				messageShow.innerHTML = "银行卡已被其他人绑定";
+				messageShow.innerHTML = "银行卡未修改或银行卡已被其他人绑定";
 			}
 		});
 	} else {
@@ -64,7 +64,7 @@ function changeBankId() {
 }// 改变或绑定银行卡号
 
 function changeLocation() {
-	var messageShow = document.getElementById("message");
+	var messageShow = document.getElementById("user-attribute");
 	var locationInput = document.getElementById("locationInput");
 	var newLocation = locationInput.value;
 	if (newLocation != null) {
@@ -85,7 +85,7 @@ function changeLocation() {
 }// 改变具体地址
 
 function changeGender() {
-	var messageShow = document.getElementById("message");
+	var messageShow = document.getElementById("user-attribute");
 	var genderSelect = document.getElementById("genderSelect");
 	$.post("user/repeatIntField.action", {
 		"map.field" : "gender",
@@ -99,8 +99,18 @@ function changeGender() {
 	});
 }// 设置性别
 
+function cancleModifyUser() {
+	var messageShow = document.getElementById("user-attribute");
+	messageShow.innerHTML = "重置用户属性成功";
+}//取消用户信息设置
+
+function saveModifyUser() {
+	var messageShow = document.getElementById("user-attribute");
+	messageShow.innerHTML = "用户属性设置成功";
+}//保存用户信息修改
+
 function changePassword() {
-	var messageShow = document.getElementById("message");
+	var messageShow = document.getElementById("user-account");
 	var newPasswordInput = document.getElementById("newPasswordInput");
 	var passwordConfirmInput = document.getElementById("passwordConfirmInput");
 	var newPassword = newPasswordInput.value;
@@ -152,7 +162,7 @@ $(function() {
 });
 
 function changeBirthday() {
-	var messageShow = document.getElementById("message");
+	var messageShow = document.getElementById("user-attribute");
 	var birthday = document.getElementById('birthdayInput').value;
 	$.post("user/setBirthday.action", {
 		"map.birthday" : birthday
@@ -166,7 +176,7 @@ function changeBirthday() {
 }// 设置用户生日
 
 function changeRegion() {
-	var messageShow = document.getElementById("message");
+	var messageShow = document.getElementById("user-attribute");
 	var countySelect = document.getElementById("countySelect");
 	if (countySelect.value == "notset") {
 		messageShow.innerHTML = "用户区域尚未设置，无法保存";
@@ -184,7 +194,7 @@ function changeRegion() {
 }// 设置所属区域
 
 function inactiveAccount() {
-	var messageShow = document.getElementById("message");
+	var messageShow = document.getElementById("user-account");
 	$.post("user/inactiveAccount.action", {}, function(json) {
 		if (json.map.result == "success") {
 			document.getElementById("userStateInput").value = "正常使用";
@@ -197,7 +207,7 @@ function inactiveAccount() {
 }// 激活账户
 
 function renewalAccount() {
-	var messageShow = document.getElementById("message");
+	var messageShow = document.getElementById("user-account");
 	$.post("user/renewalAccount.action", {}, function(json) {
 		if (json.map.result == "success") {
 			document.getElementById("userStateInput").value = "正常使用";
@@ -211,7 +221,7 @@ function renewalAccount() {
 }// 续费账户
 
 function rechargeAccount() {
-	var messageShow = document.getElementById("message");
+	var messageShow = document.getElementById("user-account");
 	var amount = document.getElementById("amountInput").value;// 充值金额
 	if (amount == null || isNaN(amount) || amount.length > 5) {
 		document.getElementById("amountInput").value = "";
@@ -237,7 +247,7 @@ function rechargeAccount() {
 }
 
 function cancleMembership() {
-	var messageShow = document.getElementById("message");
+	var messageShow = document.getElementById("user-account");
 	var password = document.getElementById("cancleConfirmInput").value;
 	if (password == null || password.length < 8 || password.length > 16) {
 		document.getElementById("cancleConfirmInput").value = "";

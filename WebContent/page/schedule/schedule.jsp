@@ -35,11 +35,24 @@
 				<%
 					}
 					else {
+				%>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>店名</th>
+							<th>电话</th>
+							<th>最后计划日期</th>
+							<th>产品计划管理</th>
+						</tr>
+					</thead>
+					<tbody>
+				<%
 						for (int i = 0; i < shops.size(); i++) {
 							Shop shop = shops.get(i);
 							Date date = lastScheduleDates.get(i);
 				%>
-				<div class="shop-item" onmouseover="showModifyBtn(<%=i%>)" onmouseout="hideModifyBtn(<%=i%>)">
+				<!-- <div class="shop-item" onmouseover="showModifyBtn(<%=i%>)" onmouseout="hideModifyBtn(<%=i%>)">
 					<label>
 						<%=i + 1%>&nbsp;
 					</label>
@@ -57,11 +70,26 @@
 						<input name="scheduleState" value=<%=FinalValue.ScheduleState.APPROVING%> class="display-none">
 						<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary hide">产品计划管理</button>
 					</form>
-				</div>
+				</div> -->
+				<tr>
+					<td><%=i + 1%></td>
+					<td><%=shop.getShopname()%></td>
+					<td><%=shop.getPhonenumber()%></td>
+					<td><%=date%></td>
+					<td>
+						<form action="<%=basePath%>/schedule/targetShopSchedule.action" method="get" class="display-inline">
+							<input name="shopId" value="<%=shop.getId()%>" class="display-none">
+							<input name="scheduleState" value=<%=FinalValue.ScheduleState.APPROVING%> class="display-none">
+							<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary">产品计划管理</button>
+						</form>
+					</td>
+				</tr>
 				<%
 					}
 					}
 				%>
+					</tbody>
+				</table>
 			</div>
 			<div class="col-sm-1"></div>
 		</div>
