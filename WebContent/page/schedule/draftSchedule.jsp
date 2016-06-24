@@ -68,7 +68,7 @@
 																																															Product product = products.get(productNum);
 									%>
 									<tr>
-										<td><%=productNum%></td>
+										<td><%=productNum+1%></td>
 										<td><img class="product-img" alt="暂无图片" src="<%=basePath + "/" + product.getPicture()%>"></td>
 										<td><%=product.getName()%></td>
 										<td><%=product.getInfo()%></td>
