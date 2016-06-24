@@ -23,7 +23,7 @@
 }
 
 .product_item_description{
-	color:#666;
+	color:#CA723D;
 }
 
 .description_left{
@@ -65,5 +65,11 @@
 	text-align:center;
 	color:white;
 	
+}
+
+.callbacks_container {
+  position: relative;
+  float: left;
+  width: 100%;
 }
 

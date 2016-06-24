@@ -96,35 +96,45 @@
 				<%
 					}
 					else {
-						for (int i = 0; i < shops.size(); i++) {
-							Shop shop = shops.get(i);
+						
 				%>
-				<div class="shop-item" onmouseover="showModifyBtn(<%=i%>)" onmouseout="hideModifyBtn(<%=i%>)">
-					<label>
-						<%=i + 1%>&nbsp;
-					</label>
-					<label class="shop-name">
-						店名：<span><%=shop.getShopname()%></span>
-					</label>
-					<label class="shop-phonenumber">
-						电话：<span><%=shop.getPhonenumber()%></span>
-					</label>
-					<label class="shop-location">
-						地址：<span><%=shop.getLocation()%></span>
-					</label>
-					<form action="<%=basePath%>/shop/toModifyShop.action" method="get" class="display-inline">
+				<table class="table table-striped" >
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>店名</th>
+								<th>电话</th>
+								<th>地址</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<%
+							for (int i = 0; i < shops.size(); i++) {
+								Shop shop = shops.get(i);
+							%>
+							<tr>
+								<td><%=i+1%></td>
+								<td><%=shop.getShopname()%></td>
+								<td ><%=shop.getPhonenumber()%></td>
+								<td><%=shop.getLocation()%></td>
+								<td><form action="<%=basePath%>/shop/toModifyShop.action" method="get" class="display-inline">
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
-						<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary hide">查看或修改</button>
-					</form>
-					<form action="<%=basePath%>/shop/deleteShop.action" method="get" class="display-inline" onsubmit="return confirmDelete()">
+						<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary " onclick="<%=basePath%>/shop/toModifyShop.action">查看或修改</button>
+					</form></td>
+								<td><form action="<%=basePath%>/shop/deleteShop.action" method="get" class="display-inline" onsubmit="return confirmDelete()">
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
-						<button id="delete-btn-<%=i%>" type="submit" class="btn btn-primary hide">刪除</button>
-					</form>
-				</div>
-				<%
-					}
-					}
-				%>
+						<button id="delete-btn-<%=i%>" type="submit" class="btn btn-primary ">刪除</button>
+					</form></td>
+							</tr>
+							<%
+								}
+							%>
+						</tbody>
+					</table>
+					<%
+								}
+							%>
 			</div>
 		</div>
 	</div>
