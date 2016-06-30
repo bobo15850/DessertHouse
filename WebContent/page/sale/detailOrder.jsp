@@ -31,7 +31,7 @@
 				<h1>订单详情</h1>
 				<div>
 					<div class="input-group">
-						<span class="input-group-addon">店铺</span>
+						<span class="input-group-addon">店铺名称</span>
 						<input type="text" class="form-control" readonly="readonly" value=<%=order.getShop().getShopname()%>>
 						<span class="input-group-addon">销售员工</span>
 						<input type="text" class="form-control" readonly="readonly" value=<%=order.getOperator().getUsername()%>>
@@ -64,10 +64,14 @@
 						}
 					%>
 					<div class="input-group">
-						<span class="input-group-addon">原始总金额</span>
+						<span class="input-group-addon">原始金额</span>
 						<input type="text" class="form-control" readonly="readonly" value=<%=order.getRawMoney()%>>
-						<span class="input-group-addon">实际总金额</span>
+						<span class="input-group-addon">会员折扣</span>
+						<input type="text" class="form-control" readonly="readonly"
+							value=<%=String.valueOf((int) (10 * (order.getRealMoney() / order.getRawMoney()))) + "折"%>>
+						<span class="input-group-addon">实际金额</span>
 						<input type="text" class="form-control" readonly="readonly" value=<%=order.getRealMoney()%>>
+
 					</div>
 				</div>
 				<div>

@@ -15,7 +15,7 @@ public class HandleOrderAction extends BaseAction {
 
 	@Action(
 			value = "confirmPay",
-			results = { @Result(name = SUCCESS, location = "/sale.action", type = "redirect"),
+			results = { @Result(name = SUCCESS, location = "/viewUserConsumption.action", type = "redirect"),
 					@Result(name = ERROR, location = "/page/common/error.jsp") })
 	public String confirmPay() {
 		SalesRecord saleRecord = (SalesRecord) session.get("order");

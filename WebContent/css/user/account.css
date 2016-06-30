@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .unset-list {
-	
+	margin-top: 50px;
 }
 
 .unset-item {
@@ -17,6 +17,8 @@
 	width: 65%;
 	display: inline;
 	margin-left: 5%;
+	border: none;
+	font-size: large;
 }
 
 .reset-list {

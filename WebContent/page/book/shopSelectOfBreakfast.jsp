@@ -24,13 +24,14 @@
 		<div clas="row">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
-				<h1>请选择店铺</h1>
+				<h3>请选择店铺</h3>
 				<%
 					if (shops == null || shops.size() == 0) {
 						out.print("<h2>没有店铺可供预订</h2>");
 					}
 					else {
 				%>
+				<br>
 				<table class="table table-striped">
 					<thead>
 						<tr>

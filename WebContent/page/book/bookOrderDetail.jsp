@@ -30,21 +30,21 @@
 			<div class="col-sm-10">
 				<h1>订单详情</h1>
 				<div class="input-group">
-					<span class="input-group-addon">店铺</span>
+					<span class="input-group-addon">店铺名称</span>
 					<input type="text" class="form-control" readonly="readonly" value=<%=order.getShop().getShopname()%>>
 					<span class="input-group-addon">取货时间</span>
 					<input type="text" class="form-control" readonly="readonly" value=<%=order.getTargetDate()%>>
 				</div>
 				<div class="input-group">
-					<span class="input-group-addon">下单者</span>
+					<span class="input-group-addon">顾客姓名</span>
 					<input type="text" class="form-control" readonly="readonly" value=<%=order.getCustomer().getUsername()%>>
 					<span class="input-group-addon">下单时间</span>
 					<input type="text" class="form-control" readonly="readonly" value=<%=order.getCreatedTime().toLocalDateTime()%>>
 				</div>
 				<div class="input-group">
-					<span class="input-group-addon">原始总金额</span>
+					<span class="input-group-addon">原始金额</span>
 					<input type="text" class="form-control" readonly="readonly" value=<%=order.getRawMoney()%>>
-					<span class="input-group-addon">实际总金额</span>
+					<span class="input-group-addon">实际金额</span>
 					<input type="text" class="form-control" readonly="readonly" value=<%=order.getRealMoney()%>>
 				</div>
 				<div>
@@ -108,8 +108,8 @@
 					<form action="<%=basePath%>/book/cancleBookOrder.action">
 						<input type="hidden" name="orderId" value=<%=order.getId()%>>
 						<button class="btn btn-default float-right"
-							<%=order.getTargetDate().toString().equals(new Date(System.currentTimeMillis()))
-						? " disabled='disabled'" : ""%>>取消预定</button>
+							<%=order.getTargetDate().toString().equals(new Date(System.currentTimeMillis())) ? " disabled='disabled'"
+						: ""%>>取消预定</button>
 					</form>
 				</div>
 				<%

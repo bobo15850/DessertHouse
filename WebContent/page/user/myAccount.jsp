@@ -31,32 +31,31 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3 unset-list">
-				<h3>不可变用户信息</h3>
 				<div class="unset-item">
-					<label>用户编号</label>
-					<input type="text" class="form-control" value="<%=user.getId()%>" readonly="readonly" />
+					<label>用户编号:</label>
+					<input type="text" value="<%=user.getId()%>" readonly="readonly" />
 				</div>
 				<div class="unset-item">
-					<label>会员卡号</label>
-					<input type="text" class="form-control" value="<%=user.getCardId()%>" readonly="readonly" />
+					<label>会员卡号:</label>
+					<input type="text" value="<%=user.getCardId()%>" readonly="readonly" />
 				</div>
 				<div class="unset-item">
-					<label>会员等级 </label>
-					<input id="userLevelInput" type="text" class="form-control" value="<%=FinalValue.UserLevel.getStrOfUserLevel(user.getLevel())%>"
+					<label>会员等级:</label>
+					<input id="userLevelInput" type="text" value="<%=FinalValue.UserLevel.getStrOfUserLevel(user.getLevel())%>"
 						readonly="readonly" />
 				</div>
 				<div class="unset-item">
-					<label>会员资格</label>
-					<input id="userStateInput" type="text" class="form-control" value="<%=FinalValue.UserState.getStrOfUserState(user.getState())%>"
+					<label>会员资格:</label>
+					<input id="userStateInput" type="text" value="<%=FinalValue.UserState.getStrOfUserState(user.getState())%>"
 						readonly="readonly" />
 				</div>
 				<div class="unset-item">
-					<label>消费总额</label>
-					<input type="text" class="form-control" value="<%=user.getConsumption()%>" readonly="readonly" />
+					<label>消费总额:</label>
+					<input type="text" value="<%=user.getConsumption()%>" readonly="readonly" />
 				</div>
 				<div class="unset-item">
-					<label>注册日期</label>
-					<input type="text" class="form-control" value="<%=user.getCreatedTime()%>" readonly="readonly" />
+					<label>注册日期:</label>
+					<input type="text" value="<%=user.getCreatedTime()%>" readonly="readonly" />
 				</div>
 			</div>
 			<div class="col-sm-9 reset-list">

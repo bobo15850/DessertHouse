@@ -34,18 +34,21 @@
 			<div class="col-sm-2">
 				<div class="control-panel">
 					<div class="shop-info">
-					<br><br>
+						<br> <br>
 						<h4>
 							店名：<%=shop.getShopname()%></h4>
-							<br>
+						<br>
 						<h5>
 							电话：<%=shop.getPhonenumber()%></h5>
 						<h5>
-							地址：<%=shopRegionStr+" "+shop.getLocation()%></h5>
+							地址：<%=shopRegionStr + " " + shop.getLocation()%></h5>
 					</div>
 					<div>
-					<br><br>
+						<br> <br>
 						<button id="goods-list-btn" class="btn btn-info btn-block" onclick="showPanel(this)" value="goods-list-panel">预定商品</button>
+					</div>
+					<div>
+						<button id="goods-select-btn" class="btn btn-primary btn-block" onclick="showPanel(this)" value="goods-select-panel">购物车</button>
 					</div>
 					<div>
 						<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#selsct-date">切换日期</button>
@@ -78,9 +81,6 @@
 						</div>
 					</div>
 					<div>
-						<button id="goods-select-btn" class="btn btn-primary btn-block" onclick="showPanel(this)" value="goods-select-panel">购物车</button>
-					</div>
-					<div>
 						<form action="<%=basePath%>/shopSelectOfBook.action">
 							<button class="btn btn-primary btn-block">返回店铺列表</button>
 						</form>
@@ -109,16 +109,12 @@
 					<%
 						if (goodsList == null || goodsList.size() == 0) {
 					%>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="crown" src="<%= basePath%>/image/coff-key.png">&nbsp;&nbsp;&nbsp;暂无可预定的商品&nbsp;&nbsp;&nbsp;<img class="crown" src="<%= basePath%>/image/coff-key.png"></h1>
+					<br> <br> <br> <br> <br> <br> <br> <br> <br>
+					<h1>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="crown"
+							src="<%=basePath%>/image/coff-key.png">&nbsp;&nbsp;&nbsp;暂无可预定的商品&nbsp;&nbsp;&nbsp;<img class="crown"
+							src="<%=basePath%>/image/coff-key.png">
+					</h1>
 					<%
 						}
 						else {
@@ -127,24 +123,27 @@
 						for (int i = 0; i < goodsList.size(); i++) {
 								Goods goods = goodsList.get(i);
 					%>
-						<div class="good">
-							<img alt="商品图片" src="<%=basePath + "/" + goods.getProduct().getPicture()%>" />
-							<div class="good_col1">
-								<span id="name-<%=goods.getId()%>"><%=goods.getProduct().getName()%></span>
-								<div class="g_price">
-									<small><span class="glyphicon glyphicon-yen"></span></small><span id="price-<%=goods.getId()%>"><%=goods.getPrice()%></span>
-								</div>
-							</div>
-							<div class="good_col2">
-								<span><%=goods.getProduct().getInfo()%></span>
-							</div>
-							<div class="good_col3">
-								<span class="g_remain">剩余<span id="quantity-<%=goods.getId()%>"><%=goods.getQuantity()%></span>件</span>
-								<div class="g_opera">
-									<button class="btn btn-primary" value="<%=goods.getId()%>" onclick="chooseGoods(this)"><span class="glyphicon glyphicon-edit"></span></button>
-								</div>
+					<div class="good">
+						<img alt="商品图片" src="<%=basePath + "/" + goods.getProduct().getPicture()%>" />
+						<div class="good_col1">
+							<span id="name-<%=goods.getId()%>"><%=goods.getProduct().getName()%></span>
+							<div class="g_price">
+								<small><span class="glyphicon glyphicon-yen"></span></small><span id="price-<%=goods.getId()%>"><%=goods.getPrice()%></span>
 							</div>
 						</div>
+						<div class="good_col2">
+							<span><%=goods.getProduct().getInfo()%></span>
+						</div>
+						<div class="good_col3">
+							<span class="g_remain">剩余<span id="quantity-<%=goods.getId()%>"><%=goods.getQuantity()%></span>件
+							</span>
+							<div class="g_opera">
+								<button class="btn btn-primary" value="<%=goods.getId()%>" onclick="chooseGoods(this)">
+									<span class="glyphicon glyphicon-edit"></span>
+								</button>
+							</div>
+						</div>
+					</div>
 					<%
 						}
 					%>
