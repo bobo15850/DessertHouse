@@ -89,6 +89,7 @@
 						customers = (List<User>) objList;
 				%>
 				<div>
+				<br>
 					<h2>用户列表</h2>
 					<table class="table table-striped">
 						<thead>
@@ -112,7 +113,16 @@
 								<td><%=i%></td>
 								<td><%=customer.getUsername()%></td>
 								<td><%=customer.getCardId()%></td>
-								<td><%=customer.getPhonenumber()%></td>
+								
+								<%if(customer.getPhonenumber()!=null){
+									%>
+									<td><%=customer.getPhonenumber()%></td>
+								<% }
+								else{
+									%>
+									<td>无</td>
+								<% }%>
+								
 								<td><%=FinalValue.Gender.getStrOfGender(customer.getGender())%></td>
 								<td><%=FinalValue.UserLevel.getStrOfUserLevel(customer.getLevel())%></td>
 								<td><%=customer.getConsumption()%></td>

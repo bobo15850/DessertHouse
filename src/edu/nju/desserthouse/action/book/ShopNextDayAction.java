@@ -39,6 +39,20 @@ public class ShopNextDayAction extends BaseAction {
 		request.setAttribute("goodsList", goodsList);
 		return SUCCESS;
 	}
+	
+	@Action(value = "shopNextDayBreakfast", results = { @Result(name = SUCCESS, location = "/page/book/bookBreakfast.jsp") })
+	public String shopNextDayBreakfast() throws Exception {
+		Shop shop = shopService.getShopById(shopId);
+		String regionStr = regionService.getCompleteRegionStr(shop.getRegion().getId());
+		Date curDate = Date.valueOf(curDateStr);
+		Date nextDate = new Date(curDate.getTime() + 24 * 60 * 60 * 1000);
+		List<Goods> goodsList = bookService.getTrgetDayGoods(shopId, nextDate);
+		request.setAttribute("shop", shop);
+		request.setAttribute("shopRegionStr", regionStr);
+		request.setAttribute("date", nextDate);
+		request.setAttribute("goodsList", goodsList);
+		return SUCCESS;
+	}
 
 	public int getShopId() {
 		return shopId;

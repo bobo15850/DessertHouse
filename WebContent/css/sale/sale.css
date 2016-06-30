@@ -12,3 +12,92 @@
 .select-quantity-input {
 	width: 80px;
 }
+
+.good{
+	display:inline-block;
+	margin:15px;
+}
+
+.good_col1{
+	font-size:20px;
+	font-family: 微软雅黑,verdana,arial;
+	margin-bottom:5px;
+}
+
+.g_price{
+	float:right;
+	margin-right:10px;
+	color:#F40;
+}
+
+.good_col2{
+	margin-bottom:5px;
+}
+
+.g_remain{
+	color:#888;
+}
+
+.g_opera{
+	float:right;
+	margin-right:10px;
+}
+
+.mess_out{
+	height:350px;	
+}
+
+.mess_icon{
+	display:inline-block;
+	margin-right:5px;
+	margin-left:5px;
+}
+
+.mess_cont{
+	border-radius:10px;
+	background-color:#337ab7;
+	color:white;
+	padding:2px 5px;
+}
+
+.mess_block{
+	margin-bottom:5px;
+}
+
+#order-panel table{
+	margin-bottom:20px;
+}
+
+.bf_col{
+	display:inline-block;
+	margin-right:25px;
+}
+
+.bf_col span{
+	font-size:15px;
+	margin-right:5px;
+}
+
+.bf_col3_select{
+	height:26px;
+}
+
+
+
+#discount-panel{
+	float:right;
+	color:#888;
+}
+
+#discount-panel strong{
+	color:#d9534f;
+}
+
+#noneDiscount-panel{
+	float:right;
+	color:#888;
+}
+
+#noneDiscount-panel p{
+	color:#d9534f;
+}

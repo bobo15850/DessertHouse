@@ -44,9 +44,9 @@ public class UserHeadAction extends BaseAction {
 		List<Region> provinces = regionService.getLowerRegions(1);
 		request.setAttribute("provinces", provinces);
 		if (user.getRegion() == null) {
-			request.setAttribute("province", "未设置");
-			request.setAttribute("city", "未设置");
-			request.setAttribute("county", "未设置");
+			request.setAttribute("province", "鏈缃�");
+			request.setAttribute("city", "鏈缃�");
+			request.setAttribute("county", "鏈缃�");
 		}
 		else {
 			Region county = user.getRegion();
@@ -61,7 +61,7 @@ public class UserHeadAction extends BaseAction {
 			request.setAttribute("countys", countys);
 		}
 		return SUCCESS;
-	}// 到我的账户页面
+	}// 鍒版垜鐨勮处鎴烽〉闈�
 
 	@Action(
 			value = "consumptionRecord",
@@ -84,7 +84,7 @@ public class UserHeadAction extends BaseAction {
 		}
 		request.setAttribute("orderState", orderState);
 		return SUCCESS;
-	}// 到消费记录页面
+	}// 鍒版秷璐硅褰曢〉闈�
 
 	@Action(
 			value = "shopSelectOfBook",
@@ -97,7 +97,20 @@ public class UserHeadAction extends BaseAction {
 		User user = userService.getUserById(userBase.getId());
 		request.setAttribute("user", user);
 		return SUCCESS;
-	}// 到预定商品展示页面
+	}// 鍒伴瀹氬晢鍝佸睍绀洪〉闈�
+	
+	@Action(
+			value = "shopSelectOfBreakfast",
+			results = { @Result(name = SUCCESS, location = "/page/book/shopSelectOfBreakfast.jsp"),
+					@Result(name = INPUT, location = "/page/user/login.jsp") })
+	public String shopSelectOfBreakfast() {
+		List<Shop> shops = shopService.getAllShops();
+		request.setAttribute("shops", shops);
+		UserBase userBase = (UserBase) session.get("userBase");
+		User user = userService.getUserById(userBase.getId());
+		request.setAttribute("user", user);
+		return SUCCESS;
+	}// 到预定早餐展示页面
 
 	@Action(
 			value = "rechargeRecord",
@@ -108,5 +121,5 @@ public class UserHeadAction extends BaseAction {
 		User user = userService.getUserById(userase.getId());
 		request.setAttribute("rechargeRecordList", user.getRechargeRecordList());
 		return SUCCESS;
-	}// 到充值记录查看页面
+	}// 鍒板厖鍊艰褰曟煡鐪嬮〉闈�
 }

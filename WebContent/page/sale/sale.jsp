@@ -36,7 +36,7 @@
 					</div>
 					<br> <br> <br>
 					<div>
-						<button id="goods-list-btn" class="btn btn-info btn-block" onclick="showPanel(this)" value="goods-list-panel">选购商品</button>
+						<button id="goods-list-btn" class="btn btn-primary btn-block" onclick="showPanel(this)" value="goods-list-panel">选购商品</button>
 					</div>
 					<div>
 						<button id="goods-select-btn" class="btn btn-primary btn-block" onclick="showPanel(this)" value="goods-select-panel">购物车</button>
@@ -48,42 +48,45 @@
 					<%
 						if (goodsList == null || goodsList.size() == 0) {
 					%>
-					<h1>没有任何商品可供购买</h1>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="crown" src="<%= basePath%>/image/coff-key.png">&nbsp;&nbsp;&nbsp;没有任何商品可供购买&nbsp;&nbsp;&nbsp;<img class="crown" src="<%= basePath%>/image/coff-key.png"></h1>
 					<%
 						}
 						else {
 					%>
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>图片</th>
-								<th>商品名称</th>
-								<th>商品描述</th>
-								<th>单价</th>
-								<th>剩余数量</th>
-								<th>选择</th>
-							</tr>
-						</thead>
-						<tbody>
 							<%
 								for (int i = 0; i < goodsList.size(); i++) {
 										Goods goods = goodsList.get(i);
 							%>
-							<tr>
-								<td><%=i%></td>
-								<td><img class="goods-img" alt="商品图片" src="<%=basePath + "/" + goods.getProduct().getPicture()%>"></td>
-								<td id="name-<%=goods.getId()%>"><%=goods.getProduct().getName()%></td>
-								<td><%=goods.getProduct().getInfo()%></td>
-								<td id="price-<%=goods.getId()%>"><%=goods.getPrice()%></td>
-								<td id="quantity-<%=goods.getId()%>"><%=goods.getQuantity()%></td>
-								<td><button class="btn btn-primary" value="<%=goods.getId()%>" onclick="chooseGoods(this)">选购</button></td>
-							</tr>
+								<div class="good">
+									<img alt="商品图片" src="<%=basePath + "/" + goods.getProduct().getPicture()%>" />
+									<div class="good_col1">
+										<span id="name-<%=goods.getId()%>"><%=goods.getProduct().getName()%></span>
+										<div class="g_price">
+											<small><span class="glyphicon glyphicon-yen"></span></small><span id="price-<%=goods.getId()%>"><%=goods.getPrice()%></span>
+										</div>
+									</div>
+									<div class="good_col2">
+										<span><%=goods.getProduct().getInfo()%></span>
+									</div>
+									<div class="good_col3">
+										<span class="g_remain">剩余<span id="quantity-<%=goods.getId()%>"><%=goods.getQuantity()%></span>件</span>
+										<div class="g_opera">
+											<button class="btn btn-primary" value="<%=goods.getId()%>" onclick="chooseGoods(this)"><span class="glyphicon glyphicon-edit"></span></button>
+										</div>
+									</div>
+								</div>
 							<%
 								}
 							%>
-						</tbody>
-					</table>
 					<div class="modal fade" id="numInputModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
@@ -125,7 +128,7 @@
 					%>
 				</div>
 				<div id="goods-select-panel" class="hide">
-					<h1>选购的商品</h1>
+					<h2>选购的商品</h2>
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -140,6 +143,7 @@
 						</tbody>
 					</table>
 					<label id="generateOrderMsg"></label>
+					<br>
 					<button id="generate-order-btn" class="btn btn-primary float-right" onclick="generateOrder()">生成订单</button>
 					<button id="clear-all-select" class="btn btn-default float-right" onclick="deleteAllSelect()">清空购物车</button>
 				</div>
@@ -161,8 +165,16 @@
 						</table>
 						<div class="input-group">
 							<span class="input-group-addon">会员卡号/手机号码</span>
-							<input name="identity" type="text" class="form-control" placeholder="请输入会员卡号或注册手机号码，如没有会员卡请不要填写">
+							<input name="identity" type="text" class="form-control" onchange="validateId(this)" id="identity" placeholder="请输入会员卡号或注册手机号码，如没有会员卡请不要填写" />
 						</div>
+						<div class="clearfix"></div>
+						<div id="discount-panel" class="hide">
+							<p>会员等级为：<strong>会员</strong>，享受<strong>9</strong>折</p>
+						</div>
+						<div id="noneDiscount-panel" class="hide">
+							<p>此号码没有对应相应人员</p>
+						</div>
+						<div class="clearfix"></div>
 						<input type="hidden" name="operatorId" value=<%=staff.getId()%>>
 						<input type="hidden" name="shopId" value=<%=shop.getId()%>>
 						<button class="btn btn-primary float-right" type="submit">提交订单</button>

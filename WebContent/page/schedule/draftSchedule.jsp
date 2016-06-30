@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="<%=basePath%>/css/schedule/schedule.css">
 <script src="<%=basePath%>/lib/jquery/jquery-1.12.1.min.js"></script>
 <script src="<%=basePath%>/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=basePath%>/js/nav_days.js"></script>
 </head>
 <body>
 	<s:include value="../common/header.jsp"></s:include>
@@ -30,10 +31,10 @@
 			<div class="col-sm-10">
 				<div>
 					<form action="<%=basePath%>/schedule/targetShopSchedule.action">
+						<button class="btn btn-primary">返回店铺计划页面</button>
 						<h3 class="display-inline"><%=shop.getShopname()%></h3>
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
 						<input name="scheduleState" value=<%=FinalValue.ScheduleState.APPROVING%> class="display-none">
-						<button class="btn btn-primary">返回店铺计划页面</button>
 					</form>
 				</div>
 				<div>
@@ -48,8 +49,9 @@
 																												Date date = dates.get(dayNum);
 						%>
 						<div>
-							<h2 class="text-center">
-								第<%=dayNum%>天：<%=date%>
+							<h2 class="text-center" >
+								<a name="<%=dayNum%>" id="<%=dayNum%>"></a>
+								第<%=dayNum+1%>天：<%=date%>
 							</h2>
 							<table class="table table-striped">
 								<thead>
@@ -68,7 +70,7 @@
 																																															Product product = products.get(productNum);
 									%>
 									<tr>
-										<td><%=productNum+1%></td>
+										<td><%=productNum%></td>
 										<td><img class="product-img" alt="暂无图片" src="<%=basePath + "/" + product.getPicture()%>"></td>
 										<td><%=product.getName()%></td>
 										<td><%=product.getInfo()%></td>
@@ -98,67 +100,16 @@
 		</div>
 	</div>
 
-
-	<div style="height: 200px;">
-		<p id='back-ltop' class='hide_element'>
-			<a href='#top' style="text-decoration: none;">
-				<span>回到顶部</span>
-			</a>
-		</p>
-
-		<style>
-#back-ltop {
-	position: fixed;
-	z-index: 999;
-	right: 35px;
-	bottom: 60px;
-}
-
-/* arrow icon (span tag) */
-#back-ltop span {
-	width: 80px;
-	height: 40px;
-	display: block;
-	margin-bottom: 7px;
-	/* rounded corners */
-	-webkit-border-radius: 15px;
-	-moz-border-radius: 15px;
-	border-radius: 15px;
-	/* transition */
-	-webkit-transition: 1s;
-	-moz-transition: 1s;
-	transition: 1s;
-}
-</style>
-
-		<script>
-			$(document).ready(function() {
-
-				// hide #back-top first 
-				$("#back-ltop").hide();
-
-				// fade in #back-top 
-				$(function() {
-					$(window).scroll(function() {
-						if ($(this).scrollTop() > 100) {
-							$('#back-ltop').fadeIn();
-						} else {
-							$('#back-ltop').fadeOut();
-						}
-
-					});
-
-					// scroll body to 0px on click 
-					$('#back-ltop a').click(function() {
-						$('body,html').animate({
-							scrollTop : 0
-						}, 800);
-						return false;
-					});
-				});
-			});
-		</script>
+	<div id="nav_days">
+		<a href="#0" class="cata">第一天</a>
+		<a href="#1" class="cata">第二天</a>
+		<a href="#2" class="cata">第三天</a>
+		<a href="#3" class="cata">第四天</a>
+		<a href="#4" class="cata">第五天</a>
+		<a href="#5" class="cata">第六天</a>
+		<a href="#6" class="cata">第七天</a>
 	</div>
+	
 	<s:include value="../common/footer.jsp"></s:include>
 </body>
 </html>

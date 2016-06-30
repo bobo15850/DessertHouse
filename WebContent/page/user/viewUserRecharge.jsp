@@ -99,9 +99,6 @@
 				<%
 					}
 					}
-					else {
-						out.print("<h1>请输入查询条件</h1>");
-					}
 				%>
 			</div>
 			<div class="col-sm-1"></div>

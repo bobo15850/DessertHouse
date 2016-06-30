@@ -66,19 +66,20 @@
 						</div>
 					</div>
 				</div>
+				
+				<div id="show-all">
+					<form action="<%=basePath%>/product.action" method="post">
+						<button class="btn btn-primary btn-block" type="submit">全部产品</button>
+					</form>
+				</div>
 				<div id="search-product">
 					<form action="<%=basePath%>/product/selectProduct.action">
 						<div class="input-group">
 							<input type="text" class="form-control" name="selectInfo" placeholder="搜索产品...">
 							<span class="input-group-btn">
-								<button class="btn btn-primary" type="submit">查找产品</button>
+							    <input type="image" img src="<%=basePath%>/image/sea.png" onClick="this.submit()">
 							</span>
 						</div>
-					</form>
-				</div>
-				<div id="show-all">
-					<form action="<%=basePath%>/product.action" method="post">
-						<button class="btn btn-primary btn-block" type="submit">全部产品</button>
 					</form>
 				</div>
 			</div>

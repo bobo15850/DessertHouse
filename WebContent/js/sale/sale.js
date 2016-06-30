@@ -142,3 +142,24 @@ function cancleOrder() {
 	document.getElementById("goods-select-panel").className = "unhide";
 	document.getElementById("generateOrderMsg").innerHTML = "";
 }// 取消订单
+
+function validateId(input){
+	var identity=$(input).val();
+	$.ajax({
+		type:"post",
+		url:"validateIdentity.action?identity="+identity,
+		success:function(data){
+			if(data.level!=undefined){
+				console.log(data.level);
+				console.log(data.discount*10);
+				$('#discount-panel p strong:eq(0)').html(data.level);
+				$('#discount-panel p strong:eq(1)').html(data.discount*10);
+				$('#discount-panel').attr('class','unhide');
+				$('#noneDiscount-panel').attr('class','hide');
+			}else{
+				$('#discount-panel').attr('class','hide');
+				$('#noneDiscount-panel').attr('class','unhide');
+			}
+		}
+	});
+}

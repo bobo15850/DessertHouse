@@ -27,6 +27,7 @@
 			<li><a href="<%=basePath%>/consumptionRecord.action">我的订单</a></li>
 			<li><a href="<%=basePath%>/rechargeRecord.action">我的充值</a></li>
 			<li><a href="<%=basePath%>/shopSelectOfBook.action">预定商品</a></li>
+			<li><a href="<%=basePath%>/shopSelectOfBreakfast.action">早餐服务</a></li>
 			<%
 				break;
 					case FinalValue.UserCategory.BRANCH_WAITER:

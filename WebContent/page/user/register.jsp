@@ -17,8 +17,11 @@
 	<div class="container">
 		<form class="form-register" action="<%=basePath%>/user/register.action" method="post" onSubmit="return check_form();">
 			<h2 class="form-register-heading">请注册</h2>
+			<br>
 			<input type="text" name="user.username" class="form-control" placeholder="请输入昵称，不超过10个字符" onBlur="check_username(this)" autofocus required>
+			<br>
 			<input type="password" name="user.password" class="form-control" placeholder="请输入密码8-16位" onBlur="check_password(this)" required>
+			<br>
 			<input type="password" name="password_repeat" class="form-control" placeholder="确认密码" required>
 			<h5 class="register-error">${FieldErrors.registerMessage[0]}</h5>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>

@@ -70,7 +70,18 @@
 			<div class="col-sm-10">
 				<%
 					if (orders == null) {
-						out.print("<h1>没有该种订单</h1>");
+						%>
+						<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="crown" src="<%= basePath%>/image/coff-key.png">&nbsp;&nbsp;&nbsp;没有该种订单&nbsp;&nbsp;&nbsp;<img class="crown" src="<%= basePath%>/image/coff-key.png"></h1> 
+						<% 
 					}
 					else {
 						if (orderState == FinalValue.SALES_RECORD) {

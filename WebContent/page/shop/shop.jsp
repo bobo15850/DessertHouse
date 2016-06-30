@@ -118,14 +118,14 @@
 								<td><%=shop.getShopname()%></td>
 								<td ><%=shop.getPhonenumber()%></td>
 								<td><%=shop.getLocation()%></td>
-								<td><form action="<%=basePath%>/shop/toModifyShop.action" method="get" class="display-inline">
-						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
-						<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary " onclick="<%=basePath%>/shop/toModifyShop.action">查看或修改</button>
-					</form></td>
-								<td><form action="<%=basePath%>/shop/deleteShop.action" method="get" class="display-inline" onsubmit="return confirmDelete()">
-						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
-						<button id="delete-btn-<%=i%>" type="submit" class="btn btn-primary ">刪除</button>
-					</form></td>
+								<td style="width:120px;"><form action="<%=basePath%>/shop/toModifyShop.action" method="get" class="display-inline">
+									<input name="shopId" value="<%=shop.getId()%>" class="display-none">
+									<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary " onclick="<%=basePath%>/shop/toModifyShop.action">查看或修改</button>
+								</form></td>
+								<td style="width:120px;"><form action="<%=basePath%>/shop/deleteShop.action" method="get" class="display-inline" onsubmit="return confirmDelete()">
+									<input name="shopId" value="<%=shop.getId()%>" class="display-none">
+									<button id="delete-btn-<%=i%>" type="submit" class="btn btn-primary ">刪除</button>
+								</form></td>
 							</tr>
 							<%
 								}

@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="<%=basePath%>/css/book/book.css">
 <script type="text/javascript" src="<%=basePath%>/js/sale/sale.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/book/book.js"></script>
-<title>预定商品展示</title>
+<title>预定早餐展示</title>
 </head>
 <body>
 	<s:include value="../common/header.jsp"></s:include>
@@ -34,24 +34,26 @@
 			<div class="col-sm-2">
 				<div class="control-panel">
 					<div class="shop-info">
-					<br><br>
 						<h4>
 							店名：<%=shop.getShopname()%></h4>
-							<br>
 						<h5>
 							电话：<%=shop.getPhonenumber()%></h5>
-						<h5>
-							地址：<%=shopRegionStr+" "+shop.getLocation()%></h5>
+						<h6>
+							地区：<%=shopRegionStr%></h6>
+						<h6>
+							地址：<%=shop.getLocation()%></h6>
 					</div>
 					<div>
-					<br><br>
-						<button id="goods-list-btn" class="btn btn-info btn-block" onclick="showPanel(this)" value="goods-list-panel">预定商品</button>
+						<button id="goods-list-btn" class="btn btn-info btn-block" onclick="showPanel(this)" value="goods-list-panel">预定早餐</button>
+					</div>
+					<div>
+						<button id="goods-select-btn" class="btn btn-primary btn-block" onclick="showPanel(this)" value="goods-select-panel">购物车</button>
 					</div>
 					<div>
 						<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#selsct-date">切换日期</button>
 						<div id="selsct-date" class="modal fade" tab-index="-1" role="dialog" aria-labelledby="myModalLabel">
 							<div class="modal-dialog" role="document">
-								<form action="<%=basePath%>/book/shopTarDay.action" method="post">
+								<form action="<%=basePath%>/book/shopTarDayBreakfast.action" method="post">
 									<input type="hidden" name="shopId" value=<%=shop.getId()%>>
 									<div class="modal-content">
 										<div class="modal-header">
@@ -78,20 +80,16 @@
 						</div>
 					</div>
 					<div>
-						<button id="goods-select-btn" class="btn btn-primary btn-block" onclick="showPanel(this)" value="goods-select-panel">购物车</button>
-					</div>
-					<div>
-						<form action="<%=basePath%>/shopSelectOfBook.action">
-							<button class="btn btn-primary btn-block">返回店铺列表</button>
+						<form action="<%=basePath%>/shopSelectOfBreakfast.action">
+							<button class="btn btn-primary btn-block">返回首页</button>
 						</form>
 					</div>
 				</div>
 			</div>
-			<br>
 			<div class="col-sm-10">
 				<div id="goods-list-panel" class="unhide">
 					<div class="display-inline float-left">
-						<form action="<%=basePath%>/book/shopPreDay.action">
+						<form action="<%=basePath%>/book/shopPreDayBreakfast.action">
 							<input type="hidden" name="shopId" value=<%=shop.getId()%>>
 							<input type="hidden" name="curDateStr" value=<%=date.toString()%>>
 							<button class="btn btn-primary">前一天</button>
@@ -99,7 +97,7 @@
 					</div>
 					<label class="date-label"><%=date%></label>
 					<div class="float-right">
-						<form action="<%=basePath%>/book/shopNextDay.action">
+						<form action="<%=basePath%>/book/shopNextDayBreakfast.action">
 							<input type="hidden" name="shopId" value=<%=shop.getId()%>>
 							<input type="hidden" name="curDateStr" value=<%=date.toString()%>>
 							<button class="btn btn-primary">后一天</button>
@@ -125,7 +123,7 @@
 					%>
 					<%
 						for (int i = 0; i < goodsList.size(); i++) {
-								Goods goods = goodsList.get(i);
+							Goods goods = goodsList.get(i);
 					%>
 						<div class="good">
 							<img alt="商品图片" src="<%=basePath + "/" + goods.getProduct().getPicture()%>" />
@@ -190,8 +188,7 @@
 
 				</div>
 				<div id="goods-select-panel" class="hide">
-					<h3>选购的商品</h3>
-					<br>
+					<h1>选购的商品</h1>
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -205,13 +202,13 @@
 						<tbody id="goods-select-table">
 						</tbody>
 					</table>
-					<br>
 					<label id="generateOrderMsg"></label>
 					<button id="generate-order-btn" class="btn btn-primary float-right" onclick="generateOrder()">生成订单</button>
 					<button id="clear-all-select" class="btn btn-default float-right" onclick="deleteAllSelect()">清空购物车</button>
 				</div>
 				<div id="order-panel" class="hide">
-					<h1>支付订单</h1>
+					<h3>订单详情</h3>
+					<hr/>
 					<form action="<%=basePath%>/book/submitBook.action">
 						<table class="table table-striped">
 							<thead>
@@ -226,6 +223,25 @@
 							</thead>
 							<tbody id="order-table"></tbody>
 						</table>
+						<h3>早餐配送</h3>
+						<hr/>
+						<div>
+							<div class="bf_col">
+								<span class="label label-success">开始日期</span><input type="date" />
+							</div>
+							<div class="bf_col">
+								<span class="label label-warning">结束日期</span><input type="date" />
+							</div>
+							<div class="bf_col">
+								<span class="label label-info">配送时间</span>
+								<select class="bf_col3_select">
+									<option value="">7:00am</option>
+									<option value="">8:00am</option>
+									<option value="">9:00am</option>
+									<option value="">10:00am</option>
+								</select>
+							</div>
+						</div>
 						<input type="hidden" name="shopId" value=<%=shop.getId()%>>
 						<button class="btn btn-primary float-right" type="submit">提交订单</button>
 						<button class="btn btn-default float-right" type="button" onclick="cancleOrder()">取消订单</button>

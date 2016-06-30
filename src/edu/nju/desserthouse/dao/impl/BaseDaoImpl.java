@@ -18,7 +18,11 @@ public class BaseDaoImpl implements BaseDao {
 	protected SessionFactory sessionFactory;
 
 	public Session getSession() {
-		return sessionFactory.getCurrentSession();
+		try {
+			return sessionFactory.getCurrentSession();
+		} catch (Exception e) {
+			return sessionFactory.openSession();
+		}
 	}
 
 	public ResultMessage save(Object bean) {

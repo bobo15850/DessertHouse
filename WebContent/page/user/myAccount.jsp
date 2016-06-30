@@ -31,7 +31,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3 unset-list">
-				<label>不可变用户信息</label>
+				<h3>不可变用户信息</h3>
 				<div class="unset-item">
 					<label>用户编号</label>
 					<input type="text" class="form-control" value="<%=user.getId()%>" readonly="readonly" />
@@ -61,7 +61,7 @@
 			</div>
 			<div class="col-sm-9 reset-list">
 				<!-- 与用户识别相关 -->
-				<h2 style="text-align: center;">用户帐号</h2>
+				<h3 style="text-align: center;">用户帐号</h3>
 				<label id="message"></label>
 				<div class="input-group">
 					<span class="input-group-addon">用户名称</span>
@@ -86,7 +86,8 @@
 				</div>
 
 				<!-- 用户属性，可以统一设置 -->
-				<h2 style="text-align: center;">用户属性</h2>
+				<br>
+				<h3 style="text-align: center;">用户属性</h3>
 				<label id="user-attribute"></label>
 				<div class="input-group">
 					<span class="input-group-addon">用户性别</span>
@@ -198,7 +199,8 @@
 
 
 				<!-- 账户有关信息，不可操作 -->
-				<h2 style="text-align: center;">账户信息</h2>
+				<br>
+				<h3 style="text-align: center;">账户信息</h3>
 				<label id="user-account"></label>
 				<div class="input-group">
 					<span class="input-group-addon">账户余额</span>

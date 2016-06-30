@@ -30,7 +30,7 @@
 				<div id="add-staff">
 					<button class="btn btn-primary btn-block" data-toggle="modal" data-target="#add-staff-modal">添加员工</button>
 					<div id="add-staff-modal" class="modal fade" tab-index="-1" role="dialog" aria-labelledby="myModalLabel">
-						<div class="modal-dialog" role="document">
+						<div class="modal-dialog" role="document" style="width:700px;">
 							<form action="<%=basePath%>/staff/addStaff.action" method="post" onsubmit="return checkAddStaff()">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -104,9 +104,6 @@
 													</select>
 												</div>
 											</div>
-											<div>
-												<span class="input-group-addon">---</span>
-											</div>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -127,33 +124,42 @@
 				<%
 					}
 					else {
+				%>
+				<table class="table table-striped" >
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>用户名</th>
+								<th>员工种类</th>
+								<th>所属店名</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+				<%
 						for (int i = 0; i < staffs.size(); i++) {
 							User staff = staffs.get(i);
 				%>
-				<div class="staff-item" onmouseover="showModifyBtn(<%=i%>)" onmouseout="hideModifyBtn(<%=i%>)">
-					<label>
-						<%=i + 1%>&nbsp;
-					</label>
-					<label class="staff-name">
-						用户名：<span><%=staff.getUsername()%></span>
-					</label>
-					<label class="staff-category">
-						员工种类：<span><%=FinalValue.UserCategory.getStrOfUserCategory(staff.getCategory())%></span>
-					</label>
-					<label class="staff-shopname">
-						所属店名：<span><%=staff.getShop().getShopname()%></span>
-					</label>
-					<form action="<%=basePath%>/staff/toModifyStaff.action" method="get" class="display-inline">
+				<tr>
+					<td><%=i+1%></td>
+					<td><%=staff.getUsername()%></td>
+					<td ><%=FinalValue.UserCategory.getStrOfUserCategory(staff.getCategory())%></td>
+					<td><%=staff.getShop().getShopname()%></td>
+					<td style="width:120px;"><form action="<%=basePath%>/staff/toModifyStaff.action" method="get" class="display-inline">
 						<input name="staffId" value="<%=staff.getId()%>" class="display-none">
-						<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary hide">查看或修改</button>
-					</form>
-					<form action="<%=basePath%>/staff/deleteStaff.action" method="get" class="display-inline" onsubmit="return confirmDelete()">
+						<button id="modify-btn-<%=i%>" type="submit" class="btn btn-primary">查看或修改</button>
+					</form></td>
+					<td style="width:120px;"><form action="<%=basePath%>/staff/deleteStaff.action" method="get" class="display-inline" onsubmit="return confirmDelete()">
 						<input name="staffId" value="<%=staff.getId()%>" class="display-none">
-						<button id="delete-btn-<%=i%>" type="submit" class="btn btn-primary hide">刪除</button>
-					</form>
-				</div>
+						<button id="delete-btn-<%=i%>" type="submit" class="btn btn-primary">刪除</button>
+					</form></td>
+				</tr>
 				<%
 					}
+				%>
+					</tbody>
+				</table>
+				<%
 					}
 				%>
 			</div>

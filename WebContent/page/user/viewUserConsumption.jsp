@@ -39,6 +39,8 @@
 							orders = (List<SalesRecord>) obj;
 					%>
 					<div>
+					<br>
+					<br>
 						<h2>销售列表</h2>
 						<table class="table table-striped">
 							<thead>

@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="<%=basePath%>/css/schedule/schedule.css">
 <script src="<%=basePath%>/lib/jquery/jquery-1.12.1.min.js"></script>
 <script src="<%=basePath%>/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=basePath%>/js/nav_days.js"></script>
 <title>计划详情</title>
 </head>
 <body>
@@ -40,10 +41,10 @@
 						else if (userBase.getCategory() == FinalValue.UserCategory.HEAD_WAITER) {
 					%>
 					<form action="<%=basePath%>/schedule/targetShopSchedule.action" class="display-inline">
+						<button class="btn btn-primary">返回店铺计划页面</button>
 						<h3 class="display-inline"><%=shop.getShopname()%></h3>
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
 						<input name="scheduleState" value=<%=schedule.getState()%> class="display-none">
-						<button class="btn btn-primary">返回店铺计划页面</button>
 					</form>
 					<%
 						if (FinalValue.ScheduleState.APPROVE_FAILED == schedule.getState()) {
@@ -64,7 +65,8 @@
 					%>
 					<div>
 						<h2 class="text-center">
-							第<%=dayNum%>天：<%=scheduleItem.getEffectiveDate()%>
+							<a name="<%=dayNum%>" id="<%=dayNum%>"></a>
+							第<%=dayNum+1%>天：<%=scheduleItem.getEffectiveDate()%>
 						</h2>
 						<table class="table table-striped">
 							<thead>
@@ -123,6 +125,16 @@
 			</div>
 			<div class="col-sm-1"></div>
 		</div>
+	</div>
+	
+	<div id="nav_days">
+		<a href="#0" class="cata">第一天</a>
+		<a href="#1" class="cata">第二天</a>
+		<a href="#2" class="cata">第三天</a>
+		<a href="#3" class="cata">第四天</a>
+		<a href="#4" class="cata">第五天</a>
+		<a href="#5" class="cata">第六天</a>
+		<a href="#6" class="cata">第七天</a>
 	</div>
 	<s:include value="../common/footer.jsp"></s:include>
 </body>

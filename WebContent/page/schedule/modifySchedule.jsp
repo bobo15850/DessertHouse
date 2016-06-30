@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="<%=basePath%>/css/schedule/schedule.css">
 <script src="<%=basePath%>/lib/jquery/jquery-1.12.1.min.js"></script>
 <script src="<%=basePath%>/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=basePath%>/js/nav_days.js"></script>
 </head>
 <body>
 	<s:include value="../common/header.jsp"></s:include>
@@ -29,10 +30,10 @@
 			<div class="col-sm-10">
 				<div>
 					<form action="<%=basePath%>/schedule/targetShopSchedule.action" class="display-inline">
+						<button class="btn btn-primary">放弃修改返回店铺产品计划</button>
 						<h3 class="display-inline"><%=shop.getShopname()%></h3>
 						<input name="shopId" value="<%=shop.getId()%>" class="display-none">
 						<input name="scheduleState" value=<%=schedule.getState()%> class="display-none">
-						<button class="btn btn-primary">放弃修改返回店铺产品计划</button>
 					</form>
 				</div>
 				<div>
@@ -43,7 +44,8 @@
 						%>
 						<div>
 							<h2 class="text-center">
-								第<%=dayNum%>天：<%=scheduleItem.getEffectiveDate()%>
+								<a name="<%=dayNum%>" id="<%=dayNum%>"></a>
+								第<%=dayNum+1%>天：<%=scheduleItem.getEffectiveDate()%>
 							</h2>
 							<table class="table table-striped">
 								<thead>
@@ -90,6 +92,16 @@
 			</div>
 			<div class="col-sm-1"></div>
 		</div>
+	</div>
+	
+	<div id="nav_days">
+		<a href="#0" class="cata">第一天</a>
+		<a href="#1" class="cata">第二天</a>
+		<a href="#2" class="cata">第三天</a>
+		<a href="#3" class="cata">第四天</a>
+		<a href="#4" class="cata">第五天</a>
+		<a href="#5" class="cata">第六天</a>
+		<a href="#6" class="cata">第七天</a>
 	</div>
 	<s:include value="../common/footer.jsp"></s:include>
 </body>
